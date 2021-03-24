@@ -267,30 +267,79 @@ class _HomeState extends State<Home> {
                 height: 150,
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 width: MediaQuery.of(context).size.width,
-                child: Stack(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundImage: NetworkImage(
-                          "https://discount-bazaar.com/wp-content/uploads/2020/12/71wtbkLMpbL._SL1500_.jpg",
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: Colors.blueAccent, width: 3),
+                  ),
+                  child: Stack(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage(
+                                "https://discount-bazaar.com/wp-content/uploads/2020/12/71XL4HadjvL._SL1500_.jpg",
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Wagh Bakri\nPremium Tea",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(
+                                "250 gm\t- 1 kg",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
+                              Text(
+                                "₹117\t - ₹475",
+                                style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          color: Colors.blueAccent,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {},
+                          ),
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "Parle G ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ]),
+                    )
+                  ]),
+                ),
               ),
               Flexible(
                 child: SizedBox(

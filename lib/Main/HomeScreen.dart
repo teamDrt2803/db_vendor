@@ -4,6 +4,7 @@ import 'package:db_vendor/Global/Constants.dart';
 import 'package:flappy_search_bar_fork/flappy_search_bar.dart';
 import 'package:flappy_search_bar_fork/search_bar_style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -142,7 +143,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: black_1_design),
+                      color: Colors.black),
                 ),
                 subtitle: Text(
                   "Welcome to Discount Bazaar",
@@ -186,7 +187,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: black_1_design),
+                          color: secondary),
                     ),
                     Text("See All"),
                   ],
@@ -253,7 +254,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: black_1_design),
+                          color: Colors.black),
                     ),
                   ],
                 ),
@@ -267,78 +268,82 @@ class _HomeState extends State<Home> {
                 height: 150,
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: BorderSide(color: Colors.blueAccent, width: 3),
-                  ),
-                  child: Stack(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: CircleAvatar(
-                              radius: 60,
-                              backgroundImage: NetworkImage(
-                                "https://discount-bazaar.com/wp-content/uploads/2020/12/71XL4HadjvL._SL1500_.jpg",
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Wagh Bakri\nPremium Tea",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
-                              Text(
-                                "250 gm\t- 1 kg",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                              Text(
-                                "₹117\t - ₹475",
-                                style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                child: InkWell(
+                  highlightColor: Colors.amberAccent,
+                  child: Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(color: Colors.blueAccent, width: 3),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          color: Colors.blueAccent,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.white,
+                    child: Stack(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: CircleAvatar(
+                                radius: 60,
+                                backgroundImage: NetworkImage(
+                                  "https://discount-bazaar.com/wp-content/uploads/2020/12/71XL4HadjvL._SL1500_.jpg",
+                                ),
+                              ),
                             ),
-                            onPressed: () {},
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Wagh Bakri\nPremium Tea",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                Text(
+                                  "250 gm\t- 1 kg",
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                Text(
+                                  "₹117\t - ₹475",
+                                  style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          child: Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            color: Colors.blueAccent,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {},
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ]),
+                      )
+                    ]),
+                  ),
                 ),
               ),
               Flexible(

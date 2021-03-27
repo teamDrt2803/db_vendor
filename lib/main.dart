@@ -1,4 +1,6 @@
+import 'package:db_vendor/Main/Cart.dart';
 import 'package:db_vendor/Main/HomeScreen.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,10 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Discount Bazaar',
-      theme: ThemeData(
-          appBarTheme:
-              AppBarTheme(iconTheme: IconThemeData(color: Colors.blueAccent))),
-      home: Home(),
+      theme: ThemeData(appBarTheme: AppBarTheme()),
+      home: Cart(),
     );
   }
 }

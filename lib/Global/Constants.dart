@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
-Color yellow_1_design = Color(0xfff70d1b);
-Color black_1_design = Color(0xfff3c3b30);
+Color primary = Color(0xff5b93ac);
+Color secondary = Color(0xfff22d1e);

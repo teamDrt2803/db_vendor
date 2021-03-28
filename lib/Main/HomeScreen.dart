@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -85,273 +86,231 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-                height: 140,
-                color: Colors.grey.shade200,
-                child: DrawerHeader(
-                  margin: EdgeInsets.all(0.0),
-                  padding: EdgeInsets.all(0.0),
+      body: SafeArea(
+        child: Container(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: Text(
+                    "Hello User,",
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  subtitle: Text(
+                    "Welcome to Discount Bazaar",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                Flexible(
+                    child: SizedBox(
+                  height: 15,
+                )),
+                Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      height: 60,
+                      width: MediaQuery.of(context).size.width,
+                      child: SearchBar(
+                        hintText: "Search",
+                        searchBarStyle: SearchBarStyle(
+                            borderRadius: BorderRadius.circular(20)),
+                        onSearch: (s) {},
+                        onItemFound: (item, int index) {},
+                      ),
+                    ),
+                  ],
+                ),
+                Flexible(
+                    child: SizedBox(
+                  height: 15,
+                )),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 35,
-                        child: Icon(
-                          Icons.person_outline_outlined,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
                       Text(
-                        "Username",
-                        style: TextStyle(color: Colors.blueAccent),
+                        "Top Categories",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: secondary),
                       ),
-                      Icon(
-                        Icons.arrow_right_rounded,
-                        color: Colors.blueAccent,
-                      ),
+                      Text("See All"),
                     ],
                   ),
-                ))
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
-              color: Colors.blueAccent,
-              onPressed: () {}),
-        ],
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text(
-                  "Hello User,",
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
                 ),
-                subtitle: Text(
-                  "Welcome to Discount Bazaar",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
+                Flexible(
+                    child: SizedBox(
+                  height: 15,
+                )),
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    itemBuilder: (ctxt, index) {
+                      return CategoryCard(
+                        title: categories[index]['name'],
+                        imageLink: categories[index]['Image'],
+                      );
+                    },
                   ),
                 ),
-              ),
-              Flexible(
-                  child: SizedBox(
-                height: 15,
-              )),
-              Stack(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                    child: SearchBar(
-                      hintText: "Search",
-                      searchBarStyle: SearchBarStyle(
-                          borderRadius: BorderRadius.circular(20)),
-                      onSearch: (s) {},
-                      onItemFound: (item, int index) {},
-                    ),
-                  ),
-                ],
-              ),
-              Flexible(
-                  child: SizedBox(
-                height: 15,
-              )),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Top Categories",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: secondary),
-                    ),
-                    Text("See All"),
-                  ],
-                ),
-              ),
-              Flexible(
-                  child: SizedBox(
-                height: 15,
-              )),
-              Container(
-                height: 200,
-                width: double.infinity,
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (ctxt, index) {
-                    return CategoryCard(
-                      title: categories[index]['name'],
-                      imageLink: categories[index]['Image'],
-                    );
-                  },
-                ),
-              ),
-              Flexible(
-                  child: SizedBox(
-                height: 15,
-              )),
-              CarouselSlider(
-                items: carouselItems
-                    .map(
-                      (item) => Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: Image.network(
-                            item,
-                            //fit: BoxFit.fill,
-                            width: 330,
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                options: CarouselOptions(
-                    autoPlay: true,
-                    height: 200,
-                    aspectRatio: 16 / 9,
-                    initialPage: 0,
-                    enlargeCenterPage: true),
-              ),
-              Flexible(
-                child: SizedBox(
+                Flexible(
+                    child: SizedBox(
                   height: 15,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: [
-                    Text(
-                      "Top of the Week",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  height: 15,
-                ),
-              ),
-              Container(
-                height: 150,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                width: MediaQuery.of(context).size.width,
-                child: InkWell(
-                  highlightColor: Colors.amberAccent,
-                  child: Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(color: Colors.blueAccent, width: 3),
-                    ),
-                    child: Stack(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundImage: NetworkImage(
-                                  "https://discount-bazaar.com/wp-content/uploads/2020/12/71XL4HadjvL._SL1500_.jpg",
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Wagh Bakri\nPremium Tea",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                                Text(
-                                  "250 gm\t- 1 kg",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                Text(
-                                  "₹117\t - ₹475",
-                                  style: TextStyle(
-                                      color: Colors.blueAccent,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)),
-                            color: Colors.blueAccent,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {},
+                )),
+                CarouselSlider(
+                  items: carouselItems
+                      .map(
+                        (item) => Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Image.network(
+                              item,
+                              //fit: BoxFit.fill,
+                              width: 330,
                             ),
                           ),
                         ),
                       )
-                    ]),
+                      .toList(),
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      height: 200,
+                      aspectRatio: 16 / 9,
+                      initialPage: 0,
+                      enlargeCenterPage: true),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    height: 15,
                   ),
                 ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  height: 15,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Top of the Week",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Flexible(
+                  child: SizedBox(
+                    height: 15,
+                  ),
+                ),
+                Container(
+                  height: 150,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  width: MediaQuery.of(context).size.width,
+                  child: InkWell(
+                    highlightColor: Colors.amberAccent,
+                    child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(color: Colors.blueAccent, width: 3),
+                      ),
+                      child: Stack(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage: NetworkImage(
+                                    "https://discount-bazaar.com/wp-content/uploads/2020/12/71XL4HadjvL._SL1500_.jpg",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Wagh Bakri\nPremium Tea",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    "250 gm\t- 1 kg",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    "₹117\t - ₹475",
+                                    style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            child: Card(
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)),
+                              color: Colors.blueAccent,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                        )
+                      ]),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    height: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

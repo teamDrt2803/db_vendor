@@ -1,5 +1,6 @@
 import 'package:db_vendor/Main/Cart.dart';
 import 'package:db_vendor/Main/HomeScreen.dart';
+import 'package:db_vendor/Main/bottomNavigation.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Discount Bazaar',
       theme: ThemeData(appBarTheme: AppBarTheme()),
-      home: Cart(),
+      home: Navigation(),
     );
   }
 }

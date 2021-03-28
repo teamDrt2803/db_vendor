@@ -36,11 +36,15 @@ class _CartState extends State<Cart> {
                       children: [
                         Text(
                           "Total",
-                          style: TextStyle(color: secondary),
+                          style: TextStyle(
+                              color: secondary, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           "₹ 1000.00",
-                          style: TextStyle(color: Colors.white, fontSize: 32),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -52,7 +56,8 @@ class _CartState extends State<Cart> {
                         child: Center(
                             child: Text(
                           "Buy Now",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         )),
                       ),
                     )
@@ -123,7 +128,7 @@ class _CartState extends State<Cart> {
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: 4,
+                          itemCount: 6,
                           itemBuilder: (ctxt, index) {
                             return Stack(children: [
                               Padding(
@@ -155,11 +160,8 @@ class _CartState extends State<Cart> {
                                               child: SizedBox(
                                                 height: 100,
                                                 width: 100,
-                                                child: FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  child: Image.network(
-                                                      "https://discount-bazaar.com/wp-content/uploads/2020/12/product_3862_1_thumb.jpg"),
-                                                ),
+                                                child: Image.network(
+                                                    "https://discount-bazaar.com/wp-content/uploads/2020/12/product_3862_1_thumb.jpg"),
                                               ),
                                             ),
                                           ),

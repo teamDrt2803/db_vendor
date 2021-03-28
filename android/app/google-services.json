@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "86469347870",
+    "firebase_url": "https://discount-bazaar-01-01-2021-default-rtdb.firebaseio.com",
+    "project_id": "discount-bazaar-01-01-2021",
+    "storage_bucket": "discount-bazaar-01-01-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86469347870:android:df670898d55721ab567c0f",
+        "android_client_info": {
+          "package_name": "com.teamdrt.db_vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86469347870-bshfmr0mc07le0cpvcn34up06gjubk1b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamdrt.db_vendor",
+            "certificate_hash": "24bd4d87ca0e2492dd457f2d8003213828742464"
+          }
+        },
+        {
+          "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7-UD8aINPXyZqoeJE8SNiQK2_0eQiWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86469347870:android:c8bc77fa37acf39a567c0f",
+        "android_client_info": {
+          "package_name": "com.teamdrt.discount_bazaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86469347870-ogq4l5qdd1jg984heu4iobhr3bs4l6lc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamdrt.discount_bazaar",
+            "certificate_hash": "24bd4d87ca0e2492dd457f2d8003213828742464"
+          }
+        },
+        {
+          "client_id": "86469347870-ubabck102tlrpavh647gpjungolq3hd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamdrt.discount_bazaar",
+            "certificate_hash": "0c96df5ee59fb8fe2d9398c43cc708e633d207e5"
+          }
+        },
+        {
+          "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7-UD8aINPXyZqoeJE8SNiQK2_0eQiWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

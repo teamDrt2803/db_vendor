@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Discount Bazaar',
       theme: ThemeData(appBarTheme: AppBarTheme()),
-      home: Navigation(),
+      home: Order(),
     );
   }
 }

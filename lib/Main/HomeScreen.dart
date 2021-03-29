@@ -11,71 +11,6 @@ import 'package:flutter/services.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-/*class NavBar extends StatefulWidget {
-  @override
-  _NavBarState createState() => _NavBarState();
-}
-
-class _NavBarState extends State<NavBar> {
-  PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            icon: Icon(Icons.menu_rounded),
-            color: Colors.amber,
-            onPressed: () {}),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.shopping_cart),
-              color: Colors.amber,
-              onPressed: () {}),
-        ],
-      ),
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        items: _navBarItems(),
-        confineInSafeArea: true,
-        handleAndroidBackButtonPress: true,
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: true,
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        navBarStyle: NavBarStyle.style1,
-        screens: _buildScreen(),
-      ),
-    );
-  }
-}
-
-List<PersistentBottomNavBarItem> _navBarItems() {
-  return [
-    PersistentBottomNavBarItem(
-      icon: Icon(Icons.home),
-      title: "Home",
-      activeColorPrimary: Colors.amber,
-    ),
-    PersistentBottomNavBarItem(
-        icon: Icon(Icons.notifications),
-        title: "Alerts",
-        activeColorPrimary: Colors.amber),
-    PersistentBottomNavBarItem(
-        icon: Icon(Icons.star),
-        title: "All Brands",
-        activeColorPrimary: Colors.amber),
-  ];
-}
-
-List<Widget> _buildScreen() {
-  return [Home(), Alert(), AllBrands()];
-}*/
-
 //HomeScreen
 class Home extends StatefulWidget {
   @override
@@ -88,6 +23,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.only(top: 15),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
@@ -106,6 +42,7 @@ class _HomeState extends State<Home> {
                     "Welcome to Discount Bazaar",
                     style: TextStyle(
                       fontSize: 18,
+                      color: primary,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -117,18 +54,33 @@ class _HomeState extends State<Home> {
                 Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       height: 60,
                       width: MediaQuery.of(context).size.width,
                       child: SearchBar(
-                        hintText: "Search",
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                        hintText: "Search Here",
                         searchBarStyle: SearchBarStyle(
+                            backgroundColor: Colors.white,
                             borderRadius: BorderRadius.circular(20)),
                         onSearch: (s) {},
                         onItemFound: (item, int index) {},
                       ),
                     ),
                   ],
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  height: MediaQuery.of(context).size.height * 0.22,
+                  width: MediaQuery.of(context).size.width,
+                  child: Card(
+                    elevation: 2,
+                    child: Image.network(
+                        "https://discount-bazaar.com/wp-content/uploads/2021/03/Savings.png"),
+                  ),
                 ),
                 Flexible(
                     child: SizedBox(
@@ -144,9 +96,12 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: secondary),
+                            color: Colors.black),
                       ),
-                      Text("See All"),
+                      Text(
+                        "See All",
+                        style: TextStyle(color: secondary),
+                      ),
                     ],
                   ),
                 ),
@@ -330,31 +285,29 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: new Container(
-            width: 150,
-            height: 200,
-            decoration: BoxDecoration(
-                color: Color(0xffffc107).withOpacity(0.4),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
+      child: new Container(
+        width: 150,
+        height: 150,
+        child: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+              side: BorderSide(color: secondary, width: 2)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+              Center(
+                child: Image.network(
+                  imageLink,
+                  fit: BoxFit.scaleDown,
                 ),
-                Center(
-                  child: Image.network(
-                    imageLink,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -3,8 +3,6 @@ import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/Authorization/controllers/woocontroller.dart'
     as wooctrlr;
 import 'package:db_vendor/Authorization/views/categoriesscreen.dart';
-import 'package:db_vendor/Authorization/views/detailsform.dart';
-import 'package:db_vendor/Authorization/views/kyc.dart';
 import 'package:db_vendor/Authorization/views/otp.dart';
 import 'package:db_vendor/Authorization/views/signIn.dart';
 import 'package:db_vendor/categoriesmodal.dart' as modal;

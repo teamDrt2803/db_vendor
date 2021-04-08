@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/Authorization/views/kyc.dart';
 import 'package:db_vendor/Authorization/views/map_ui.dart';
-import 'package:db_vendor/locationpodo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';

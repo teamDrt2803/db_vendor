@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:db_vendor/storedetailspodo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -31,7 +29,7 @@ class AuthController extends GetxController {
   GetStorage storage = GetStorage();
   String verificationId;
   int resendToken;
-  final status = SignInStatus.PROCESSING.obs;
+  final status = SignInStatus.IDLE.obs;
   Stream<User> get user => _user.stream;
   FirebaseAuth get auth => _auth;
   final firstBoot = true.obs;
@@ -47,6 +45,10 @@ class AuthController extends GetxController {
   final searchResult = SearchResult().obs;
   final setupComplete = true.obs;
   final userName = ''.obs;
+
+  updatestatus(SignInStatus status) {
+    this.status.value = status;
+  }
 
   updateLatlng(LatLng latLng) {
     this.latlng.value = latLng;
@@ -191,6 +193,8 @@ class AuthController extends GetxController {
   }
 
   Future sendOtp({String phoneNumber}) async {
+    print(phoneNumber);
+    updatestatus(SignInStatus.PROCESSING);
     try {
       _auth.verifyPhoneNumber(
         phoneNumber: '+91' + phoneNumber,
@@ -212,6 +216,7 @@ class AuthController extends GetxController {
         codeAutoRetrievalTimeout: (s) {},
       );
     } on FirebaseAuthException catch (e) {
+      updatestatus(SignInStatus.FAILED);
       Get.snackbar("Error Occured", e.message);
     }
   }
@@ -236,8 +241,10 @@ class AuthController extends GetxController {
 }
 
 enum SignInStatus {
+  IDLE,
   SIGNOUT,
   PROCESSING,
   OTPSENT,
   VERIFIED,
+  FAILED,
 }

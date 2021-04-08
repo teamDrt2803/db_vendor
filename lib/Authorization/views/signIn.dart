@@ -1,5 +1,4 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
-import 'package:db_vendor/Authorization/views/detailsform.dart';
 import 'package:db_vendor/Authorization/views/otp.dart';
 import 'package:db_vendor/modalPage.dart';
 import 'package:flutter/material.dart';

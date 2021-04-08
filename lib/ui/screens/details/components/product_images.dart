@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:db_vendor/productsmodal.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/models/Product.dart';
 
@@ -10,7 +12,7 @@ class ProductImages extends StatefulWidget {
     @required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final WooProducts product;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -28,7 +30,8 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              child: CachedNetworkImage(
+                  imageUrl: widget.product.images[selectedImage].src),
             ),
           ),
         ),
@@ -63,7 +66,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: CachedNetworkImage(imageUrl: widget.product.images[index].src),
       ),
     );
   }

@@ -63,8 +63,9 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                onPressed: () {},
+                // onPressed: () =>
+                //     Navigator.pushNamed(context, ProfileScreen.routeName),
               ),
             ],
           )),

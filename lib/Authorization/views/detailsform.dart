@@ -9,17 +9,30 @@ import 'package:flutter_country_state/flutter_country_state.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ShopDetails extends StatelessWidget {
+class ShopDetails extends StatefulWidget {
+  @override
+  _ShopDetailsState createState() => _ShopDetailsState();
+}
+
+class _ShopDetailsState extends State<ShopDetails> {
   final AuthController _authController = Get.find();
 
   final UniqueKey key1 = UniqueKey();
+
   final UniqueKey key2 = UniqueKey();
+
   final UniqueKey key3 = UniqueKey();
+
   final UniqueKey key4 = UniqueKey();
+
   final UniqueKey key5 = UniqueKey();
+
   final UniqueKey key6 = UniqueKey();
+
   final UniqueKey key7 = UniqueKey();
+
   final GlobalKey<FormState> storeNameFormKey = GlobalKey<FormState>();
+
   final GlobalKey<FormState> userNameFormKey = GlobalKey<FormState>();
 
   double getProgressText(SHOPDETAIL shopdetail) {

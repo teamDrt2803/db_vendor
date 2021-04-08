@@ -1,5 +1,11 @@
+import 'package:hive/hive.dart';
+part 'productsmodal.g.dart';
+
+@HiveType(typeId: 1)
 class WooProducts {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String name;
   String slug;
   String permalink;
@@ -9,14 +15,22 @@ class WooProducts {
   String dateModifiedGmt;
   String type;
   String status;
+  @HiveField(2)
   bool featured;
   String catalogVisibility;
+  @HiveField(3)
   String description;
+  @HiveField(4)
   String shortDescription;
+  @HiveField(5)
   String sku;
+  @HiveField(6)
   String price;
+  @HiveField(7)
   String regularPrice;
+  @HiveField(8)
   String salePrice;
+  @HiveField(9)
   bool onSale;
   bool purchasable;
   int totalSales;
@@ -30,26 +44,33 @@ class WooProducts {
   String taxStatus;
   String taxClass;
   bool manageStock;
+  @HiveField(10)
   int stockQuantity;
   String backorders;
   bool backordersAllowed;
   bool backordered;
   bool soldIndividually;
+  @HiveField(11)
   String weight;
+  @HiveField(12)
   Dimensions dimensions;
   bool shippingRequired;
   bool shippingTaxable;
   String shippingClass;
   int shippingClassId;
   bool reviewsAllowed;
+  @HiveField(13)
   String averageRating;
+  @HiveField(14)
   int ratingCount;
   List upsellIds;
   List crossSellIds;
+  @HiveField(15)
   int parentId;
   String purchaseNote;
   List<Categories> categories;
   List tags;
+  @HiveField(16)
   List<Images> images;
   List<Attributes> attributes;
   List defaultAttributes;
@@ -297,9 +318,13 @@ class WooProducts {
   }
 }
 
+@HiveType(typeId: 2)
 class Dimensions {
+  @HiveField(0)
   String length;
+  @HiveField(1)
   String width;
+  @HiveField(2)
   String height;
 
   Dimensions({this.length, this.width, this.height});
@@ -341,12 +366,15 @@ class Categories {
   }
 }
 
+@HiveType(typeId: 3)
 class Images {
+  @HiveField(0)
   int id;
   String dateCreated;
   String dateCreatedGmt;
   String dateModified;
   String dateModifiedGmt;
+  @HiveField(1)
   String src;
   String name;
   String alt;

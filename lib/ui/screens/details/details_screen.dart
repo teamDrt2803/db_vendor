@@ -1,3 +1,4 @@
+import 'package:db_vendor/productsmodal.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/Product.dart';
@@ -12,15 +13,14 @@ class DetailsScreen extends StatelessWidget {
     final ProductDetailsArguments agrs =
         ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      backgroundColor: Color(0xFFF5F6F9),
-      appBar: CustomAppBar(rating: agrs.product.rating),
+      backgroundColor: Color(0xFFFFFFFF),
+      appBar: CustomAppBar(rating: double.parse(agrs.product.averageRating)),
       body: Body(product: agrs.product),
     );
   }
 }
 
 class ProductDetailsArguments {
-  final Product product;
-
+  final WooProducts product;
   ProductDetailsArguments({@required this.product});
 }

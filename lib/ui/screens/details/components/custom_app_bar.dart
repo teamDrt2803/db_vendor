@@ -1,6 +1,13 @@
+import 'package:db_vendor/orders/cartmodal.dart';
+import 'package:db_vendor/ui/screens/cart/cart_screen.dart';
+import 'package:db_vendor/ui/screens/home/components/icon_btn_with_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../main.dart';
 import '../../../size_config.dart';
 
 class CustomAppBar extends PreferredSize {
@@ -45,6 +52,19 @@ class CustomAppBar extends PreferredSize {
               ),
               child: Row(
                 children: [
+                  ValueListenableBuilder<Box<CartModal>>(
+                    valueListenable: box.listenable(),
+                    builder: (context, Box<CartModal> cart, _) {
+                      return IconBtnWithCounter(
+                        svgSrc: "assets/icons/Cart Icon.svg",
+                        numOfitem: cart.length,
+                        press: () => Get.to(() => CartScreen()),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(20),
+                  ),
                   Text(
                     "$rating",
                     style: const TextStyle(

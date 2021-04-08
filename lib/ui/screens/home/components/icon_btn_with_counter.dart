@@ -22,7 +22,8 @@ class IconBtnWithCounter extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       onTap: press,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
+        //overflow: Overflow.visible,
         children: [
           Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(12)),
@@ -34,7 +35,7 @@ class IconBtnWithCounter extends StatelessWidget {
             ),
             child: SvgPicture.asset(svgSrc),
           ),
-          if (numOfitem != 0)
+          if (!(numOfitem < 0))
             Positioned(
               top: -3,
               right: 0,

@@ -52,9 +52,8 @@ class _OtpFormState extends State<OtpForm> {
         children: [
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           PinCodeTextField(
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.phone,
             enablePinAutofill: true,
-            //enableActiveFill: true,
             controller: _textEditingController,
             appContext: context,
             length: 6,
@@ -86,9 +85,29 @@ class _OtpFormState extends State<OtpForm> {
             ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.15),
-          DefaultButton(
-            text: "Continue",
-            press: () {},
+          Obx(
+            () => DefaultButton(
+              widget: _authController.status.value == SignInStatus.PROCESSING
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                          Colors.white,
+                        ),
+                      ),
+                    )
+                  : null,
+              text: "Continue",
+              press: () async {
+                if (_authController.otp.value.length == 6) {
+                  await _authController.verifyOtp(
+                    otp: _authController.otp.value,
+                  );
+                  Get.back(
+                    closeOverlays: true,
+                  );
+                }
+              },
+            ),
           )
         ],
       ),

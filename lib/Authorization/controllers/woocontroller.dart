@@ -11,6 +11,13 @@ class WooController extends GetxController {
   final categories = [].obs;
   final cat = [].obs;
   final topProducts = [].obs;
+
+  @override
+  onInit() {
+    super.onInit();
+    getTopProducts();
+  }
+
   getCategories({int pageCount}) async {
     if (pageCount == null) {
       pageCount = 10;

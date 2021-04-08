@@ -1,3 +1,4 @@
+import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/constants.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
@@ -14,6 +15,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  AuthController _authController = Get.find();
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
@@ -70,9 +72,8 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
-                        Get.to(() => SignInScreen(
-                              authController: Get.find(),
-                            ));
+                        _authController.noFirstBoot(false);
+                        _authController.setupSetupComplete();
                         //Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),

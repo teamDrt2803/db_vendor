@@ -130,6 +130,7 @@ class AuthController extends GetxController {
     if (storage.hasData(Consts.userName)) {
       userName.value = storage.read(Consts.userName);
     }
+
     if (storage.hasData(Consts.firstBoot)) {
       firstBoot.value = storage.read(Consts.firstBoot);
       storage.listenKey(
@@ -155,10 +156,14 @@ class AuthController extends GetxController {
     if (_user.value != null) {
       await databaseReference.child(_user.value.uid).once().then(
         (event) async {
-          var storeDetails =
-              Storedetails.fromJson(Map<String, dynamic>.from(event.value));
-          setupComplete.value = storeDetails.setupComplete;
-          await writeData(storeDetails);
+          if (event.value != null) {
+            var storeDetails =
+                Storedetails.fromJson(Map<String, dynamic>.from(event.value));
+            setupComplete.value = storeDetails.setupComplete;
+            await writeData(storeDetails);
+          } else {
+            await storage.write(Consts.setupComplete, false);
+          }
         },
       );
     }

@@ -1,5 +1,6 @@
 import 'package:db_vendor/home.dart';
 import 'package:db_vendor/modalPage.dart';
+import 'package:db_vendor/ui/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,9 +23,7 @@ class _KYCFormState extends State<KYCForm> {
               backgroundColor: MaterialStateProperty.all(Colors.red),
             ),
             onPressed: () {
-              Get.off(() => Home(
-                    controller: Get.find(),
-                  ));
+              Get.off(() => HomeScreen());
             },
             child: Text(
               'Skip for now',

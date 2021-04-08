@@ -9,10 +9,12 @@ class DefaultButton extends StatelessWidget {
     this.text,
     this.widget,
     this.press,
+    this.color,
   }) : super(key: key);
   final String text;
   final Widget widget;
   final Function press;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,14 @@ class DefaultButton extends StatelessWidget {
       // ignore: deprecated_member_use
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
+        color: color ?? kPrimaryColor,
         onPressed: press,
         child: widget ??
             Text(
               text,
               style: TextStyle(
                 fontSize: getProportionateScreenWidth(18),
-                color: Colors.white,
+                color: color == null ? Colors.white : kPrimaryColor,
               ),
             ),
       ),

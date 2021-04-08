@@ -7,11 +7,11 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
+      {"icon": "assets/icons/atta.svg", "text": "Atta"},
+      {"icon": "assets/icons/cleaning.svg", "text": "Cleaning"},
+      {"icon": "assets/icons/biscuit.svg", "text": "Biscuits"},
+      {"icon": "assets/icons/beauty.svg", "text": "Beauty"},
+      {"icon": "assets/icons/grocery.svg", "text": "Grocery"},
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
@@ -58,7 +58,10 @@ class CategoryCard extends StatelessWidget {
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SvgPicture.asset(icon),
+              child: SvgPicture.asset(
+                icon,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(height: 5),
             Text(text, textAlign: TextAlign.center)

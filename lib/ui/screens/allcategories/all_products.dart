@@ -9,24 +9,19 @@ import '../../../main.dart';
 import 'components/body.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class AllProducts extends StatefulWidget {
+class AllCategories extends StatefulWidget {
   final int catId;
 
-  const AllProducts({Key key, this.catId}) : super(key: key);
+  const AllCategories({Key key, this.catId}) : super(key: key);
   @override
-  _AllProductsState createState() => _AllProductsState();
+  _AllCategoriesState createState() => _AllCategoriesState();
 }
 
-class _AllProductsState extends State<AllProducts> {
+class _AllCategoriesState extends State<AllCategories> {
   WooController _wooController = Get.find();
 
   @override
   void initState() {
-    if (widget.catId == null) {
-      _wooController.getAllProducts(false, true);
-    } else {
-      _wooController.getAllProductsCat(false, widget.catId);
-    }
     super.initState();
   }
 

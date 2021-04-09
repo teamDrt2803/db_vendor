@@ -24,27 +24,26 @@ class Body extends StatelessWidget {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : Obx(
-                    () => Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      child: StaggeredGridView.extentBuilder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: catId == null
-                            ? controller.allProducts.length
-                            : controller.allProductsCat.length,
-                        itemBuilder: (context, index) {
-                          WooProducts products = catId == null
-                              ? controller.allProducts[index]
-                              : controller.allProductsCat[index];
-                          return AllProductWidget(products: products);
-                        },
-                        maxCrossAxisExtent: 200,
-                        crossAxisSpacing: getProportionateScreenHeight(20),
-                        mainAxisSpacing: getProportionateScreenWidth(20),
-                        staggeredTileBuilder: (int index) {
-                          return StaggeredTile.extent(1, 300);
-                        },
-                      ),
+                : Container(
+                    //color: kSecondaryColor.withOpacity(0.2),
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: StaggeredGridView.extentBuilder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: catId == null
+                          ? controller.allProducts.length
+                          : controller.allProductsCat.length,
+                      itemBuilder: (context, index) {
+                        WooProducts products = catId == null
+                            ? controller.allProducts[index]
+                            : controller.allProductsCat[index];
+                        return AllProductWidget(products: products);
+                      },
+                      maxCrossAxisExtent: 200,
+                      crossAxisSpacing: getProportionateScreenHeight(20),
+                      mainAxisSpacing: getProportionateScreenWidth(20),
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.extent(1, 300);
+                      },
                     ),
                   ),
           ),
@@ -64,13 +63,17 @@ class Body extends StatelessWidget {
                         color: kSecondaryColor.withOpacity(0.5),
                         //width: getProportionateScreenWidth(20),
                         text: 'Previous',
-                        press: controller.firstProduct.value
-                            ? null
-                            : () {
-                                catId == null
-                                    ? controller.getAllProducts(true)
-                                    : controller.getAllProductsCat(true, catId);
-                              },
+                        press: catId == null
+                            ? controller.firstProduct.value
+                                ? null
+                                : () {
+                                    controller.getAllProducts(true, false);
+                                  }
+                            : controller.firstProductCat.value
+                                ? null
+                                : () {
+                                    controller.getAllProductsCat(true, catId);
+                                  },
                         //color: kPrimaryColor,
                       ),
                     ),
@@ -80,11 +83,17 @@ class Body extends StatelessWidget {
                     child: DefaultButton(
                       //width: getProportionateScreenWidth(20),
                       text: 'Next',
-                      press: () {
-                        catId == null
-                            ? controller.getAllProducts(false)
-                            : controller.getAllProductsCat(false, catId);
-                      },
+                      press: catId == null
+                          ? controller.lastProduct.value
+                              ? null
+                              : () {
+                                  controller.getAllProducts(false, false);
+                                }
+                          : controller.lastProductCat.value
+                              ? null
+                              : () {
+                                  controller.getAllProductsCat(false, catId);
+                                },
                       //color: kPrimaryColor,
                     ),
                   )

@@ -19,11 +19,12 @@ class WooController extends GetxController {
   RxBool firstProduct = true.obs;
   RxBool lastProduct = false.obs;
   final allProductsCat = <WooProducts>[].obs;
-  int currentPageCat = 1;
+  int currentPageCat = 0;
   RxBool fetchingProductsCat = false.obs;
   int totalProductPageCountCat = 1;
   RxBool firstProductCat = true.obs;
   RxBool lastProductCat = false.obs;
+  int currentId = 0;
 
   @override
   onInit() async {
@@ -32,7 +33,14 @@ class WooController extends GetxController {
     await getCategories();
   }
 
-  Future<void> getAllProducts(bool previous) async {
+  Future<void> getAllProducts(bool previous, bool reset) async {
+    if (reset) {
+      currentPage = 0;
+      totalProductPageCount = 1;
+      allProducts.clear();
+
+      fetchingProducts.value = false;
+    }
     if (currentPage <= totalProductPageCount) {
       allProducts.clear();
       if (previous) {
@@ -46,28 +54,25 @@ class WooController extends GetxController {
         firstProduct.value = false;
       }
 
-      if (currentPage == totalProductPageCount) {
-        lastProduct.value = true;
-      } else {
-        lastProduct.value = false;
-      }
       fetchingProducts.value = true;
 
       try {
         final String response = await cache.remember(
-          'products$currentPage',
+          'prod$currentPage',
           () async {
             var response = await http.get(
               Uri.parse(
                   'https://discount-bazaar.com/wp-json/wc/v3/products?orderby=popularity&per_page=20&page=$currentPage&order=desc&consumer_key=ck_a8200f8c74b2f73c16a7e178b954c7977891000c&consumer_secret=cs_043642983a3d8799b786429a154264cb400d7fd2'),
             );
             final header = response.headers['x-wp-totalpages'];
-            totalProductPageCount = int.parse(header);
+            await cache.write('productPageCount$currentPage', header);
             return response.body;
           },
           86400,
         );
-
+        totalProductPageCount = int.parse(
+            await cache.load('productPageCount$currentPage') as String);
+        print(totalProductPageCount);
         final responseJson = json.decode(response);
         print(responseJson.length);
         for (dynamic rsp in responseJson) {
@@ -94,18 +99,32 @@ class WooController extends GetxController {
         fetchingProducts.value = false;
         print(e.toString());
       }
+      print(currentPage);
+
+      if (currentPage == totalProductPageCount) {
+        lastProduct.value = true;
+      } else {
+        lastProduct.value = false;
+      }
+
       fetchingProducts.value = false;
     }
   }
 
   Future<void> getAllProductsCat(bool previous, int catId) async {
+    if (currentId != catId) {
+      currentPageCat = 0;
+      totalProductPageCount = 1;
+      fetchingProductsCat.value = false;
+      currentId = catId;
+    }
     if (currentPageCat <= totalProductPageCountCat) {
-      print('right');
+      print('object4');
       allProductsCat.clear();
       if (previous) {
         if (currentPageCat >= 0) currentPageCat--;
       } else {
-        if (currentPageCat <= totalProductPageCountCat)
+        if (currentPageCat < totalProductPageCountCat)
           currentPageCat = currentPageCat + 1;
       }
       if (currentPageCat == 1) {
@@ -121,19 +140,17 @@ class WooController extends GetxController {
       }
       fetchingProductsCat.value = true;
       try {
-        print(currentPageCat);
         final String response = await cache.remember(
-          'productsCategory$catId$currentPageCat',
+          'productsCategories$catId$currentPageCat',
           () async {
             var response = await http.get(
               Uri.parse(
                 'https://discount-bazaar.com/wp-json/wc/v3/products?orderby=popularity&per_page=20&page=$currentPageCat&category=$catId&order=desc&consumer_key=ck_a8200f8c74b2f73c16a7e178b954c7977891000c&consumer_secret=cs_043642983a3d8799b786429a154264cb400d7fd2',
               ),
             );
-            //print(response.body);
+
             final header = response.headers['x-wp-totalpages'];
             totalProductPageCountCat = header == null ? 1 : int.parse(header);
-
             return response.body;
           },
           86400,
@@ -163,7 +180,6 @@ class WooController extends GetxController {
           lastProductCat.value = false;
         }
         fetchingProductsCat.value = false;
-        print(e.toString());
       }
       fetchingProductsCat.value = false;
     }

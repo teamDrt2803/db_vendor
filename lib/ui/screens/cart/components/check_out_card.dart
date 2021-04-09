@@ -1,6 +1,7 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/main.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
+import 'package:db_vendor/ui/screens/checkout/checkout.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,12 @@ class CheckoutCard extends StatelessWidget {
     Key key,
   }) : super(key: key);
   AuthController _authController = Get.find();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
-        stream: _authController.user,
+        stream: auth.userChanges(),
         builder: (context, snapshot) {
           return Container(
             padding: EdgeInsets.symmetric(
@@ -107,6 +109,8 @@ class CheckoutCard extends StatelessWidget {
                                         authController: _authController,
                                       ),
                                     );
+                                  } else {
+                                    Get.to(() => CheckoutScreen());
                                   }
                                 },
                               ),

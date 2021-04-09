@@ -10,82 +10,67 @@ import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
   AuthController _controller = Get.find();
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: StreamBuilder<User>(
-          stream: _controller.user,
+          stream: auth.userChanges(),
           builder: (context, snapshot) {
-            return snapshot.data == null
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0,
-                        vertical: 24.0,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DefaultButton(
-                            text: 'Login',
-                            press: () {
-                              Get.to(
-                                () => SignInScreen(
-                                  authController: _controller,
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                : Column(
-                    children: [
-                      ProfilePic(),
-                      SizedBox(height: 20),
-                      ProfileMenu(
-                        text: "My Account",
-                        icon: "assets/icons/User Icon.svg",
-                        press: () => {},
-                      ),
-                      ProfileMenu(
-                        text: "Notifications",
-                        icon: "assets/icons/Bell.svg",
-                        press: () {},
-                      ),
-                      ProfileMenu(
-                        text: "My Orders",
-                        icon: "assets/icons/Question mark.svg",
-                        press: () {},
-                      ),
-                      ProfileMenu(
-                        text: "Settings",
-                        icon: "assets/icons/Settings.svg",
-                        press: () {},
-                      ),
-                      ProfileMenu(
-                        text: "Terms and Conditions",
-                        icon: "assets/icons/Question mark.svg",
-                        press: () {},
-                      ),
-                      ProfileMenu(
-                        text: "Privacy Policy",
-                        icon: "assets/icons/Question mark.svg",
-                        press: () {
-                          //Get.to(()=>Privacy)
-                        },
-                      ),
-                      ProfileMenu(
-                        text: "Help Center",
-                        icon: "assets/icons/Question mark.svg",
-                        press: () {},
-                      ),
-                      ProfileMenu(
-                        text: "Log Out",
-                        icon: "assets/icons/Log out.svg",
-                        press: () {
+            return Column(
+              children: [
+                ProfilePic(),
+                SizedBox(height: 20),
+                ProfileMenu(
+                  text: "My Account",
+                  icon: "assets/icons/User Icon.svg",
+                  press: () => {},
+                ),
+                ProfileMenu(
+                  text: "Notifications",
+                  icon: "assets/icons/Bell.svg",
+                  press: () {},
+                ),
+                ProfileMenu(
+                  text: "My Orders",
+                  icon: "assets/icons/Question mark.svg",
+                  press: () {},
+                ),
+                ProfileMenu(
+                  text: "Settings",
+                  icon: "assets/icons/Settings.svg",
+                  press: () {},
+                ),
+                ProfileMenu(
+                  text: "Terms and Conditions",
+                  icon: "assets/icons/Question mark.svg",
+                  press: () {},
+                ),
+                ProfileMenu(
+                  text: "Privacy Policy",
+                  icon: "assets/icons/Question mark.svg",
+                  press: () {
+                    //Get.to(()=>Privacy)
+                  },
+                ),
+                ProfileMenu(
+                  text: "Help Center",
+                  icon: "assets/icons/Question mark.svg",
+                  press: () {},
+                ),
+                ProfileMenu(
+                  text: snapshot.data == null ? "Log In" : "Log Out",
+                  icon: "assets/icons/Log out.svg",
+                  press: snapshot.data == null
+                      ? () {
+                          Get.to(
+                            () => SignInScreen(
+                              authController: _controller,
+                            ),
+                          );
+                        }
+                      : () {
                           //Get.dialog(widget)
                           showDialog(
                             context: context,
@@ -112,9 +97,9 @@ class Body extends StatelessWidget {
                             },
                           );
                         },
-                      ),
-                    ],
-                  );
+                ),
+              ],
+            );
           }),
     );
   }

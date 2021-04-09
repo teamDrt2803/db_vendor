@@ -110,7 +110,9 @@ class CheckoutCard extends StatelessWidget {
                                       ),
                                     );
                                   } else {
-                                    Get.to(() => CheckoutScreen());
+                                    Get.to(() => CheckoutScreen(
+                                          total: cartTotal,
+                                        ));
                                   }
                                 },
                               ),

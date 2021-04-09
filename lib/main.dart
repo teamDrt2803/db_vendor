@@ -1,6 +1,7 @@
 import 'package:db_vendor/Authorization/bindings/initialbindings.dart';
 import 'package:db_vendor/constants.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
+import 'package:db_vendor/ui/models/Address.dart';
 
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,14 @@ import 'ui/theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Box<CartModal> box;
+Box<AddressModal> addressBox;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
   await Hive.initFlutter();
-  box = await Hive.openBox<CartModal>('cart').then((value) => value);
-
+  box = await Hive.openBox<CartModal>('cart');
+  addressBox = await Hive.openBox<AddressModal>('address');
   runApp(
     Phoenix(
       child: GetMaterialApp(

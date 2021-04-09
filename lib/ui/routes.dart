@@ -1,3 +1,5 @@
+import 'package:db_vendor/Authorization/views/categoriesscreen.dart';
+import 'package:db_vendor/ui/screens/categoryDetails/category_details.dart';
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:db_vendor/ui/screens/cart/cart_screen.dart';
@@ -16,6 +18,7 @@ import 'screens/sign_up/sign_up_screen.dart';
 // We use name route
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
+  CategoriesDetailsScreen.routeName: (context) => CategoriesDetailsScreen(),
   Wrapper.routeName: (context) => Wrapper(),
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),

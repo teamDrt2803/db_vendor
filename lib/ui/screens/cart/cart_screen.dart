@@ -3,6 +3,8 @@ import 'package:db_vendor/ui/models/Cart.dart';
 
 import 'components/body.dart';
 import 'components/check_out_card.dart';
+import 'package:db_vendor/main.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CartScreen extends StatelessWidget {
   static String routeName = "/cart";
@@ -23,10 +25,14 @@ class CartScreen extends StatelessWidget {
             "Your Cart",
             style: TextStyle(color: Colors.black),
           ),
-          Text(
-            "${demoCarts.length} items",
-            style: Theme.of(context).textTheme.caption,
-          ),
+          ValueListenableBuilder(
+              valueListenable: box.listenable(),
+              builder: (context, box, _) {
+                return Text(
+                  "${box.length} items",
+                  style: Theme.of(context).textTheme.caption,
+                );
+              }),
         ],
       ),
     );

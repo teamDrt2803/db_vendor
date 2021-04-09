@@ -1,7 +1,10 @@
+import 'package:db_vendor/main.dart';
+import 'package:db_vendor/orders/cartmodal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
-
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -60,29 +63,41 @@ class CheckoutCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    text: "Total:\n",
+            ValueListenableBuilder<Box<CartModal>>(
+                valueListenable: box.listenable(),
+                builder: (context, box, _) {
+                  double cartTotal = 0.0;
+                  box.values.toList().forEach((element) {
+                    double abc =
+                        double.parse(element.totalQuantity.toString()) *
+                            double.parse(element.wooProducts.price);
+                    cartTotal = cartTotal + double.parse(abc.toString());
+                  });
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSpan(
-                        text: "\$337.15",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      Text.rich(
+                        TextSpan(
+                          text: "Total:\n",
+                          children: [
+                            TextSpan(
+                              text: "\₹$cartTotal",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: getProportionateScreenWidth(190),
+                        child: DefaultButton(
+                          text: "Check Out",
+                          press: () {},
+                        ),
                       ),
                     ],
-                  ),
-                ),
-                SizedBox(
-                  width: getProportionateScreenWidth(190),
-                  child: DefaultButton(
-                    text: "Check Out",
-                    press: () {},
-                  ),
-                ),
-              ],
-            ),
+                  );
+                }),
           ],
         ),
       ),

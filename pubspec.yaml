@@ -59,14 +59,15 @@ dependencies:
   flare_splash_screen: ^3.0.1
   flutter_rating_bar: ^4.0.0
   flutter_swiper: ^1.1.2
-  flutter_staggered_grid_view: ^0.3.0
+  flutter_staggered_grid_view: ^0.3.4
   rubber: ^0.5.0
   pin_code_text_field: ^1.8.0
   country_code_picker: ^2.0.1
   html: ^0.15.0
   hive: ^2.0.2
   hive_flutter: ^1.0.0
- 
+  smooth_star_rating: ^1.1.1
+  flutter_cache: ^0.1.0
 
 dev_dependencies:
   flutter_test:

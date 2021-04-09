@@ -1,5 +1,8 @@
 import 'package:db_vendor/Authorization/controllers/woocontroller.dart';
+import 'package:db_vendor/categoriesmodal.dart';
+
 import 'package:db_vendor/productsmodal.dart';
+import 'package:db_vendor/ui/components/categorycard.dart';
 import 'package:db_vendor/ui/screens/productsall.dart/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/product_card.dart';
@@ -9,7 +12,7 @@ import 'package:get/get.dart';
 import '../../../size_config.dart';
 import 'section_title.dart';
 
-class PopularProducts extends StatelessWidget {
+class PopularCategories extends StatelessWidget {
   WooController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class PopularProducts extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-              title: "Popular Products",
+              title: "Popular Categories",
               press: () {
                 Get.to(() => AllProducts());
               }),
@@ -32,10 +35,12 @@ class PopularProducts extends StatelessWidget {
             () => Row(
               children: [
                 ...List.generate(
-                  _controller.topProducts.length,
+                  _controller.categories.length,
                   (index) {
-                    WooProducts wooProducts = _controller.topProducts[index];
-                    return ProductCard(product: wooProducts);
+                    WooCategories wooProducts = _controller.categories[index];
+                    return wooProducts.image == null
+                        ? SizedBox.shrink()
+                        : CategoryCard(product: wooProducts);
                     // here by default width and height is 0
                   },
                 ),

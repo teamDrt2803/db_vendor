@@ -25,10 +25,7 @@ void main() async {
   await GetStorage.init();
   await Hive.initFlutter();
   box = await Hive.openBox<CartModal>('cart').then((value) => value);
-  Hive.registerAdapter(CartModalAdapter());
-  Hive.registerAdapter(WooProductsAdapter());
-  Hive.registerAdapter(DimensionsAdapter());
-  Hive.registerAdapter(ImagesAdapter());
+
   runApp(
     Phoenix(
       child: GetMaterialApp(

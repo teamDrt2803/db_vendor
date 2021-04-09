@@ -1,3 +1,4 @@
+import 'package:db_vendor/categoriesmodal.dart';
 import 'package:db_vendor/productsmodal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,14 +8,14 @@ import 'package:html/parser.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ProductDescription extends StatelessWidget {
-  const ProductDescription({
+class CategoryDescription extends StatelessWidget {
+  const CategoryDescription({
     Key key,
     @required this.product,
     this.pressOnSeeMore,
   }) : super(key: key);
 
-  final WooProducts product;
+  final WooCategories product;
   final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -38,15 +39,15 @@ class ProductDescription extends StatelessWidget {
               SizedBox(
                 width: getProportionateScreenWidth(15),
               ),
-              product.salePrice.isEmpty || product.salePrice == null
-                  ? Text(
-                      '₹' + product.price,
-                      style: Theme.of(context).textTheme.headline6,
-                    )
-                  : Text(
-                      '₹' + product.salePrice,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
+              // product.salePrice.isEmpty || product.salePrice == null
+              //     ? Text(
+              //         '₹' + product.price,
+              //         style: Theme.of(context).textTheme.headline6,
+              //       )
+              //     : Text(
+              //         '₹' + product.salePrice,
+              //         style: Theme.of(context).textTheme.headline6,
+              //       ),
             ],
           ),
         ),

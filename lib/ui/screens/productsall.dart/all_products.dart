@@ -10,15 +10,24 @@ import 'components/body.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AllProducts extends StatefulWidget {
+  final int catId;
+
+  const AllProducts({Key key, this.catId}) : super(key: key);
   @override
   _AllProductsState createState() => _AllProductsState();
 }
 
 class _AllProductsState extends State<AllProducts> {
   WooController _wooController = Get.find();
+
   @override
   void initState() {
-    _wooController.getAllProducts(false);
+    if (widget.catId == null) {
+      _wooController.getAllProducts(false);
+    } else {
+      print('object');
+      _wooController.getAllProductsCat(false, widget.catId);
+    }
     super.initState();
   }
 
@@ -44,7 +53,9 @@ class _AllProductsState extends State<AllProducts> {
           ),
         ],
       ),
-      body: Body(),
+      body: Body(
+        catId: widget.catId,
+      ),
     );
   }
 }

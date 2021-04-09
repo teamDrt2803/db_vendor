@@ -18,6 +18,12 @@ class WooController extends GetxController {
   int totalProductPageCount = 0;
   RxBool firstProduct = true.obs;
   RxBool lastProduct = false.obs;
+  final allProductsCat = <WooProducts>[].obs;
+  int currentPageCat = 1;
+  RxBool fetchingProductsCat = false.obs;
+  int totalProductPageCountCat = 1;
+  RxBool firstProductCat = true.obs;
+  RxBool lastProductCat = false.obs;
 
   @override
   onInit() async {
@@ -89,6 +95,77 @@ class WooController extends GetxController {
         print(e.toString());
       }
       fetchingProducts.value = false;
+    }
+  }
+
+  Future<void> getAllProductsCat(bool previous, int catId) async {
+    if (currentPageCat <= totalProductPageCountCat) {
+      print('right');
+      allProductsCat.clear();
+      if (previous) {
+        if (currentPageCat >= 0) currentPageCat--;
+      } else {
+        if (currentPageCat <= totalProductPageCountCat)
+          currentPageCat = currentPageCat + 1;
+      }
+      if (currentPageCat == 1) {
+        firstProductCat.value = true;
+      } else {
+        firstProductCat.value = false;
+      }
+
+      if (currentPageCat == totalProductPageCountCat) {
+        lastProductCat.value = true;
+      } else {
+        lastProductCat.value = false;
+      }
+      fetchingProductsCat.value = true;
+      try {
+        print(currentPageCat);
+        final String response = await cache.remember(
+          'productsCategory$catId$currentPageCat',
+          () async {
+            var response = await http.get(
+              Uri.parse(
+                'https://discount-bazaar.com/wp-json/wc/v3/products?orderby=popularity&per_page=20&page=$currentPageCat&category=$catId&order=desc&consumer_key=ck_a8200f8c74b2f73c16a7e178b954c7977891000c&consumer_secret=cs_043642983a3d8799b786429a154264cb400d7fd2',
+              ),
+            );
+            //print(response.body);
+            final header = response.headers['x-wp-totalpages'];
+            totalProductPageCountCat = header == null ? 1 : int.parse(header);
+
+            return response.body;
+          },
+          86400,
+        );
+
+        final responseJson = json.decode(response);
+
+        for (dynamic rsp in responseJson) {
+          WooProducts wooProducts = WooProducts.fromJson(rsp);
+          allProductsCat.add(wooProducts);
+        }
+      } catch (e) {
+        if (!previous) {
+          currentPageCat--;
+        } else {
+          currentPageCat++;
+        }
+        if (currentPageCat == 1) {
+          firstProductCat.value = true;
+        } else {
+          firstProductCat.value = false;
+        }
+
+        if (currentPageCat == totalProductPageCountCat) {
+          lastProductCat.value = true;
+        } else {
+          lastProductCat.value = false;
+        }
+        fetchingProductsCat.value = false;
+        print(e.toString());
+      }
+      fetchingProductsCat.value = false;
     }
   }
 

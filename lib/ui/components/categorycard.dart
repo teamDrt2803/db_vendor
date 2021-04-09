@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/categoriesmodal.dart';
 import 'package:db_vendor/ui/screens/categoryDetails/category_details.dart';
+import 'package:db_vendor/ui/screens/productsall.dart/all_products.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../size_config.dart';
 
@@ -23,11 +25,14 @@ class CategoryCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            CategoriesDetailsScreen.routeName,
-            arguments: CategoryDetailsrguments(product: product),
-          ),
+          onTap: () {
+            print(product.id);
+            Get.to(
+              () => AllProducts(
+                catId: product.id,
+              ),
+            );
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -10,32 +10,41 @@ import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   final WooController controller = Get.find();
+  int catId;
+
+  Body({Key key, this.catId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
         children: [
           Flexible(
-            child: controller.fetchingProducts.value
+            child: controller.fetchingProducts.value ||
+                    controller.fetchingProductsCat.value
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : Container(
-                    //color: kSecondaryColor.withOpacity(0.2),
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    child: StaggeredGridView.extentBuilder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: controller.allProducts.length,
-                      itemBuilder: (context, index) {
-                        WooProducts products = controller.allProducts[index];
-                        return AllProductWidget(products: products);
-                      },
-                      maxCrossAxisExtent: 200,
-                      crossAxisSpacing: getProportionateScreenHeight(20),
-                      mainAxisSpacing: getProportionateScreenWidth(20),
-                      staggeredTileBuilder: (int index) {
-                        return StaggeredTile.extent(1, 300);
-                      },
+                : Obx(
+                    () => Container(
+                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      child: StaggeredGridView.extentBuilder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: catId == null
+                            ? controller.allProducts.length
+                            : controller.allProductsCat.length,
+                        itemBuilder: (context, index) {
+                          WooProducts products = catId == null
+                              ? controller.allProducts[index]
+                              : controller.allProductsCat[index];
+                          return AllProductWidget(products: products);
+                        },
+                        maxCrossAxisExtent: 200,
+                        crossAxisSpacing: getProportionateScreenHeight(20),
+                        mainAxisSpacing: getProportionateScreenWidth(20),
+                        staggeredTileBuilder: (int index) {
+                          return StaggeredTile.extent(1, 300);
+                        },
+                      ),
                     ),
                   ),
           ),
@@ -58,7 +67,9 @@ class Body extends StatelessWidget {
                         press: controller.firstProduct.value
                             ? null
                             : () {
-                                controller.getAllProducts(true);
+                                catId == null
+                                    ? controller.getAllProducts(true)
+                                    : controller.getAllProductsCat(true, catId);
                               },
                         //color: kPrimaryColor,
                       ),
@@ -70,7 +81,9 @@ class Body extends StatelessWidget {
                       //width: getProportionateScreenWidth(20),
                       text: 'Next',
                       press: () {
-                        controller.getAllProducts(false);
+                        catId == null
+                            ? controller.getAllProducts(false)
+                            : controller.getAllProductsCat(false, catId);
                       },
                       //color: kPrimaryColor,
                     ),

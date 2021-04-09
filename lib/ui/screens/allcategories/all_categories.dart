@@ -22,6 +22,8 @@ class _AllCategoriesState extends State<AllCategories> {
 
   @override
   void initState() {
+    print('object');
+    _wooController.getCategories(pageCount: 100);
     super.initState();
   }
 
@@ -30,6 +32,7 @@ class _AllCategoriesState extends State<AllCategories> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        title: Text('All Categories'),
         backgroundColor: Colors.transparent,
         actions: [
           ValueListenableBuilder<Box<CartModal>>(

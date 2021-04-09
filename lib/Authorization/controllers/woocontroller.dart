@@ -2,6 +2,7 @@ import 'package:db_vendor/categoriesmodal.dart';
 import 'package:db_vendor/productsmodal.dart';
 import 'package:db_vendor/singlecategorymodal.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cache/flutter_cache.dart' as cache;
@@ -25,6 +26,7 @@ class WooController extends GetxController {
   RxBool firstProductCat = true.obs;
   RxBool lastProductCat = false.obs;
   int currentId = 0;
+  GetStorage storage = GetStorage();
 
   @override
   onInit() async {
@@ -114,12 +116,11 @@ class WooController extends GetxController {
   Future<void> getAllProductsCat(bool previous, int catId) async {
     if (currentId != catId) {
       currentPageCat = 0;
-      totalProductPageCount = 1;
+      totalProductPageCountCat = 1;
       fetchingProductsCat.value = false;
       currentId = catId;
     }
     if (currentPageCat <= totalProductPageCountCat) {
-      print('object4');
       allProductsCat.clear();
       if (previous) {
         if (currentPageCat >= 0) currentPageCat--;
@@ -127,21 +128,11 @@ class WooController extends GetxController {
         if (currentPageCat < totalProductPageCountCat)
           currentPageCat = currentPageCat + 1;
       }
-      if (currentPageCat == 1) {
-        firstProductCat.value = true;
-      } else {
-        firstProductCat.value = false;
-      }
 
-      if (currentPageCat == totalProductPageCountCat) {
-        lastProductCat.value = true;
-      } else {
-        lastProductCat.value = false;
-      }
       fetchingProductsCat.value = true;
       try {
         final String response = await cache.remember(
-          'productsCategories$catId$currentPageCat',
+          'productscat$catId$currentPageCat',
           () async {
             var response = await http.get(
               Uri.parse(
@@ -150,12 +141,30 @@ class WooController extends GetxController {
             );
 
             final header = response.headers['x-wp-totalpages'];
-            totalProductPageCountCat = header == null ? 1 : int.parse(header);
+            await storage.write(
+              'productsCategories$catId$currentPageCat',
+              header,
+            );
+
             return response.body;
           },
           86400,
         );
+        totalProductPageCountCat = int.parse(
+          storage.read('productsCategories$catId$currentPageCat'),
+        );
+        //print(totalProductPageCountCat);
+        if (currentPageCat == 1) {
+          firstProductCat.value = true;
+        } else {
+          firstProductCat.value = false;
+        }
 
+        if (currentPageCat == totalProductPageCountCat) {
+          lastProductCat.value = true;
+        } else {
+          lastProductCat.value = false;
+        }
         final responseJson = json.decode(response);
 
         for (dynamic rsp in responseJson) {
@@ -190,7 +199,7 @@ class WooController extends GetxController {
       pageCount = 10;
     }
     final response = await cache.remember(
-      'categories',
+      'categories$pageCount',
       () async => await http
           .get(
             Uri.parse(Consts.url +

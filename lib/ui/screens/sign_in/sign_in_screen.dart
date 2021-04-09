@@ -29,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
     widget.authController.status.listen((status) {
       if (mounted) {
         if (status == SignInStatus.OTPSENT) {
-          Get.to(
+          Get.off(
             () => OtpScreen(
               authController: widget.authController,
             ),

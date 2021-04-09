@@ -49,7 +49,10 @@ class CustomBottomNavBar extends StatelessWidget {
                     Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
+                icon: Icon(
+                  Icons.grid_on_sharp,
+                  color: kSecondaryColor,
+                ),
                 onPressed: () {},
               ),
               IconButton(
@@ -63,9 +66,8 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () {},
-                // onPressed: () =>
-                //     Navigator.pushNamed(context, ProfileScreen.routeName),
+                onPressed: () =>
+                    Navigator.pushNamed(context, ProfileScreen.routeName),
               ),
             ],
           )),

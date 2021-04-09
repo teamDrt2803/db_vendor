@@ -3,7 +3,7 @@ import 'package:db_vendor/categoriesmodal.dart';
 
 import 'package:db_vendor/productsmodal.dart';
 import 'package:db_vendor/ui/components/categorycard.dart';
-import 'package:db_vendor/ui/screens/allcategories/all_products.dart';
+import 'package:db_vendor/ui/screens/allcategories/all_categories.dart';
 import 'package:db_vendor/ui/screens/productsall.dart/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/product_card.dart';

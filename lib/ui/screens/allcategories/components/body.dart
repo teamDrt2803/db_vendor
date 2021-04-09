@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/woocontroller.dart';
+import 'package:db_vendor/categoriesmodal.dart';
 import 'package:db_vendor/productsmodal.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
 import 'package:db_vendor/ui/constants.dart';
@@ -25,20 +26,16 @@ class Body extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 8),
               child: StaggeredGridView.extentBuilder(
                 physics: BouncingScrollPhysics(),
-                itemCount: catId == null
-                    ? controller.allProducts.length
-                    : controller.allProductsCat.length,
+                itemCount: controller.categories.length,
                 itemBuilder: (context, index) {
-                  WooProducts products = catId == null
-                      ? controller.allProducts[index]
-                      : controller.allProductsCat[index];
-                  return AllCategoriesWidget(products: products);
+                  WooCategories categories = controller.categories[index];
+                  return AllCategoriesWidget(products: categories);
                 },
                 maxCrossAxisExtent: 200,
                 crossAxisSpacing: getProportionateScreenHeight(20),
                 mainAxisSpacing: getProportionateScreenWidth(20),
                 staggeredTileBuilder: (int index) {
-                  return StaggeredTile.extent(1, 300);
+                  return StaggeredTile.extent(1, 200);
                 },
               ),
             ),

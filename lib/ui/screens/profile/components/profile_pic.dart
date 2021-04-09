@@ -1,3 +1,4 @@
+import 'package:db_vendor/ui/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,10 +14,15 @@ class ProfilePic extends StatelessWidget {
       width: 115,
       child: Stack(
         fit: StackFit.expand,
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
+            backgroundColor: kPrimaryLightColor,
+            child: Icon(
+              Icons.person_outline_outlined,
+              size: 96,
+              color: kPrimaryColor,
+            ),
           ),
           Positioned(
             right: -16,

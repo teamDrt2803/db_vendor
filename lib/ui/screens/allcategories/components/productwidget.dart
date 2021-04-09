@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/Authorization/controllers/cartcontroller.dart';
+import 'package:db_vendor/Authorization/views/categoriesscreen.dart';
+import 'package:db_vendor/categoriesmodal.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
 import 'package:db_vendor/ui/constants.dart';
+import 'package:db_vendor/ui/screens/categoryDetails/category_details.dart';
 import 'package:db_vendor/ui/screens/details/details_screen.dart';
+import 'package:db_vendor/ui/screens/productsall.dart/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,19 +22,18 @@ class AllCategoriesWidget extends StatelessWidget {
     @required this.products,
   }) : super(key: key);
 
-  final WooProducts products;
+  final WooCategories products;
   final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        products.images.length > 0
-            ? Get.to(
-                () => DetailsScreen(),
-                arguments: ProductDetailsArguments(product: products),
-              )
-            : null;
+        Get.to(
+          () => AllProducts(
+            catId: products.id,
+          ),
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -44,133 +47,34 @@ class AllCategoriesWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   child: SizedBox(
-                    height: getProportionateScreenHeight(130),
-                    width: getProportionateScreenWidth(130),
-                    child: products.images.length > 0
-                        ? CachedNetworkImage(
-                            imageUrl: products.images.first.src)
-                        : Icon(
-                            Icons.shopping_cart,
-                            color: Colors.redAccent,
-                          ),
-                  ),
+                      height: getProportionateScreenHeight(130),
+                      width: getProportionateScreenWidth(130),
+                      child: products.image == null
+                          ? Icon(
+                              Icons.local_grocery_store,
+                              size: 96,
+                              color: Colors.redAccent,
+                            )
+                          : CachedNetworkImage(imageUrl: products.image.src)),
                 ),
                 Flexible(
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 4),
-                    //color: Colors.black,
                     child: SizedBox(
                       height: double.infinity,
                       width: double.infinity,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Column(
-                            //mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                products.name,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.openSans(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SmoothStarRating(
-                                color: kPrimaryColor,
-                                borderColor: kPrimaryColor,
-                                defaultIconData: Icons.star_outline,
-                                //isReadOnly: true,
-                                starCount: 5,
-                                rating: products.ratingCount.toDouble(),
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            left: 10,
-                            bottom: 10,
-                            child: Row(
-                              children: [
-                                Text(
-                                  '\₹${products.onSale ? products.salePrice.isEmpty ? products.price : products.salePrice : products.price}',
-                                  style: GoogleFonts.openSans(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: getProportionateScreenWidth(
-                                      16,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: getProportionateScreenWidth(10),
-                                ),
-                                if (products.onSale &&
-                                    products.regularPrice.isNotEmpty)
-                                  Text(
-                                    '\₹${products.regularPrice}',
-                                    style: GoogleFonts.openSans(
-                                      color: kSecondaryColor.withOpacity(0.5),
-                                      decoration: TextDecoration.lineThrough,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: getProportionateScreenWidth(
-                                        16,
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            bottom: -20,
-                            child: RawMaterialButton(
-                              onPressed: () {
-                                _cartController.addToCart(products: products);
-                              },
-                              fillColor: kPrimaryColor,
-                              constraints: BoxConstraints(
-                                minHeight: getProportionateScreenHeight(40),
-                                minWidth: getProportionateScreenWidth(40),
-                                maxHeight: getProportionateScreenHeight(40),
-                                maxWidth: getProportionateScreenWidth(40),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        products.name.replaceAll('&amp;', ''),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.openSans(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 )
               ],
             ),
-            if (products.salePrice.isNotEmpty && products.onSale)
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    child: Text(
-                      'Sale',
-                      style: GoogleFonts.openSans(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )),
-              ),
           ],
         ),
       ),

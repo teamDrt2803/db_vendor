@@ -48,100 +48,99 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipOval(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                          ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipOval(
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
                         ),
                       ),
                     ),
-                    Flexible(
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          user == null ? 'Unknown' : controller.userName.value,
-                          textScaleFactor: 2.0,
-                          style: GoogleFonts.openSans(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.4,
-                          ),
+                  ),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        user == null ? 'Unknown' : controller.userName.value,
+                        textScaleFactor: 2.0,
+                        style: GoogleFonts.openSans(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.4,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => OtpScreen(
-                        authController: widget.controller,
-                      ));
-                },
-                leading: Icon(
-                  Icons.shopping_bag,
-                ),
-                title: Text(
-                  'Your Orders',
-                ),
-                subtitle: Text(
-                  'Navigate to your orders section',
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios_sharp,
-                ),
+            ),
+            ListTile(
+              onTap: () {
+                Get.to(() => OtpScreen(
+                      authController: widget.controller,
+                    ));
+              },
+              leading: Icon(
+                Icons.shopping_bag,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                child: Divider(
-                  thickness: 1.2,
-                ),
+              title: Text(
+                'Your Orders',
               ),
-              ListTile(
-                onTap: user == null
-                    ? () {
-                        Get.to(
-                          () => Authorize(
-                            authController: widget.controller,
-                          ),
-                        );
-                      }
-                    : () {
-                        widget.controller.signOut(context);
-                      },
-                leading: Icon(
-                  user == null ? Icons.login : Icons.logout,
-                ),
-                title: Text(
-                  user == null ? 'Log In' : 'Log Out',
-                ),
+              subtitle: Text(
+                'Navigate to your orders section',
               ),
-            ],
-          ),
-        ),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
-              onPressed: () {},
-            )
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: Divider(
+                thickness: 1.2,
+              ),
+            ),
+            ListTile(
+              onTap: user == null
+                  ? () {
+                      Get.to(
+                        () => Authorize(
+                          authController: widget.controller,
+                        ),
+                      );
+                    }
+                  : () {
+                      widget.controller.signOut(context);
+                    },
+              leading: Icon(
+                user == null ? Icons.login : Icons.logout,
+              ),
+              title: Text(
+                user == null ? 'Log In' : 'Log Out',
+              ),
+            ),
           ],
         ),
-        body: Container(
-            child: Padding(
+      ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart_outlined),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Container(
+        child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -322,6 +321,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

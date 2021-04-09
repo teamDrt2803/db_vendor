@@ -1,20 +1,17 @@
 import 'package:db_vendor/Authorization/bindings/initialbindings.dart';
 import 'package:db_vendor/constants.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
-import 'package:db_vendor/productsmodal.dart';
 
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 
 import 'ui/routes.dart';
-import 'ui/screens/splash/splash_screen.dart';
 import 'ui/theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

@@ -13,14 +13,13 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class SignForm extends StatefulWidget {
-  final AuthController authController = Get.find();
-
   SignForm({Key key}) : super(key: key);
   @override
   _SignFormState createState() => _SignFormState();
 }
 
 class _SignFormState extends State<SignForm> {
+  final AuthController authController = Get.find();
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
@@ -68,24 +67,23 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           Obx(
             () => DefaultButton(
-              widget:
-                  widget.authController.status.value == SignInStatus.PROCESSING
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(
-                              Colors.white,
-                            ),
-                          ),
-                        )
-                      : null,
+              widget: authController.status.value == SignInStatus.PROCESSING
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                          Colors.white,
+                        ),
+                      ),
+                    )
+                  : null,
               text: "Continue",
               press: () async {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
                   // if all are valid then go to success screen
                   KeyboardUtil.hideKeyboard(context);
-                  await widget.authController.sendOtp(
-                    phoneNumber: widget.authController.number.value,
+                  await authController.sendOtp(
+                    phoneNumber: authController.number.value,
                   );
                   // Get.to(() => OtpScreen(
                   //       phone: email,
@@ -104,7 +102,7 @@ class _SignFormState extends State<SignForm> {
       keyboardType: TextInputType.phone,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
-        widget.authController.updateNumber(number1: value);
+        authController.updateNumber(number1: value);
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
         } else if (value.length == 10) {

@@ -35,6 +35,7 @@ class _AllProductsState extends State<AllProducts> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        title: Text('All Products'),
         backgroundColor: Colors.transparent,
         actions: [
           ValueListenableBuilder<Box<CartModal>>(

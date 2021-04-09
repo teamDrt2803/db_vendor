@@ -87,111 +87,118 @@ class _OrderState extends State<Order> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
+                            height: 200,
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Today, 7:30 PM",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: primary),
-                                    ),
-                                    Text(
-                                      "₹20",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: secondary),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                  width: MediaQuery.of(context).size.width,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Items",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                                ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: 1,
-                                  itemBuilder: (ctxt, index) {
-                                    return Container(
-                                      child: Column(
+                            child: Card(
+                              elevation: 3,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Today, 7:30 PM",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: primary),
+                                      ),
+                                      Text(
+                                        "₹20",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: secondary),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Items",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                  ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: 1,
+                                    itemBuilder: (ctxt, index) {
+                                      return Container(
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  child: Image.network(
+                                                      "https://www.pngfind.com/pngs/m/672-6725952_amul-masti-spiced-amul-butter-milk-hd-png.png"),
+                                                ),
+                                                Text(
+                                                  "Amul Masti Buttermilk x 2",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16),
+                                                ),
+                                                Text(
+                                                  "₹20",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  Divider(
+                                    thickness: 1,
+                                    color: primary.withOpacity(0.7),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                height: 50,
-                                                width: 50,
-                                                child: Image.network(
-                                                    "https://www.pngfind.com/pngs/m/672-6725952_amul-masti-spiced-amul-butter-milk-hd-png.png"),
-                                              ),
-                                              Text(
-                                                "Amul Masti Buttermilk x 2",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16),
-                                              ),
-                                              Text(
-                                                "₹20",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            ],
+                                          Icon(
+                                            Icons.verified_rounded,
+                                            color: primary,
+                                          ),
+                                          Text(
+                                            "Delivered",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
-                                    );
-                                  },
-                                ),
-                                Divider(
-                                  thickness: 1,
-                                  color: primary.withOpacity(0.7),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.verified_rounded,
-                                          color: primary,
-                                        ),
-                                        Text(
-                                          "Delivered",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                    ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.blueAccent,
-                                            minimumSize: Size(20, 30)),
-                                        onPressed: () {},
-                                        child: Text("Re-order"))
-                                  ],
-                                ),
-                              ],
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Colors.blueAccent,
+                                              minimumSize: Size(20, 30)),
+                                          onPressed: () {},
+                                          child: Text("Re-order"))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

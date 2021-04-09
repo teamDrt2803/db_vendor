@@ -26,10 +26,11 @@ class CartController extends GetxController {
   }
 
   Future<bool> addToAddress({AddressModal addressModal}) async {
+    _auth.currentUser;
     return addressBox.add(addressModal).then((value) async {
       return await databaseReference
           .child(
-            _user.uid,
+            _auth.currentUser.uid,
           )
           .child(
             'address',

@@ -3,6 +3,7 @@ import 'package:db_vendor/main.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
 import 'package:db_vendor/ui/constants.dart';
+import 'package:db_vendor/ui/models/Address.dart';
 import 'package:db_vendor/ui/screens/address/address.dart';
 import 'package:db_vendor/ui/size_config.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class Body extends StatelessWidget {
   final double total;
-
-  const Body({Key key, this.total}) : super(key: key);
+  int selectedIndex = 0;
+  Body({Key key, this.total}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    AddressModal modal =
+        addressBox.length > 0 ? addressBox.getAt(selectedIndex) : null;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Stack(
@@ -225,7 +228,13 @@ class Body extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 24.0),
                           child: DefaultButton(
                             text: 'Confirm Order',
-                            press: () {},
+                            press: () {
+                              if (addressBox.length > 0) {
+
+                              } else {
+                                Get.dialog(AlertDialog(title: Text(''),)); 
+                              }
+                            },
                           ),
                         ),
                         SizedBox(
@@ -254,15 +263,15 @@ class Body extends StatelessWidget {
                         color: Colors.redAccent,
                       ),
                       title: Text(
-                        'No Address',
+                        addressBox.length > 0
+                            ? '${modal.houseNo},${modal.appartmentName}'
+                            : 'No Address',
                       ),
-                      trailing: IconButton(
+                      trailing: TextButton(
                         onPressed: () {
                           Get.to(() => AddressScreen());
                         },
-                        icon: Icon(
-                          Icons.add,
-                        ),
+                        child: Text(addressBox.length > 1 ? 'Change' : 'Add'),
                       ),
                     ),
                     ListTile(
@@ -282,3 +291,6 @@ class Body extends StatelessWidget {
     );
   }
 }
+
+//ggfgggfgEHERHFUFRUIHUIHfggycnjcnjncuueuuueeuuueeuuuueueueuunjjjdhhxbcnmmsmsskjiwEFEFEFFRJWHEHEHHHEHEHEHEHHHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHBCBCHIIIIQIIQIQIIINNJKNVDZNNVH
+//njAXKHShjASHHHSSHDKSSHHSHGGGGGGGGAHHAGASHAAHGHGAHASHAGHAUYEWAGGCYUHBHJCHBHDBJDHBJHBCKHAYWEIHUHEBKCHHBCCBCDHJJJJJBHBCDHLCDHBCDKHBKUBHACGKUDBGJKUCKBUHDAHHSAHHSHHHHSAHSGAHSSAHHSHSGHHGHGAHHGGAHGSHAGAHGHHSGGG

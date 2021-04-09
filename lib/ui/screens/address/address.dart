@@ -15,14 +15,6 @@ class AddressScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Body(
         onPressed: onPressed,
-        formState: formKey,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: onPressed,
-        backgroundColor: kPrimaryColor,
-        child: Icon(
-          Icons.save,
-        ),
       ),
     );
   }

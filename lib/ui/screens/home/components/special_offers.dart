@@ -53,11 +53,13 @@ class SpecialOfferCard extends StatelessWidget {
     @required this.image,
     @required this.numOfBrands,
     @required this.press,
+    this.width,
   }) : super(key: key);
 
   final String category, image;
   final int numOfBrands;
   final GestureTapCallback press;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +68,19 @@ class SpecialOfferCard extends StatelessWidget {
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(242),
+          width: width ?? getProportionateScreenWidth(242),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
+                SizedBox(
+                  width: width ?? getProportionateScreenWidth(242),
+                  height: getProportionateScreenWidth(100),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(

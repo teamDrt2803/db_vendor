@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
+import 'package:db_vendor/ui/categoryselector.dart';
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
@@ -71,7 +72,7 @@ class _OtpFormState extends State<OtpForm> {
                 await _authController.verifyOtp(
                   otp: _authController.otp.value,
                 );
-                Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                Get.to(() => CategorySelector());
               }
             },
             pinTheme: PinTheme(
@@ -101,9 +102,7 @@ class _OtpFormState extends State<OtpForm> {
                   await _authController.verifyOtp(
                     otp: _authController.otp.value,
                   );
-                  Get.back(
-                    closeOverlays: true,
-                  );
+                  Get.to(() => CategorySelector());
                 }
               },
             ),

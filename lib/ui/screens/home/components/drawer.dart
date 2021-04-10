@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
+import 'package:db_vendor/ui/categoryselector.dart';
 import 'package:db_vendor/ui/constants.dart';
 import 'package:db_vendor/ui/screens/orders.dart';
 import 'package:db_vendor/ui/screens/profile/components/profile_menu.dart';
@@ -66,10 +67,12 @@ class Custdrawer extends StatelessWidget {
               ),
             ),
             ProfileMenu2(
-              text: "Categories",
-              icon: "assets/icons/category_icon.svg",
-              press: () => {},
-            ),
+                text: "Categories",
+                icon: "assets/icons/category_icon.svg",
+                press: () {
+                  Get.back();
+                  Get.to(() => CategorySelector());
+                }),
             ProfileMenu2(
               text: "My Account",
               icon: "assets/icons/User Icon.svg",

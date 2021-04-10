@@ -36,10 +36,10 @@ class AuthController extends GetxController {
   final number = ''.obs;
   final otp = ''.obs;
   Rx<SHOPDETAIL> whichPage = SHOPDETAIL.USERNAME.obs;
-  final state = ''.obs;
+  final state = 'Chhindwara'.obs;
   final storeName = ''.obs;
   final city = ''.obs;
-  final postalCode = ''.obs;
+  final postalCode = '480001'.obs;
   final location = ''.obs;
   final latlng = LatLng(22.0574, 78.9382).obs;
   final searchResult = SearchResult().obs;
@@ -94,20 +94,25 @@ class AuthController extends GetxController {
     this.userName.value = userName;
   }
 
-  Future completeSetup() async {
-    await storage.write(Consts.userName, userName.value);
-    await storage.write(Consts.storeName, storeName.value);
+  Future completeSetup({
+    String userName,
+    String storeName,
+    String email,
+  }) async {
+    await storage.write(Consts.userName, userName);
+    await storage.write(Consts.storeName, storeName);
     await storage.write(Consts.state, state.value);
     await storage.write(Consts.city, city.value);
     await storage.write(Consts.postalcode, postalCode.value);
     await storage.write(Consts.location, searchResult.value.name);
     Storedetails storedetails = Storedetails(
-      userName: userName.value,
+      userName: userName,
       state: state.value,
+      email: email,
       city: city.value,
       postalcode: postalCode.value,
       location: searchResult.value.name,
-      storeName: storeName.value,
+      storeName: storeName,
       setupComplete: true,
     );
     await databaseReference
@@ -162,6 +167,7 @@ class AuthController extends GetxController {
             setupComplete.value = storeDetails.setupComplete;
             await writeData(storeDetails);
           } else {
+            setupComplete.value = false;
             await storage.write(Consts.setupComplete, false);
           }
         },
@@ -227,12 +233,15 @@ class AuthController extends GetxController {
   }
 
   Future verifyOtp({String otp}) async {
+    updatestatus(SignInStatus.PROCESSING);
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: otp);
       await _auth.signInWithCredential(credential);
       await readData();
+      updatestatus(SignInStatus.VERIFIED);
     } on FirebaseAuthException catch (e) {
+      updatestatus(SignInStatus.FAILED);
       Get.snackbar("Error Occured", e.message);
     }
   }

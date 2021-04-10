@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
+import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
 import 'package:db_vendor/ui/size_config.dart';
@@ -70,9 +71,7 @@ class _OtpFormState extends State<OtpForm> {
                 await _authController.verifyOtp(
                   otp: _authController.otp.value,
                 );
-                Get.back(
-                  closeOverlays: true,
-                );
+                Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
               }
             },
             pinTheme: PinTheme(

@@ -11,11 +11,6 @@ class AddressScreen extends StatelessWidget {
   void Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Body(
-        onPressed: onPressed,
-      ),
-    );
+    return Body(onPressed: onPressed);
   }
 }

@@ -1,16 +1,16 @@
 class Storedetails {
-  String storeName, state, city, postalcode, location, userName;
+  String storeName, state, city, postalcode, location, userName, email;
   bool setupComplete;
 
-  Storedetails({
-    this.city,
-    this.location,
-    this.postalcode,
-    this.state,
-    this.storeName,
-    this.userName,
-    this.setupComplete,
-  });
+  Storedetails(
+      {this.city,
+      this.location,
+      this.postalcode,
+      this.state,
+      this.storeName,
+      this.userName,
+      this.setupComplete,
+      this.email});
 
   Storedetails.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
@@ -20,6 +20,7 @@ class Storedetails {
     postalcode = json['postalcode'];
     location = json['location'];
     setupComplete = json['setupComplete'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +32,7 @@ class Storedetails {
     data['postalcode'] = postalcode;
     data['location'] = location;
     data['setupComplete'] = setupComplete;
+    data['email'] = email;
     return data;
   }
 }

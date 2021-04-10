@@ -20,19 +20,21 @@ class CartScreen extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Your Cart",
             style: TextStyle(color: Colors.black),
           ),
           ValueListenableBuilder(
-              valueListenable: box.listenable(),
-              builder: (context, box, _) {
-                return Text(
-                  "${box.length} items",
-                  style: Theme.of(context).textTheme.caption,
-                );
-              }),
+            valueListenable: box.listenable(),
+            builder: (context, box, _) {
+              return Text(
+                "${box.length} items",
+                style: Theme.of(context).textTheme.caption,
+              );
+            },
+          ),
         ],
       ),
     );

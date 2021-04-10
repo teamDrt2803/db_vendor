@@ -17,6 +17,11 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
@@ -24,7 +29,7 @@ class _OtpScreenState extends State<OtpScreen> {
         title: Text("OTP Verification"),
       ),
       body: Body(
-        phone: widget.phone,
+        phone: widget.phone ?? widget.authController.number.value,
       ),
     );
   }

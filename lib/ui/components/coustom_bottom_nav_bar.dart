@@ -1,7 +1,10 @@
+import 'package:db_vendor/ui/screens/notification.dart';
+import 'package:db_vendor/ui/screens/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:db_vendor/ui/screens/home/home_screen.dart';
 import 'package:db_vendor/ui/screens/profile/profile_screen.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -50,14 +53,25 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.grid_on_sharp,
-                  color: kSecondaryColor,
+                  Icons.shopping_bag_outlined,
+                  color: MenuState.favourite == selectedMenu
+                      ? kPrimaryColor
+                      : inActiveIconColor,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => Order());
+                },
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
+                icon: SvgPicture.asset(
+                  "assets/icons/Bell.svg",
+                  color: MenuState.message == selectedMenu
+                      ? kPrimaryColor
+                      : inActiveIconColor,
+                ),
+                onPressed: () {
+                  Get.to(() => NotificationsPage());
+                },
               ),
               IconButton(
                 icon: SvgPicture.asset(

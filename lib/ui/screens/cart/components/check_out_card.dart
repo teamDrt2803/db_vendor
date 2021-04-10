@@ -103,18 +103,20 @@ class CheckoutCard extends StatelessWidget {
                               child: DefaultButton(
                                 text: "Check Out",
                                 press: () {
-                                  if (snapshot.data == null) {
-                                    Get.to(
-                                      () => SignInScreen(
-                                        authController: _authController,
-                                      ),
-                                    );
-                                  } else {
-                                    Get.to(
-                                      () => CheckoutScreen(
-                                        total: cartTotal,
-                                      ),
-                                    );
+                                  if (cartTotal > 0) {
+                                    if (snapshot.data == null) {
+                                      Get.to(
+                                        () => SignInScreen(
+                                          authController: _authController,
+                                        ),
+                                      );
+                                    } else {
+                                      Get.to(
+                                        () => CheckoutScreen(
+                                          total: cartTotal,
+                                        ),
+                                      );
+                                    }
                                   }
                                 },
                               ),

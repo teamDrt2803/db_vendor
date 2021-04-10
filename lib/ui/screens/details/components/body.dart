@@ -1,5 +1,7 @@
 import 'package:db_vendor/Authorization/controllers/cartcontroller.dart';
 import 'package:db_vendor/productsmodal.dart';
+import 'package:db_vendor/ui/models/Cart.dart';
+import 'package:db_vendor/ui/screens/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
 import 'package:db_vendor/ui/size_config.dart';
@@ -52,7 +54,11 @@ class Body extends StatelessWidget {
                       ),
                       DefaultButton(
                         text: "Buy Now",
-                        press: () {},
+                        press: () async {
+                          await _cartController.addToCart(
+                              products: product, item: 1);
+                          Get.to(() => CartScreen());
+                        },
                       ),
                     ],
                   ),

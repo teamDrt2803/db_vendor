@@ -1,6 +1,8 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/Authorization/views/detailsform.dart';
 import 'package:db_vendor/home.dart';
+import 'package:db_vendor/ui/screens/complete_profile/complete_profile_screen.dart';
+import 'package:db_vendor/ui/screens/complete_profile/components/complete_profile_form.dart';
 import 'package:db_vendor/ui/screens/home/home_screen.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
 import 'package:db_vendor/ui/screens/splash/splash_screen.dart';
@@ -43,7 +45,7 @@ class _WrapperState extends State<Wrapper> {
                     ? HomeScreen()
                     : _authController.setupComplete.value
                         ? HomeScreen()
-                        : ShopDetails(),
+                        : CompleteProfileScreen(),
           );
         },
       ),

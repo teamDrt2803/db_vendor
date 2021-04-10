@@ -1,5 +1,6 @@
 import 'package:db_vendor/Authorization/controllers/cartcontroller.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
+import 'package:db_vendor/ui/screens/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/screens/cart/cart_screen.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,9 @@ class HomeHeader extends StatelessWidget {
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
             numOfitem: 3,
-            press: () {},
+            press: () {
+              Get.to(() => NotificationsPage());
+            },
           ),
         ],
       ),

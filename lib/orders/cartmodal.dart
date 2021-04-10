@@ -10,4 +10,11 @@ class CartModal {
   WooProducts wooProducts;
 
   CartModal({this.totalQuantity, this.wooProducts});
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = Map<String, dynamic>();
+    data['totalQuantity'] = totalQuantity;
+    data['wooProducts'] = wooProducts.toJson();
+    return data;
+  }
 }

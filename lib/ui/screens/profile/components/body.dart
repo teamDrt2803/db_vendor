@@ -1,5 +1,8 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/ui/components/default_button.dart';
+import 'package:db_vendor/ui/screens/login_success/login_success_screen.dart';
+import 'package:db_vendor/ui/screens/notification.dart';
+import 'package:db_vendor/ui/screens/orders.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +33,16 @@ class Body extends StatelessWidget {
                 ProfileMenu(
                   text: "Notifications",
                   icon: "assets/icons/Bell.svg",
-                  press: () {},
+                  press: () {
+                    Get.to(() => NotificationsPage());
+                  },
                 ),
                 ProfileMenu(
                   text: "My Orders",
                   icon: "assets/icons/Question mark.svg",
-                  press: () {},
+                  press: () {
+                    Get.to(() => Order());
+                  },
                 ),
                 ProfileMenu(
                   text: "Settings",

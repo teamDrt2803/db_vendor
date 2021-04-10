@@ -323,8 +323,17 @@ class _GoogleMapsState extends State<GoogleMaps> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Get.back();
+            }),
+        brightness: Brightness.dark,
         backgroundColor: Color(0xff212223),
-        title: Text('Select Your Location'),
+        title: Text('Select Your Location',
+            style: TextStyle(
+              color: Colors.white,
+            )),
         actions: [
           IconButton(
             icon: Icon(Icons.search),

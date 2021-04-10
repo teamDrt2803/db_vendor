@@ -13,11 +13,15 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: CheckoutCard(),
+      bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, box, _) {
+            return box.length > 0 ? CheckoutCard() : SizedBox.shrink();
+          }),
     );
   }
 
-  AppBar buildAppBar(BuildContext context) {
+  AppBar buildAppBar(context) {
     return AppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,7 +15,7 @@ import 'product_images.dart';
 class Body extends StatelessWidget {
   final WooProducts product;
   Body({Key key, @required this.product}) : super(key: key);
-  final CartController _cartController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -30,39 +30,6 @@ class Body extends StatelessWidget {
               ProductDescription(
                 product: product,
                 pressOnSeeMore: () {},
-              ),
-              TopRoundedContainer(
-                color: Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: SizeConfig.screenWidth * 0.15,
-                    right: SizeConfig.screenWidth * 0.15,
-                    bottom: getProportionateScreenWidth(40),
-                    top: getProportionateScreenWidth(15),
-                  ),
-                  child: Column(
-                    children: [
-                      DefaultButton(
-                        color: kSecondaryColor.withOpacity(0.1),
-                        text: "Add To Cart",
-                        press: () {
-                          _cartController.addToCart(products: product, item: 1);
-                        },
-                      ),
-                      SizedBox(
-                        height: getProportionateScreenHeight(20),
-                      ),
-                      DefaultButton(
-                        text: "Buy Now",
-                        press: () async {
-                          await _cartController.addToCart(
-                              products: product, item: 1);
-                          Get.to(() => CartScreen());
-                        },
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

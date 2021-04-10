@@ -17,11 +17,7 @@ class CartController extends GetxController {
   Future<void> onInit() async {
     _user = _auth.currentUser;
     databaseReference = _firebaseDatabase.reference();
-    Hive.registerAdapter<CartModal>(CartModalAdapter());
-    Hive.registerAdapter<WooProducts>(WooProductsAdapter());
-    Hive.registerAdapter<Dimensions>(DimensionsAdapter());
-    Hive.registerAdapter<Images>(ImagesAdapter());
-    Hive.registerAdapter<AddressModal>(AddressModalAdapter());
+
     super.onInit();
   }
 

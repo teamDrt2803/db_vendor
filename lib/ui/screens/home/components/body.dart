@@ -17,11 +17,26 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
-            HomeHeader(),
+            //HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             DiscountBanner(),
             Categories(),
             SpecialOffers(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            DBPopularProducts(
+              first: 'Offer',
+              title: "My Discount Bazaar Products",
+            ),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            DBPopularProducts(
+              first: 'Trader',
+              title: "Top RMC yard Traders",
+            ),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            DBPopularProducts(
+              first: 'Brand',
+              title: "Top Brands of the Day",
+            ),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularProducts(),
             SizedBox(height: getProportionateScreenWidth(30)),

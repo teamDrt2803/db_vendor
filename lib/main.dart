@@ -1,6 +1,7 @@
 import 'package:db_vendor/Authorization/bindings/initialbindings.dart';
 import 'package:db_vendor/constants.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
+import 'package:db_vendor/productsmodal.dart';
 import 'package:db_vendor/ui/models/Address.dart';
 
 import 'package:db_vendor/wrapper.dart';
@@ -22,6 +23,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
+  Hive.registerAdapter<CartModal>(CartModalAdapter());
+  Hive.registerAdapter<WooProducts>(WooProductsAdapter());
+  Hive.registerAdapter<Dimensions>(DimensionsAdapter());
+  Hive.registerAdapter<Images>(ImagesAdapter());
+  Hive.registerAdapter<AddressModal>(AddressModalAdapter());
   await Hive.initFlutter();
   box = await Hive.openBox<CartModal>('cart');
   addressBox = await Hive.openBox<AddressModal>('address');

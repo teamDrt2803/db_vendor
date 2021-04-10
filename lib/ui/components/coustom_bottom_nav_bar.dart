@@ -1,3 +1,5 @@
+import 'package:db_vendor/ui/offers.dart';
+import 'package:db_vendor/ui/screens/brands.dart';
 import 'package:db_vendor/ui/screens/notification.dart';
 import 'package:db_vendor/ui/screens/orders.dart';
 import 'package:flutter/material.dart';
@@ -53,35 +55,23 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.shopping_bag_outlined,
-                  color: MenuState.favourite == selectedMenu
-                      ? kPrimaryColor
-                      : inActiveIconColor,
-                ),
-                onPressed: () {
-                  Get.to(() => Order());
-                },
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/Bell.svg",
+                  Icons.verified_outlined,
                   color: MenuState.message == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
                 onPressed: () {
-                  Get.to(() => NotificationsPage());
+                  Get.to(() => OffersScreen());
                 },
               ),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
+                icon: Icon(
+                  Icons.branding_watermark_outlined,
+                  color: MenuState.favourite == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                onPressed: () => Get.to(() => BrandList()),
               ),
             ],
           )),

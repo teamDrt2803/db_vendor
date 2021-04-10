@@ -48,3 +48,50 @@ class PopularProducts extends StatelessWidget {
     );
   }
 }
+
+class DBPopularProducts extends StatelessWidget {
+  WooController _controller = Get.find();
+  final String title, first;
+
+  DBPopularProducts({Key key, this.title, this.first}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: SectionTitle(
+              title: title,
+              press: () {
+                //Get.to(() => AllProducts());
+              }),
+        ),
+        SizedBox(height: getProportionateScreenWidth(20)),
+        SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: Obx(
+            () => Row(
+              children: [
+                ...List.generate(
+                  10,
+                  (index) {
+                    WooProducts wooProducts = _controller.topProducts[index];
+                    return DBProductCard(
+                      product: wooProducts,
+                      index: index + 1,
+                      first: first,
+                    );
+                    // here by default width and height is 0
+                  },
+                ),
+                SizedBox(width: getProportionateScreenWidth(20)),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}

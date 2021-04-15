@@ -25,7 +25,7 @@ class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseDatabase _database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
-  Rx<User> _user = Rx<User>();
+  Rx<User> _user = Rx<User>(null);
   GetStorage storage = GetStorage();
   String verificationId;
   int resendToken;

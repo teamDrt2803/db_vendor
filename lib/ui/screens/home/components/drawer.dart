@@ -1,5 +1,6 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
 import 'package:db_vendor/ui/categoryselector.dart';
+import 'package:db_vendor/ui/screens/home/documents.dart';
 import 'package:db_vendor/ui/constants.dart';
 import 'package:db_vendor/ui/screens/orders.dart';
 import 'package:db_vendor/ui/screens/profile/components/profile_menu.dart';
@@ -100,13 +101,37 @@ class Custdrawer extends StatelessWidget {
             ProfileMenu2(
               text: "Terms and Conditions",
               icon: "assets/icons/Question mark.svg",
-              press: () {},
+              press: () {
+                Get.to(() => Docs(
+                      pageshow: PAGESHOW.TERMS,
+                    ));
+              },
             ),
             ProfileMenu2(
               text: "Privacy Policy",
               icon: "assets/icons/Question mark.svg",
               press: () {
-                //Get.to(()=>Privacy)
+                Get.to(() => Docs(
+                      pageshow: PAGESHOW.POLICY,
+                    ));
+              },
+            ),
+            ProfileMenu2(
+              text: "FAQ",
+              icon: "assets/icons/Question mark.svg",
+              press: () {
+                Get.to(() => Docs(
+                      pageshow: PAGESHOW.FAQ,
+                    ));
+              },
+            ),
+            ProfileMenu2(
+              text: "About Us",
+              icon: "assets/icons/Question mark.svg",
+              press: () {
+                Get.to(() => Docs(
+                      pageshow: PAGESHOW.ABOUT,
+                    ));
               },
             ),
             ProfileMenu2(

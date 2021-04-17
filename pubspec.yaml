@@ -68,6 +68,15 @@ dependencies:
   hive_flutter: ^1.0.0
   smooth_star_rating: ^1.1.1
   flutter_cache: ^0.1.0
+  flutter_launcher_icons: ^0.9.0
+  animated_splash_screen: ^1.1.0
+  syncfusion_flutter_pdfviewer: ^19.1.56-beta
+
+
+flutter_icons: 
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
   
 
 dev_dependencies:
@@ -92,6 +101,7 @@ flutter:
     - assets/images/
     - assets/
     - assets/icons/
+    - assets/docs/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

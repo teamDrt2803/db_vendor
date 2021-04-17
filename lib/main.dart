@@ -3,6 +3,7 @@ import 'package:db_vendor/constants.dart';
 import 'package:db_vendor/orders/cartmodal.dart';
 import 'package:db_vendor/productsmodal.dart';
 import 'package:db_vendor/ui/models/Address.dart';
+import 'package:db_vendor/ui/screens/splashScreen.dart';
 
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ void main() async {
         debugShowCheckedModeBanner: false,
         title: Consts.app_name,
         theme: theme(),
-        initialRoute: Wrapper.routeName,
+        initialRoute: Splash.routeName,
         routes: routes,
       ),
     ),

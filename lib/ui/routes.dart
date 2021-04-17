@@ -1,5 +1,6 @@
 import 'package:db_vendor/Authorization/views/categoriesscreen.dart';
 import 'package:db_vendor/ui/screens/categoryDetails/category_details.dart';
+import 'package:db_vendor/ui/screens/splashScreen.dart';
 import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:db_vendor/ui/screens/cart/cart_screen.dart';
@@ -31,4 +32,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  Splash.routeName: (context) => Splash()
 };

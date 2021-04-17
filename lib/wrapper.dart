@@ -6,6 +6,7 @@ import 'package:db_vendor/ui/screens/complete_profile/components/complete_profil
 import 'package:db_vendor/ui/screens/home/home_screen.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
 import 'package:db_vendor/ui/screens/splash/splash_screen.dart';
+import 'package:db_vendor/ui/screens/splashScreen.dart';
 import 'package:db_vendor/ui/size_config.dart';
 
 import 'package:db_vendor/welcomscreen.dart';

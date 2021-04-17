@@ -19,16 +19,26 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Discount Bazaar, Let’s shop!",
+      "title": "Welcome to \nDiscount Bazaar",
+      "text":
+          "MP’s leading online wholesale platform for Small & Medium Businesses and Shop owners.",
       "image": "assets/images/splash_1.png"
     },
     {
-      "text": "We help people conect with store \naround Madhya Pradesh, India",
-      "image": "assets/images/splash_2.png"
+      "title": "Wide Range \nOf Products",
+      "text":
+          "We offer wide range of products and categories available at the lowest possible rates.",
+      "image": "assets/images/splash_3.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/images/splash_3.png"
+      "title": "Fast Delivery",
+      "text": "We strive for next day delivery of goods at your doorstep.",
+      "image": "assets/images/splash_4.png"
+    },
+    {
+      "title": "Easy Return",
+      "text": "We have a hassle free returns policy.",
+      "image": "assets/images/splash_2.png"
     },
   ];
   @override
@@ -49,6 +59,7 @@ class _BodyState extends State<Body> {
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
                   image: splashData[index]["image"],
+                  heading: splashData[index]["title"],
                   text: splashData[index]['text'],
                 ),
               ),

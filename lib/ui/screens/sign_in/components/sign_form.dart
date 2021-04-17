@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
+import 'package:db_vendor/ui/screens/home/documents.dart';
 import 'package:db_vendor/ui/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/components/custom_surfix_icon.dart';
@@ -23,7 +24,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
-  bool remember = false;
+  bool remember = true;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -59,7 +60,13 @@ class _SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              Text("Terms \& Conditions"),
+              TextButton(
+                  onPressed: () {
+                    Get.to(() => Docs(
+                          pageshow: PAGESHOW.TERMS,
+                        ));
+                  },
+                  child: Text("Terms & Conditions")),
               Spacer(),
             ],
           ),
@@ -77,19 +84,21 @@ class _SignFormState extends State<SignForm> {
                     )
                   : null,
               text: "Continue",
-              press: () async {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-                  // if all are valid then go to success screen
-                  KeyboardUtil.hideKeyboard(context);
-                  await authController.sendOtp(
-                    phoneNumber: authController.number.value,
-                  );
-                  // Get.to(() => OtpScreen(
-                  //       phone: email,
-                  //     ));
-                }
-              },
+              press: remember
+                  ? () async {
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        // if all are valid then go to success screen
+                        KeyboardUtil.hideKeyboard(context);
+                        await authController.sendOtp(
+                          phoneNumber: authController.number.value,
+                        );
+                        // Get.to(() => OtpScreen(
+                        //       phone: email,
+                        //     ));
+                      }
+                    }
+                  : null,
             ),
           ),
         ],

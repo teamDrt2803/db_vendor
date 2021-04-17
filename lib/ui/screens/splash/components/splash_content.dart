@@ -8,8 +8,9 @@ class SplashContent extends StatelessWidget {
     Key key,
     this.text,
     this.image,
+    this.heading,
   }) : super(key: key);
-  final String text, image;
+  final String text, image, heading;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +18,21 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
-          "DISCOUNT BAZAAR",
+          heading,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          text,
-          textAlign: TextAlign.center,
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+          ),
         ),
         Spacer(flex: 2),
         Image.asset(

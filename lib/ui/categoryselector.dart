@@ -1,4 +1,5 @@
 import 'package:db_vendor/ui/screens/home/components/special_offers.dart';
+import 'package:db_vendor/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 category: "Fashion",
                 numOfBrands: 50,
                 press: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                  Get.off(() => Wrapper());
                 },
               ),
             ),
@@ -39,7 +40,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 category: "Electronics",
                 numOfBrands: 20,
                 press: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                  Get.off(() => Wrapper());
                 },
               ),
             ),
@@ -51,7 +52,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 category: "Grocery",
                 numOfBrands: 50,
                 press: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                  Get.off(() => Wrapper());
                 },
               ),
             ),
@@ -63,7 +64,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 category: "FMCG",
                 numOfBrands: 18,
                 press: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/wrapper'));
+                  Get.off(() => Wrapper());
                 },
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:db_vendor/Authorization/controllers/authcontroller.dart';
+import 'package:db_vendor/ui/categoryselector.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/ui/constants.dart';
 import 'package:db_vendor/ui/screens/sign_in/sign_in_screen.dart';
@@ -85,6 +86,7 @@ class _BodyState extends State<Body> {
                       press: () {
                         _authController.noFirstBoot(false);
                         _authController.setupSetupComplete();
+                        Get.off(() => CategorySelector());
                         //Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),

@@ -102,7 +102,7 @@ class _OtpFormState extends State<OtpForm> {
                   await _authController.verifyOtp(
                     otp: _authController.otp.value,
                   );
-                  Get.to(() => CategorySelector());
+                  Get.off(() => Wrapper());
                 }
               },
             ),

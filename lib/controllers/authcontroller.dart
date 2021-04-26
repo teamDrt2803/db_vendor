@@ -45,6 +45,7 @@ class AuthController extends GetxController {
   final searchResult = SearchResult().obs;
   final setupComplete = true.obs;
   final userName = ''.obs;
+  final email = ''.obs;
 
   updatestatus(SignInStatus status) {
     this.status.value = status;
@@ -162,6 +163,24 @@ class AuthController extends GetxController {
     }
     setupSetupComplete();
     readData();
+    _auth.userChanges().listen((event) {
+      if (event != null) {
+        storage.listenKey(
+          Consts.userName,
+          (s) {
+            userName.value = s;
+          },
+        );
+        storage.write(Consts.userName, true);
+
+        storage.listenKey(
+          Consts.email,
+          (s) {
+            email.value = s;
+          },
+        );
+      }
+    });
   }
 
   readData() async {
@@ -260,6 +279,24 @@ class AuthController extends GetxController {
     await _auth.signOut();
     FlutterRestart.restartApp();
     status.value = SignInStatus.SIGNOUT;
+  }
+
+  Future updateName({String name}) async {
+    await storage.write(Consts.userName, name);
+
+    await databaseReference
+        .child(_user.value.uid)
+        .child(Consts.userName)
+        .set(name);
+  }
+
+  Future updateEmail({String email}) async {
+    await storage.write(Consts.email, email);
+
+    await databaseReference
+        .child(_user.value.uid)
+        .child(Consts.email)
+        .set(email);
   }
 }
 

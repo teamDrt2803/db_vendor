@@ -36,6 +36,7 @@ class Consts {
   static const String storeName = 'storename';
   static const String setupComplete = 'setupComplete';
   static const String userName = 'userName';
+  static const String email = 'email';
 }
 
 const defaultDuration = Duration(milliseconds: 250);

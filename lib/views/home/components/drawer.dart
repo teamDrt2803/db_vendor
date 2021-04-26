@@ -74,7 +74,7 @@ class Custdrawer extends StatelessWidget {
             ProfileMenu2(
               text: "My Account",
               icon: "assets/icons/User Icon.svg",
-              press: () => {},
+              press: () => {Get.to(() => ProfileScreen())},
             ),
             ProfileMenu2(
               text: "Notifications",

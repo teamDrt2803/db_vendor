@@ -6,11 +6,12 @@ class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     Key key,
     @required this.text,
+    @required this.label,
     @required this.icon,
     this.press,
   }) : super(key: key);
 
-  final String text, icon;
+  final String text, label, icon;
   final VoidCallback press;
 
   @override
@@ -31,8 +32,22 @@ class ProfileMenu extends StatelessWidget {
               width: 22,
             ),
             SizedBox(width: 20),
-            Expanded(child: Text(text)),
-            Icon(Icons.arrow_forward_ios),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    text,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.edit),
           ],
         ),
       ),

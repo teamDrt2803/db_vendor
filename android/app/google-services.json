@@ -38,6 +38,13 @@
             {
               "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "86469347870-ojgfls8mj05g4evj87i9864b2qtavdv5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamdrt.dbVendor"
+              }
             }
           ]
         }
@@ -83,6 +90,101 @@
             {
               "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "86469347870-ojgfls8mj05g4evj87i9864b2qtavdv5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamdrt.dbVendor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86469347870:android:7edf8c375c6a6dc3567c0f",
+        "android_client_info": {
+          "package_name": "com.teamdrt.mygrocery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86469347870-o7d7ip498lhqlag447sccefvqmsr8f51.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamdrt.mygrocery",
+            "certificate_hash": "50a2318834404ab7be3648da92b3424406704eaa"
+          }
+        },
+        {
+          "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7-UD8aINPXyZqoeJE8SNiQK2_0eQiWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "86469347870-ojgfls8mj05g4evj87i9864b2qtavdv5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamdrt.dbVendor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86469347870:android:22260fcb869b2414567c0f",
+        "android_client_info": {
+          "package_name": "com.tvacstudio.a_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86469347870-7q0u72vnhrnupmcppbcci51srt88vrto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvacstudio.a_commerce",
+            "certificate_hash": "50a2318834404ab7be3648da92b3424406704eaa"
+          }
+        },
+        {
+          "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7-UD8aINPXyZqoeJE8SNiQK2_0eQiWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86469347870-tvqsnkqbok39q0krnav3dcelne4c8lkh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "86469347870-ojgfls8mj05g4evj87i9864b2qtavdv5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamdrt.dbVendor"
+              }
             }
           ]
         }

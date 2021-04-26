@@ -1,4 +1,5 @@
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/modals/favorites.dart';
 
 import 'package:db_vendor/modals/modals.dart';
 
@@ -19,6 +20,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 Box<CartModal> box;
 Box<AddressModal> addressBox;
+Box<FavouriteProduct> favouritesBox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,10 +29,12 @@ void main() async {
   Hive.registerAdapter<CartModal>(CartModalAdapter());
   Hive.registerAdapter<Products>(ProductsAdapter());
   Hive.registerAdapter<Images>(ImagesAdapter());
+  Hive.registerAdapter<FavouriteProduct>(FavouriteProductAdapter());
   Hive.registerAdapter<AddressModal>(AddressModalAdapter());
   await Hive.initFlutter();
   box = await Hive.openBox<CartModal>('cart');
   addressBox = await Hive.openBox<AddressModal>('address');
+  favouritesBox = await Hive.openBox<FavouriteProduct>('favourites');
   runApp(
     Phoenix(
       child: GetMaterialApp(

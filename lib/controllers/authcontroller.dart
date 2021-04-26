@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
-
+import 'package:http/http.dart' as http;
 import '../helpers/constants.dart';
 
 enum SHOPDETAIL {
@@ -105,12 +105,12 @@ class AuthController extends GetxController {
     await storage.write(Consts.city, city.value);
     await storage.write(Consts.postalcode, postalCode.value);
     await storage.write(Consts.location, searchResult.value.name);
-    print(email);
+    print(userName);
     Storedetails storedetails = Storedetails(
       userName: userName,
-      state: state.value,
+      state: 'Madhya Pradesh',
       email: email,
-      city: city.value,
+      city: city.value ?? 'Chhindwara',
       postalcode: postalCode.value,
       location: searchResult.value.name,
       storeName: storeName,
@@ -119,7 +119,13 @@ class AuthController extends GetxController {
     await databaseReference
         .child(_user.value.uid)
         .set(storedetails.toJson())
-        .then((value) {
+        .then((value) async {
+      var response = await http.get(
+        Uri.parse(
+          'https://api.discount-bazaar.com/welcome?email=$email&name=$userName',
+        ),
+      );
+      debugPrint(response.statusCode.toString());
       storage.write(
         Consts.setupComplete,
         true,

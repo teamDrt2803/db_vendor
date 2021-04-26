@@ -72,7 +72,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 : null,
             text: "continue",
             press: () {
+              print(firstName);
               if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
                 if (mounted)
                   setState(() {
                     process = true;
@@ -90,8 +92,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     });
                   await Get.to(() => LoginSuccessScreen());
                 });
-                //Navigator.pushNamed(context, OtpScreen.routeName);
               }
+              print(firstName);
             },
           ),
         ],
@@ -136,6 +138,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     return TextFormField(
       onSaved: (newValue) => storeName = newValue,
       onChanged: (value) {
+        storeName = value;
         if (value.isNotEmpty) {
           removeError(error: 'Please Enter Store Name');
         }
@@ -239,8 +242,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => firstName = newValue,
+      onSaved: (newValue) {},
       onChanged: (value) {
+        firstName = value;
+
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }

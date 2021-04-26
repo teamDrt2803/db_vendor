@@ -1,12 +1,18 @@
+import 'package:db_vendor/controllers/favouritescontroller.dart';
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/main.dart';
+import 'package:db_vendor/modals/favorites.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:html/parser.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductDescription extends StatelessWidget {
-  const ProductDescription({
+  ProductDescription({
     Key key,
     @required this.product,
     this.pressOnSeeMore,
@@ -14,6 +20,7 @@ class ProductDescription extends StatelessWidget {
 
   final Products product;
   final GestureTapCallback pressOnSeeMore;
+  final FavouritesController _favouriteController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +58,33 @@ class ProductDescription extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color: Color(0xFFFFE6E6),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
+          child: InkWell(
+            onTap: () {
+              _favouriteController.updateFavourites(product.id, context);
+            },
+            child: Container(
+              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+              width: getProportionateScreenWidth(64),
+              decoration: BoxDecoration(
+                color: Color(0xFFFFE6E6),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
               ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
-              color: Color(0xFFFF4848),
-              height: getProportionateScreenWidth(16),
+              child: ValueListenableBuilder<Box<FavouriteProduct>>(
+                  valueListenable: favouritesBox.listenable(),
+                  builder: (context, snapshot, _) {
+                    return SvgPicture.asset(
+                      "assets/icons/Heart Icon_2.svg",
+                      color: snapshot.values
+                              .toList()
+                              .any((element) => element.id == product.id)
+                          ? Color(0xffff4848)
+                          : Colors.white,
+                      height: getProportionateScreenWidth(16),
+                    );
+                  }),
             ),
           ),
         ),

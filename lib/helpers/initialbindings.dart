@@ -8,5 +8,6 @@ class InitialBindings extends Bindings {
     Get.put(WooController(), permanent: true);
     Get.put(CartController(), permanent: true);
     Get.put(ProductController(), permanent: true);
+    Get.put(FavouritesController(), permanent: true);
   }
 }

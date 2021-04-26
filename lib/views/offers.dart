@@ -15,7 +15,7 @@ class _OffersScreenState extends State<OffersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff6f7f9),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
+      //bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
       // appBar: AppBar(
       //   //title: Text('Offers'),
       //   backgroundColor: Color(0xfff6f7f9),
@@ -33,8 +33,6 @@ class _OffersScreenState extends State<OffersScreen> {
                 height: getProportionateScreenHeight(15.0),
               ),
               OffersWidget(
-
-                
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(

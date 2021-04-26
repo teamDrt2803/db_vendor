@@ -16,8 +16,6 @@ class _BrandListState extends State<BrandList> {
   Widget build(BuildContext context) {
     brandsData.sort((a, b) => a['brandName'].compareTo(b['brandName']));
     return Scaffold(
-      bottomNavigationBar:
-          CustomBottomNavBar(selectedMenu: MenuState.favourite),
       appBar: AppBar(
         title: Text(
           'All Brands',

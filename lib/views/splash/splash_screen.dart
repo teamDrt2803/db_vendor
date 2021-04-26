@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/services.dart';
 
 import 'components/body.dart';

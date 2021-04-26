@@ -11,8 +11,8 @@ import 'profile_menu.dart';
 import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
-  AuthController _controller = Get.find();
-  FirebaseAuth auth = FirebaseAuth.instance;
+  final AuthController _controller = Get.find();
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -17,11 +17,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
   final double total;
-  var database = FirebaseDatabase.instance.reference();
-  var auth = FirebaseAuth.instance.currentUser;
-  int selectedIndex = 0;
+  final database = FirebaseDatabase.instance.reference();
+  final auth = FirebaseAuth.instance.currentUser;
+  final int selectedIndex = 0;
   bool addressSet = false;
   Body({Key key, this.total}) : super(key: key);
   @override

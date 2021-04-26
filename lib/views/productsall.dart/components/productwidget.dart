@@ -7,7 +7,6 @@ import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:html/parser.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class AllProductWidget extends StatelessWidget {
@@ -23,12 +22,12 @@ class AllProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        products.images.length > 0
-            ? Get.to(
-                () => DetailsScreen(),
-                arguments: ProductDetailsArguments(product: products),
-              )
-            : null;
+        if (products.images.length > 0) {
+          Get.to(
+            () => DetailsScreen(),
+            arguments: ProductDetailsArguments(product: products),
+          );
+        }
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -176,9 +175,9 @@ class AllProductWidget extends StatelessWidget {
   }
 }
 
-String _parseHtmlString(String htmlString) {
-  final document = parse(htmlString);
-  final String parsedString = parse(document.body.text).documentElement.text;
+// String _parseHtmlString(String htmlString) {
+//   final document = parse(htmlString);
+//   final String parsedString = parse(document.body.text).documentElement.text;
 
-  return parsedString;
-}
+//   return parsedString;
+// }

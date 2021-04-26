@@ -17,7 +17,7 @@ class HomeHeader extends StatelessWidget {
   HomeHeader({
     Key key,
   }) : super(key: key);
-  CartController cartController = Get.find();
+  final CartController cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Padding(

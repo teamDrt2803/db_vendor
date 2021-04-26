@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
   final WooController controller = Get.find();
   int catId;

@@ -1,13 +1,12 @@
-import 'package:db_vendor/controllers/controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'components/body.dart';
 
 class AddressScreen extends StatelessWidget {
-  GlobalKey<FormState> formKey = GlobalKey();
-  CartController _cartController = Get.find();
-  void Function() onPressed;
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final void Function() onPressed;
+
+  AddressScreen({Key key, this.onPressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Body(onPressed: onPressed);

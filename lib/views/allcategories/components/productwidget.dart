@@ -6,8 +6,6 @@ import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:html/parser.dart';
-import 'package:db_vendor/controllers/controllers.dart';
 
 import '../../views.dart';
 
@@ -18,7 +16,6 @@ class AllCategoriesWidget extends StatelessWidget {
   }) : super(key: key);
 
   final WooCategories products;
-  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +74,9 @@ class AllCategoriesWidget extends StatelessWidget {
   }
 }
 
-String _parseHtmlString(String htmlString) {
-  final document = parse(htmlString);
-  final String parsedString = parse(document.body.text).documentElement.text;
+// String _parseHtmlString(String htmlString) {
+//   final document = parse(htmlString);
+//   final String parsedString = parse(document.body.text).documentElement.text;
 
-  return parsedString;
-}
+//   return parsedString;
+// }

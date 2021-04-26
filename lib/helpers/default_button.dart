@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_place/google_place.dart';
 
 import 'constants.dart';
 import '../modals/size_config.dart';

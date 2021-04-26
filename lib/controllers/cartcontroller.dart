@@ -11,10 +11,8 @@ class CartController extends GetxController {
   FirebaseDatabase _firebaseDatabase = FirebaseDatabase();
   DatabaseReference databaseReference;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User _user;
   @override
   Future<void> onInit() async {
-    _user = _auth.currentUser;
     databaseReference = _firebaseDatabase.reference();
 
     super.onInit();

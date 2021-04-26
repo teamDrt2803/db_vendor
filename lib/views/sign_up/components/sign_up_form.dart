@@ -15,6 +15,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
+  // ignore: non_constant_identifier_names
   String conform_password;
   bool remember = false;
   final List<String> errors = [];

@@ -9,18 +9,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Body extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  void Function() onPressed;
-  CartController authController = Get.find();
-  TextEditingController firstName = TextEditingController();
-  TextEditingController lastName = TextEditingController();
-  TextEditingController contactNumber = TextEditingController();
-  TextEditingController houseNo = TextEditingController();
-  TextEditingController appartmentName = TextEditingController();
-  TextEditingController streetAddress = TextEditingController();
-  TextEditingController landmark = TextEditingController();
-  TextEditingController areaDetails = TextEditingController();
-  TextEditingController city = TextEditingController();
-  TextEditingController pincode = TextEditingController();
+  final void Function() onPressed;
+  final CartController authController = Get.find();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController contactNumber = TextEditingController();
+  final TextEditingController houseNo = TextEditingController();
+  final TextEditingController appartmentName = TextEditingController();
+  final TextEditingController streetAddress = TextEditingController();
+  final TextEditingController landmark = TextEditingController();
+  final TextEditingController areaDetails = TextEditingController();
+  final TextEditingController city = TextEditingController();
+  final TextEditingController pincode = TextEditingController();
   Body({Key key, this.onPressed}) : super(key: key);
 
   @override

@@ -17,8 +17,8 @@ class CheckoutCard extends StatelessWidget {
   CheckoutCard({
     Key key,
   }) : super(key: key);
-  AuthController _authController = Get.find();
-  FirebaseAuth auth = FirebaseAuth.instance;
+  final AuthController _authController = Get.find();
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

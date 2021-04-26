@@ -14,8 +14,8 @@ class CartCard extends StatelessWidget {
   }) : super(key: key);
 
   final CartModal cart;
-  void Function() increment;
-  void Function() decrement;
+  final void Function() increment;
+  final void Function() decrement;
 
   @override
   Widget build(BuildContext context) {

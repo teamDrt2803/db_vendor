@@ -1,6 +1,7 @@
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashContent extends StatelessWidget {
   const SplashContent({
@@ -19,7 +20,7 @@ class SplashContent extends StatelessWidget {
         Text(
           heading,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.roboto(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
@@ -31,13 +32,20 @@ class SplashContent extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(),
           ),
         ),
         Spacer(flex: 2),
         Image.asset(
           image,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          height: image == "assets/images/splash_4.png" ||
+                  image == "assets/images/splash_2.png"
+              ? getProportionateScreenHeight(300)
+              : getProportionateScreenHeight(265),
+          width: image == "assets/images/splash_4.png" ||
+                  image == "assets/images/splash_2.png"
+              ? getProportionateScreenHeight(300)
+              : getProportionateScreenWidth(235),
         ),
       ],
     );

@@ -83,10 +83,9 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
+                        Get.off(() => CategorySelector());
                         _authController.noFirstBoot(false);
                         _authController.setupSetupComplete();
-                        Get.off(() => CategorySelector());
-                        //Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),
                     Spacer(),

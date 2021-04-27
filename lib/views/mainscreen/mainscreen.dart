@@ -1,6 +1,7 @@
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
 import 'package:db_vendor/helpers/enums.dart';
+import 'package:db_vendor/views/favourites/favouritespage.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -52,23 +53,32 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/Shop Icon.svg",
-                color: currentIndex == 0 ? kPrimaryColor : inActiveIconColor,
-              ),
-              label: 'tickets'),
+            icon: SvgPicture.asset(
+              "assets/icons/Shop Icon.svg",
+              color: currentIndex == 0 ? kPrimaryColor : inActiveIconColor,
+            ),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.verified_outlined,
-                color: currentIndex == 1 ? kPrimaryColor : inActiveIconColor,
-              ),
-              label: 'calendar'),
+            icon: Icon(
+              Icons.favorite,
+              color: currentIndex == 1 ? kPrimaryColor : inActiveIconColor,
+            ),
+            label: 'Favourites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.verified_outlined,
+              color: currentIndex == 2 ? kPrimaryColor : inActiveIconColor,
+            ),
+            label: 'Offers',
+          ),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.branding_watermark_outlined,
-                color: currentIndex == 2 ? kPrimaryColor : inActiveIconColor,
+                color: currentIndex == 3 ? kPrimaryColor : inActiveIconColor,
               ),
-              label: 'home'),
+              label: 'Brand List'),
         ],
       ),
       body: PageView(
@@ -76,6 +86,7 @@ class _MainScreenState extends State<MainScreen> {
         onPageChanged: onPageChanged,
         children: [
           HomeScreen(),
+          FavouritesPage(),
           OffersScreen(),
           BrandList(),
         ],

@@ -74,13 +74,14 @@ class AllProductWidget extends StatelessWidget {
                                 ),
                               ),
                               SmoothStarRating(
-                                color: kPrimaryColor,
-                                borderColor: kPrimaryColor,
-                                defaultIconData: Icons.star_outline,
-                                //isReadOnly: true,
-                                starCount: 5,
-                                rating: products.rating.toDouble(),
-                              ),
+                                  color: kPrimaryColor,
+                                  borderColor: kPrimaryColor,
+                                  defaultIconData: Icons.star_outline,
+                                  //isReadOnly: true,
+                                  starCount: 5,
+                                  rating: double.parse(
+                                    products.rating.toString(),
+                                  )),
                             ],
                           ),
                           Positioned(
@@ -100,7 +101,7 @@ class AllProductWidget extends StatelessWidget {
                                 SizedBox(
                                   width: getProportionateScreenWidth(10),
                                 ),
-                                if (products.onSale &&
+                                if (products.onSale == "true" &&
                                     products.regularPrice.toString().isNotEmpty)
                                   Text(
                                     '\₹${products.regularPrice}',
@@ -146,7 +147,8 @@ class AllProductWidget extends StatelessWidget {
                 )
               ],
             ),
-            if (products.salesPrice.toString().isNotEmpty && products.onSale)
+            if (products.salesPrice.toString().isNotEmpty &&
+                products.onSale == "true")
               Align(
                 alignment: Alignment.topRight,
                 child: Container(

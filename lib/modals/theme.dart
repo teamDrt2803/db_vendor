@@ -9,6 +9,7 @@ ThemeData theme() {
     fontFamily: GoogleFonts.roboto().fontFamily,
     appBarTheme: appBarTheme(),
     textTheme: textTheme(),
+    primaryColor: kPrimaryColor,
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );

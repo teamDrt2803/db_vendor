@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/modals/categoriesmodal.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/singlecategorymodal.dart';
@@ -27,12 +28,11 @@ class WooController extends GetxController {
   RxBool lastProductCat = false.obs;
   int currentId = 0;
   GetStorage storage = GetStorage();
+  var firstore = FirebaseFirestore.instance;
 
   @override
   onInit() async {
     super.onInit();
-    // await getTopProducts();
-    // await getCategories();
   }
 
   Future<void> getAllProducts(bool previous, bool reset) async {
@@ -40,7 +40,6 @@ class WooController extends GetxController {
       currentPage = 0;
       totalProductPageCount = 1;
       allProducts.clear();
-
       fetchingProducts.value = false;
     }
     if (currentPage <= totalProductPageCount) {

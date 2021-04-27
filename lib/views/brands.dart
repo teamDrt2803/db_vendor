@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
 import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/enums.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

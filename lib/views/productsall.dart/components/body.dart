@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class Body extends StatelessWidget {
-  final WooController controller = Get.find();
+  final ProductController controller = Get.find();
   int catId;
 
   Body({Key key, this.catId}) : super(key: key);
@@ -22,33 +22,33 @@ class Body extends StatelessWidget {
       () => Column(
         children: [
           Flexible(
-            child: controller.fetchingProducts.value ||
-                    controller.fetchingProductsCat.value
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Container(
-                    //color: kSecondaryColor.withOpacity(0.2),
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    child: StaggeredGridView.extentBuilder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: catId == null
-                          ? controller.allProducts.length
-                          : controller.allProductsCat.length,
-                      itemBuilder: (context, index) {
-                        Products products = catId == null
-                            ? controller.allProducts[index]
-                            : controller.allProductsCat[index];
-                        return AllProductWidget(products: products);
-                      },
-                      maxCrossAxisExtent: 200,
-                      crossAxisSpacing: getProportionateScreenHeight(20),
-                      mainAxisSpacing: getProportionateScreenWidth(20),
-                      staggeredTileBuilder: (int index) {
-                        return StaggeredTile.extent(1, 300);
-                      },
-                    ),
-                  ),
+            child:
+                controller.allProducts.length == 0 || controller.fetching.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        //color: kSecondaryColor.withOpacity(0.2),
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        child: StaggeredGridView.extentBuilder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: catId == null
+                              ? controller.allProducts.length
+                              : controller.allProducts.length,
+                          itemBuilder: (context, index) {
+                            Products products = catId == null
+                                ? controller.allProducts[index]
+                                : controller.allProducts[index];
+                            return AllProductWidget(products: products);
+                          },
+                          maxCrossAxisExtent: 200,
+                          crossAxisSpacing: getProportionateScreenHeight(20),
+                          mainAxisSpacing: getProportionateScreenWidth(20),
+                          staggeredTileBuilder: (int index) {
+                            return StaggeredTile.extent(1, 300);
+                          },
+                        ),
+                      ),
           ),
           SizedBox(
             height: getProportionateScreenHeight(70),
@@ -59,44 +59,28 @@ class Body extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Obx(
-                    () => SizedBox(
-                      width: SizeConfig.screenWidth * 0.4,
-                      child: DefaultButton(
-                        color: kSecondaryColor.withOpacity(0.5),
-                        //width: getProportionateScreenWidth(20),
-                        text: 'Previous',
-                        press: catId == null
-                            ? controller.firstProduct.value
-                                ? null
-                                : () {
-                                    controller.getAllProducts(true, false);
-                                  }
-                            : controller.firstProductCat.value
-                                ? null
-                                : () {
-                                    controller.getAllProductsCat(true, catId);
-                                  },
-                        //color: kPrimaryColor,
-                      ),
+                  SizedBox(
+                    width: SizeConfig.screenWidth * 0.4,
+                    child: DefaultButton(
+                      color: kSecondaryColor.withOpacity(0.5),
+
+                      text: 'Previous',
+
+                      press: controller.currentProductPage.value == 0
+                          ? null
+                          : () {
+                              controller.getPreviousProducts();
+                            },
+                      //color: kPrimaryColor,
                     ),
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * 0.4,
                     child: DefaultButton(
-                      //width: getProportionateScreenWidth(20),
                       text: 'Next',
-                      press: catId == null
-                          ? controller.lastProduct.value
-                              ? null
-                              : () {
-                                  controller.getAllProducts(false, false);
-                                }
-                          : controller.lastProductCat.value
-                              ? null
-                              : () {
-                                  controller.getAllProductsCat(false, catId);
-                                },
+                      press: () {
+                        controller.getNextProducts();
+                      },
                       //color: kPrimaryColor,
                     ),
                   )

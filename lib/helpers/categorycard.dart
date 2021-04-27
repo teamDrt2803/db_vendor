@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/modals/categoriesmodal.dart';
+import 'package:db_vendor/modals/categorymodal.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class CategoryCard extends StatelessWidget {
   }) : super(key: key);
 
   final double width, aspectRetio;
-  final WooCategories product;
+  final CategoryModal product;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,8 @@ class CategoryCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: CachedNetworkImage(imageUrl: product.image.src),
+                    child:
+                        CachedNetworkImage(imageUrl: product.images.first.src),
                   ),
                 ),
               ),

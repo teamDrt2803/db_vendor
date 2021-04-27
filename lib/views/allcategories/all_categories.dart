@@ -20,12 +20,11 @@ class AllCategories extends StatefulWidget {
 }
 
 class _AllCategoriesState extends State<AllCategories> {
-  WooController _wooController = Get.find();
+  ProductController _wooController = Get.find();
 
   @override
   void initState() {
     print('object');
-    _wooController.getCategories(pageCount: 100);
     super.initState();
   }
 

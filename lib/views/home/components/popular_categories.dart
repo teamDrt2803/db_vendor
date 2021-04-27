@@ -1,6 +1,6 @@
 import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/categoriesmodal.dart';
 import 'package:db_vendor/helpers/categorycard.dart';
+import 'package:db_vendor/modals/categorymodal.dart';
 import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:db_vendor/views/views.dart';
 import 'section_title.dart';
 
 class PopularCategories extends StatelessWidget {
-  final WooController _controller = Get.find();
+  final ProductController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,8 +34,8 @@ class PopularCategories extends StatelessWidget {
                 ...List.generate(
                   _controller.categories.length,
                   (index) {
-                    WooCategories wooProducts = _controller.categories[index];
-                    return wooProducts.image == null
+                    CategoryModal wooProducts = _controller.categories[index];
+                    return wooProducts.images.first == null
                         ? SizedBox.shrink()
                         : CategoryCard(product: wooProducts);
                     // here by default width and height is 0

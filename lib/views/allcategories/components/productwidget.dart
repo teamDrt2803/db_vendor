@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:db_vendor/modals/categoriesmodal.dart';
+import 'package:db_vendor/modals/categorymodal.dart';
 import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class AllCategoriesWidget extends StatelessWidget {
     @required this.products,
   }) : super(key: key);
 
-  final WooCategories products;
+  final CategoryModal products;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +42,14 @@ class AllCategoriesWidget extends StatelessWidget {
                   child: SizedBox(
                       height: getProportionateScreenHeight(130),
                       width: getProportionateScreenWidth(130),
-                      child: products.image == null
+                      child: products.images == null
                           ? Icon(
                               Icons.local_grocery_store,
                               size: 96,
                               color: Colors.redAccent,
                             )
-                          : CachedNetworkImage(imageUrl: products.image.src)),
+                          : CachedNetworkImage(
+                              imageUrl: products.images.first.src)),
                 ),
                 Flexible(
                   child: Container(

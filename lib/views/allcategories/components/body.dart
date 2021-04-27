@@ -1,5 +1,6 @@
 import 'package:db_vendor/modals/categoriesmodal.dart';
 import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/modals/categorymodal.dart';
 
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/views/allcategories/components/productwidget.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
-  final WooController controller = Get.find();
+  final ProductController controller = Get.find();
   final int catId;
 
   Body({Key key, this.catId}) : super(key: key);
@@ -25,7 +26,7 @@ class Body extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemCount: controller.categories.length,
                 itemBuilder: (context, index) {
-                  WooCategories categories = controller.categories[index];
+                  CategoryModal categories = controller.categories[index];
                   return AllCategoriesWidget(products: categories);
                 },
                 maxCrossAxisExtent: 200,

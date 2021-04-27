@@ -20,14 +20,16 @@ class AllProducts extends StatefulWidget {
 }
 
 class _AllProductsState extends State<AllProducts> {
-  WooController _wooController = Get.find();
+  ProductController _productController = Get.find();
 
   @override
   void initState() {
+    _productController.currentProductPage.value = 0;
     if (widget.catId == null) {
-      _wooController.getAllProducts(false, true);
+      _productController.getAllProducts();
     } else {
-      _wooController.getAllProductsCat(false, widget.catId);
+      //_wooController.getAllProductsCat(false, widget.catId);
+      _productController.getProductBYCategory(widget.catId.toString());
     }
     super.initState();
   }

@@ -15,12 +15,14 @@ class Body extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(height: getProportionateScreenHeight(20)),
-            //HomeHeader(),
-            SizedBox(height: getProportionateScreenWidth(10)),
+            SizedBox(height: getProportionateScreenHeight(30)),
             DiscountBanner(),
             Categories(),
             SpecialOffers(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            PopularProducts(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            PopularCategories(),
             SizedBox(height: getProportionateScreenWidth(30)),
             DBPopularProducts(
               first: 'Offer',
@@ -36,10 +38,6 @@ class Body extends StatelessWidget {
               first: 'Brand',
               title: "Top Brands of the Day",
             ),
-            SizedBox(height: getProportionateScreenWidth(30)),
-            PopularProducts(),
-            SizedBox(height: getProportionateScreenWidth(30)),
-            PopularCategories(),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),

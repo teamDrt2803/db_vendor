@@ -78,9 +78,12 @@ class Body extends StatelessWidget {
                     width: SizeConfig.screenWidth * 0.4,
                     child: DefaultButton(
                       text: 'Next',
-                      press: () {
-                        controller.getNextProducts();
-                      },
+                      press: controller.hasNext.value
+                          ? () {
+                              if (!controller.fetching.value)
+                                controller.getNextProducts();
+                            }
+                          : null,
                       //color: kPrimaryColor,
                     ),
                   )

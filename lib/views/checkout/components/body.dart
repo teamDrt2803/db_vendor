@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:db_vendor/controllers/cartcontroller.dart';
 import 'package:db_vendor/main.dart';
 import 'package:db_vendor/modals/modals.dart';
 
@@ -22,6 +23,7 @@ class Body extends StatelessWidget {
   final double total;
   final database = FirebaseDatabase.instance.reference();
   final auth = FirebaseAuth.instance.currentUser;
+  final CartController _cartController = Get.find();
   final int selectedIndex = 0;
   bool addressSet = false;
   Body({Key key, this.total}) : super(key: key);
@@ -234,39 +236,39 @@ class Body extends StatelessWidget {
                             builder: (context, sboxnapshot, _) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 24.0),
-                                child: DefaultButton(
-                                  text: 'Confirm Order',
-                                  press: () async {
-                                    if (addressSet) {
-                                      DateTime time = DateTime.now();
-                                      for (var i = 0; i < box.length; i++) {
-                                        CartModal modal = box.getAt(i);
-                                        await database
-                                            .child(auth.uid)
-                                            .child('orders')
-                                            .child(time.millisecondsSinceEpoch
-                                                .toString())
-                                            .set(modal.toJson())
-                                            .then((value) {});
-                                      }
-                                      box.deleteAll(box.keys);
-                                      Get.to(() => OrderPlacedScreen());
-                                    } else {
-                                      Get.dialog(AlertDialog(
-                                        title: Text('Please Set a Address'),
-                                        content: Text(
-                                            'Add an address for the product to be delivered!'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: Text('OKAY'),
+                                child: Obx(
+                                  () => DefaultButton(
+                                    widget: _cartController.uploading.value
+                                        ? Center(
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation(
+                                                      Colors.white),
+                                            ),
                                           )
-                                        ],
-                                      ));
-                                    }
-                                  },
+                                        : null,
+                                    text: 'Confirm Order',
+                                    press: () async {
+                                      if (addressSet) {
+                                        await _cartController.confirmOrder();
+                                        Get.to(() => OrderPlacedScreen());
+                                      } else {
+                                        Get.dialog(AlertDialog(
+                                          title: Text('Please Set an Address'),
+                                          content: Text(
+                                              'Add an address for the product to be delivered!'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: Text('OKAY'),
+                                            )
+                                          ],
+                                        ));
+                                      }
+                                    },
+                                  ),
                                 ),
                               );
                             }),
@@ -296,33 +298,27 @@ class Body extends StatelessWidget {
                           addressSet = box.length > 0;
                           AddressModal modal =
                               box.length > 0 ? box.getAt(selectedIndex) : null;
-                          return ListTile(
-                            leading: Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.redAccent,
-                            ),
-                            title: Text(
-                              addressBox.length > 0
-                                  ? '${modal.houseNo},${modal.appartmentName} ${modal.streetName} ${modal.landMark}'
-                                  : 'No Address',
-                            ),
-                            trailing: TextButton(
-                              onPressed: () {
-                                Get.to(() => AddressScreen());
-                              },
-                              child: Text(box.length > 1 ? 'Change' : 'Add'),
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.redAccent,
+                              ),
+                              title: Text(
+                                addressBox.length > 0
+                                    ? '${modal.houseNo},${modal.appartmentName} ${modal.streetName} ${modal.landMark}'
+                                    : 'No Address',
+                              ),
+                              trailing: TextButton(
+                                onPressed: () {
+                                  Get.to(() => AddressScreen());
+                                },
+                                child: Text(box.length > 1 ? 'Change' : 'Add'),
+                              ),
                             ),
                           );
                         }),
-                    ListTile(
-                      leading: Icon(
-                        Icons.alarm,
-                        color: Colors.blueAccent,
-                      ),
-                      title: Text(
-                        'Time of Delivery - 48 Hours',
-                      ),
-                    ),
                   ],
                 ),
               ),

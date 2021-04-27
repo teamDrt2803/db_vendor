@@ -50,4 +50,6 @@ class AddressModal {
     data['pincode'] = pincode;
     return data;
   }
+
+  AddressModal.fromJson() {}
 }

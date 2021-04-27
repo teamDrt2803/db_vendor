@@ -30,6 +30,7 @@ class PopularCategories extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Obx(
             () => Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ...List.generate(
                   _controller.categories.length,
@@ -41,7 +42,7 @@ class PopularCategories extends StatelessWidget {
                     // here by default width and height is 0
                   },
                 ),
-                SizedBox(width: getProportionateScreenWidth(20)),
+                //SizedBox(width: getProportionateScreenWidth(20)),
               ],
             ),
           ),

@@ -1,9 +1,9 @@
-import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
 import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/enums.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'home/components/drawer.dart';
 
 class OffersScreen extends StatefulWidget {
   @override
@@ -15,16 +15,17 @@ class _OffersScreenState extends State<OffersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff6f7f9),
+      drawer: Custdrawer(),
       //bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
-      // appBar: AppBar(
-      //   //title: Text('Offers'),
-      //   backgroundColor: Color(0xfff6f7f9),
-      //   leading: SizedBox.shrink(),
-      // ),
+      appBar: AppBar(
+        title: Text('Offers'),
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView(
+            clipBehavior: Clip.none,
+            physics: BouncingScrollPhysics(),
             children: [
               OffersWidget(
                 title: 'OFFERS\nCORNER',

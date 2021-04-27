@@ -96,7 +96,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 ProfileMenu(
-                  text: "7666071669",
+                  text: auth.currentUser.phoneNumber,
                   label: "Phone",
                   icon: "assets/icons/Question mark.svg",
                   press: () {},
@@ -167,7 +167,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 ProfileMenu(
-                  text: "106,Ambika Bhuvan,Kopar road,Dombivli(West).",
+                  text: "106, Ambika Bhuvan ,\nKopar road,\tDombivli(West).",
                   label: "Address",
                   icon: "assets/icons/Question mark.svg",
                   press: () {},

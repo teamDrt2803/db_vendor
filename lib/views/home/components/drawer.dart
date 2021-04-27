@@ -1,4 +1,5 @@
 import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/views/categoryselector.dart';
 
 import 'package:db_vendor/helpers/constants.dart';
@@ -8,7 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:core';
+import 'package:url_launcher/url_launcher.dart';
 import '../documents.dart';
 
 class Custdrawer extends StatelessWidget {
@@ -22,48 +25,46 @@ class Custdrawer extends StatelessWidget {
         stream: _controller.auth.userChanges(),
         builder: (context, user) {
           return Drawer(
-              child: ListView(children: [
-            // DrawerHeader(
-            //   decoration: BoxDecoration(color: kPrimaryLightColor),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Flexible(
-            //         child: CircleAvatar(
-            //           backgroundColor: Colors.transparent,
-            //           child: Center(
-            //             child: Icon(
-            //               Icons.person_outline,
-            //               size: 48,
-            //               color: kPrimaryColor,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         width: getProportionateScreenWidth(15),
-            //       ),
-            //       Flexible(
-            //         child: FittedBox(
-            //           fit: BoxFit.fitWidth,
-            //           child: Text(
-            //             user.data == null
-            //                 ? 'Unknown'
-            //                 : user.data.displayName.isNotEmpty
-            //                     ? user.data.displayName
-            //                     : 'User',
-            //             textScaleFactor: 2.0,
-            //             style: GoogleFonts.openSans(
-            //               //color: Colors.black87,
-            //               fontWeight: FontWeight.w600,
-            //               letterSpacing: 1.4,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+              child: ListView(physics: BouncingScrollPhysics(), children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: kPrimaryLightColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Center(
+                        child: Icon(
+                          Icons.person_outline,
+                          size: 48,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(15),
+                  ),
+                  Flexible(
+                    child: Text(
+                      user.data == null
+                          ? 'Unknown'
+                          : user.data.displayName != null &&
+                                  user.data.displayName.isNotEmpty
+                              ? user.data.displayName
+                              : _controller.userName.value,
+                      textScaleFactor: 2.0,
+                      style: GoogleFonts.roboto(
+                        //color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             ProfileMenu2(
                 text: "Categories",
                 icon: "assets/icons/category_icon.svg",
@@ -87,14 +88,15 @@ class Custdrawer extends StatelessWidget {
               text: "My Orders",
               icon: "assets/icons/Question mark.svg",
               press: () {
+                Get.to(() => MyOrders());
                 //Get.to(() => Order());
               },
             ),
-            ProfileMenu2(
-              text: "Settings",
-              icon: "assets/icons/Settings.svg",
-              press: () {},
-            ),
+            // ProfileMenu2(
+            //   text: "Settings",
+            //   icon: "assets/icons/Settings.svg",
+            //   press: () {},
+            // ),
             ProfileMenu2(
               text: "Terms and Conditions",
               icon: "assets/icons/Question mark.svg",
@@ -134,7 +136,41 @@ class Custdrawer extends StatelessWidget {
             ProfileMenu2(
               text: "Help Center",
               icon: "assets/icons/Question mark.svg",
-              press: () {},
+              press: () {
+                final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'customercare.discountbazaar@gmail.com',
+                  queryParameters: {
+                    'subject':
+                        'Help\tAbout\tDiscount\tBazaar\tVendor\tmobile\tapplication'
+                  },
+                );
+                Get.generalDialog(pageBuilder: (context, _, __) {
+                  return Center(
+                    child: AlertDialog(
+                      title: Text('Attention Needed'),
+                      content: Text(
+                          'Currently We provide support only via email. \nClick okay to directly open you preferred email application and send us an email. \nElse you can manually email us at \ncustomercare.discountbazaar@gmail.com'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            //launch(_emailLaunchUri.toString());
+                            Get.back();
+                          },
+                          child: Text('Canecel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            launch(_emailLaunchUri.toString());
+                            Get.back();
+                          },
+                          child: Text('Okay'),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+              },
             ),
             ProfileMenu2(
               text: user.data == null ? "Log In" : "Log Out",

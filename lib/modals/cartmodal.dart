@@ -8,6 +8,7 @@ class CartModal {
   int totalQuantity = 0;
   @HiveField(1)
   Products wooProducts;
+  dynamic time;
 
   CartModal({this.totalQuantity, this.wooProducts});
 
@@ -15,6 +16,13 @@ class CartModal {
     Map<String, dynamic> data = Map<String, dynamic>();
     data['totalQuantity'] = totalQuantity;
     data['wooProducts'] = wooProducts.toJson();
+    data['ts'] = time;
     return data;
+  }
+
+  CartModal.fromJson(Map<String, dynamic> json) {
+    time = json['ts'];
+    wooProducts = Products.fromJson(json['wooProducts']);
+    totalQuantity = json['totalQuantity'];
   }
 }

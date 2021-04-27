@@ -4,6 +4,8 @@ import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'home/components/drawer.dart';
+
 class BrandList extends StatefulWidget {
   @override
   _BrandListState createState() => _BrandListState();
@@ -14,6 +16,7 @@ class _BrandListState extends State<BrandList> {
   Widget build(BuildContext context) {
     brandsData.sort((a, b) => a['brandName'].compareTo(b['brandName']));
     return Scaffold(
+      drawer: Custdrawer(),
       appBar: AppBar(
         title: Text(
           'All Brands',

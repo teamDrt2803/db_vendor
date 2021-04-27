@@ -26,6 +26,7 @@ class PopularProducts extends StatelessWidget {
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
+          clipBehavior: Clip.none,
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: Obx(
@@ -68,6 +69,7 @@ class DBPopularProducts extends StatelessWidget {
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
+          clipBehavior: Clip.none,
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: Obx(

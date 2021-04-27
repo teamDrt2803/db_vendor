@@ -142,7 +142,7 @@ class AuthController extends GetxController {
     databaseReference = _database.reference();
     if (storage.hasData(Consts.userName)) {
       userName.value = storage.read(Consts.userName);
-    }
+    } else {}
 
     if (storage.hasData(Consts.firstBoot)) {
       firstBoot.value = storage.read(Consts.firstBoot);
@@ -171,8 +171,7 @@ class AuthController extends GetxController {
             userName.value = s;
           },
         );
-        storage.write(Consts.userName, true);
-
+        storage.write(Consts.userName, '');
         storage.listenKey(
           Consts.email,
           (s) {
@@ -205,6 +204,7 @@ class AuthController extends GetxController {
   writeData(Storedetails storeDetails) async {
     await storage.write(Consts.city, storeDetails.city);
     await storage.write(Consts.state, storeDetails.state);
+    await storage.write(Consts.email, storeDetails.email ?? '');
     await storage.write(
         Consts.setupComplete, storeDetails.setupComplete ?? false);
     await storage.write(Consts.postalcode, storeDetails.postalcode);

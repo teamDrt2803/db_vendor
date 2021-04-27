@@ -53,7 +53,7 @@ dependencies:
   flutter_phoenix: ^1.0.0
   flutter_restart: ^0.0.3
   sms_autofill: ^1.3.1
-  flutter_svg: ^0.21.0-nullsafety.0
+  flutter_svg: ^0.21.0-nullsafety.0ur
   intl: ^0.17.0
   numberpicker: ^1.0.0
   flare_splash_screen: ^3.0.1
@@ -73,6 +73,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^19.1.56-beta
   cloud_firestore: ^1.0.6
   flutter_snake_navigationbar: ^0.5.0
+  url_launcher: ^6.0.3
 
 
 flutter_icons: 

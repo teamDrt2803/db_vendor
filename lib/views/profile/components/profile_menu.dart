@@ -47,7 +47,10 @@ class ProfileMenu extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.edit),
+            Icon(
+              Icons.edit_outlined,
+              color: kSecondaryColor,
+            ),
           ],
         ),
       ),

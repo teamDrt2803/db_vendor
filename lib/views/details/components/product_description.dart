@@ -35,9 +35,15 @@ class ProductDescription extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: Text(
-                  product.name,
-                  style: Theme.of(context).textTheme.headline6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    Text("Minimum Quantity: " + product.setOf),
+                  ],
                 ),
               ),
               SizedBox(

@@ -11,6 +11,9 @@ class ProductController extends GetxController {
   RxList<Products> allProductsByCat = <Products>[].obs;
   RxList<CategoryModal> categories = <CategoryModal>[].obs;
   List<List<QueryDocumentSnapshot>> documentList = [];
+  QueryDocumentSnapshot lastDoc;
+  final hasNext = true.obs;
+  final limit = 20;
   final fetching = false.obs;
   final currentProductPage = 0.obs;
   @override
@@ -60,7 +63,7 @@ class ProductController extends GetxController {
     fetching.value = true;
     var localDocumentList = await firestore
         .collection('products')
-        .limit(2)
+        .limit(limit)
         .orderBy('id')
         .get()
         .then((value) => value.docs);
@@ -71,46 +74,53 @@ class ProductController extends GetxController {
         var newProduct = new Products.fromJson(product.data());
         allProducts.add(newProduct);
       }
+      if (localDocumentList.length < limit) {
+        hasNext.value = false;
+      } else {
+        hasNext.value = true;
+      }
+      lastDoc = localDocumentList.last;
     }
     fetching.value = false;
   }
 
   getNextProducts() async {
+    if (!hasNext.value) return;
+    if (fetching.value) return;
     try {
       fetching.value = true;
-      if (!(documentList[currentProductPage.value + 1].length > 0)) {
-        var newDocumentList = await firestore
-            .collection('products')
-            .orderBy('id')
-            .startAfterDocument(documentList[currentProductPage.value]
-                [documentList[currentProductPage.value].length - 1])
-            .limit(2)
-            .get()
-            .then(
-              (value) => value.docs,
-            );
-        if (newDocumentList.length > 0) {
-          documentList.add(newDocumentList);
-          allProducts.clear();
-          for (var product in newDocumentList) {
-            var newProduct = new Products.fromJson(product.data());
-            allProducts.add(newProduct);
-          }
-          currentProductPage.value++;
-        }
+      print('First');
+      print(currentProductPage.value);
+      var newDocumentList = await firestore
+          .collection('products')
+          .orderBy('id')
+          .startAfterDocument(lastDoc)
+          .limit(limit)
+          .get()
+          .then(
+            (value) => value.docs,
+          );
+      if (newDocumentList.length < limit) {
+        print('right');
+        hasNext.value = false;
       } else {
-        var newDocumentList = documentList[currentProductPage.value + 1];
-        if (newDocumentList.length > 0) {
-          documentList.add(newDocumentList);
-          allProducts.clear();
-          for (var product in newDocumentList) {
-            var newProduct = new Products.fromJson(product.data());
-            allProducts.add(newProduct);
-          }
-          currentProductPage.value++;
-        }
+        hasNext.value = true;
       }
-    } catch (e) {} finally {
+      lastDoc = newDocumentList.last;
+      if (newDocumentList.length > 0) {
+        documentList.add(newDocumentList);
+        allProducts.clear();
+        for (var product in newDocumentList) {
+          var newProduct = new Products.fromJson(product.data());
+          allProducts.add(newProduct);
+        }
+        currentProductPage.value++;
+
+        lastDoc = newDocumentList.last;
+      }
+    } catch (e) {
+      print(e.toString());
+    } finally {
       fetching.value = false;
     }
   }
@@ -126,6 +136,8 @@ class ProductController extends GetxController {
           allProducts.add(newProduct);
         }
         currentProductPage.value--;
+        hasNext.value = true;
+        lastDoc = dlist.last;
       }
     }
     fetching.value = false;

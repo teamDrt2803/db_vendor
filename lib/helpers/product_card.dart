@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/views/views.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 import '../modals/size_config.dart';
@@ -39,6 +40,12 @@ class ProductCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                          color: kSecondaryColor.withOpacity(0.7),
+                          offset: Offset(0, 3),
+                          blurRadius: 10),
+                    ],
                   ),
                   child: Hero(
                     tag: product.id.toString(),
@@ -50,7 +57,11 @@ class ProductCard extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 product.name,
-                style: TextStyle(color: Colors.black),
+                style: GoogleFonts.roboto(
+                  // color: Colors.black,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
                 maxLines: 2,
               ),
               Row(
@@ -59,7 +70,7 @@ class ProductCard extends StatelessWidget {
                   Text(
                     "\₹${product.salesPrice}",
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                     ),
@@ -97,12 +108,16 @@ class DBProductCard extends StatelessWidget {
         width: getProportionateScreenWidth(width),
         height: getProportionateScreenHeight(180),
         child: GestureDetector(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            color: Color(0xfff5f6f9),
-            elevation: 5,
+          child: Container(
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: kSecondaryColor.withOpacity(0.7),
+                      offset: Offset(0, 3),
+                      blurRadius: 14),
+                ],
+                color: Color(0xfff5f6f9).withOpacity(0.7),
+                borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -7,21 +7,49 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Body extends StatelessWidget {
-  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+class Body extends StatefulWidget {
   final void Function() onPressed;
-  final CartController authController = Get.find();
-  final TextEditingController firstName = TextEditingController();
-  final TextEditingController lastName = TextEditingController();
-  final TextEditingController contactNumber = TextEditingController();
-  final TextEditingController houseNo = TextEditingController();
-  final TextEditingController appartmentName = TextEditingController();
-  final TextEditingController streetAddress = TextEditingController();
-  final TextEditingController landmark = TextEditingController();
-  final TextEditingController areaDetails = TextEditingController();
-  final TextEditingController city = TextEditingController();
-  final TextEditingController pincode = TextEditingController();
+
   Body({Key key, this.onPressed}) : super(key: key);
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+
+  final AuthController _authController = Get.find();
+
+  final CartController authController = Get.find();
+
+  final TextEditingController firstName = TextEditingController();
+
+  final TextEditingController lastName = TextEditingController();
+
+  final TextEditingController contactNumber = TextEditingController();
+
+  final TextEditingController houseNo = TextEditingController();
+
+  final TextEditingController appartmentName = TextEditingController();
+
+  final TextEditingController streetAddress = TextEditingController();
+
+  final TextEditingController landmark = TextEditingController();
+
+  final TextEditingController areaDetails = TextEditingController();
+
+  final TextEditingController city = TextEditingController();
+
+  final TextEditingController pincode = TextEditingController();
+
+  @override
+  void initState() {
+    contactNumber.text = _authController.auth.currentUser.phoneNumber;
+    firstName.text = _authController.userName.value ??
+        _authController.auth.currentUser.displayName;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

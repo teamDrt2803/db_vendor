@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/main.dart';
-import 'package:db_vendor/modals/modals.dart';
+import 'package:db_vendor/modals/modals.dart' as modal;
 
 import 'package:db_vendor/helpers/default_button.dart';
 import 'package:db_vendor/helpers/constants.dart';
@@ -23,11 +25,11 @@ class _BodyState extends State<Body> {
   CartController cartController = Get.find();
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<CartModal>>(
+    return ValueListenableBuilder<Box<modal.CartModal>>(
         valueListenable: box.listenable(),
         builder: (context, box, _) {
           if (box.length > 0) {
-            List<CartModal> cartList = box.values.toList();
+            List<modal.CartModal> cartList = box.values.toList();
             return Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: getProportionateScreenWidth(20)),
@@ -81,23 +83,43 @@ class _BodyState extends State<Body> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Image.asset("assets/images/empty_cart.png"),
                     Text(
                       'Oops :(\nYou Cart is Empty',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.openSans(
                         color: kSecondaryColor,
-                        fontSize: getProportionateScreenWidth(30),
+                        fontSize: getProportionateScreenWidth(24),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 48.0, vertical: 24.0),
-                      child: DefaultButton(
-                        text: 'Back to Shop',
-                        press: () {
-                          Get.back();
-                        },
-                      ),
+                      child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              elevation: MaterialStateProperty.all(0),
+                              minimumSize: MaterialStateProperty.all(Size(
+                                  SizeConfig.screenWidth * 0.7,
+                                  getProportionateScreenHeight(60))),
+                              backgroundColor: MaterialStateProperty.all(
+                                  kPrimaryLightColor)),
+                          icon: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            color: kPrimaryColor,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          label: Text(
+                            "Back to Shop",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                          )),
                     ),
                   ],
                 ),

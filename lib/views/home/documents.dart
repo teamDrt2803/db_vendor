@@ -11,7 +11,7 @@ class Docs extends StatefulWidget {
 }
 
 class _DocsState extends State<Docs> {
-  getAssets() {
+  String getAssets() {
     switch (widget.pageshow) {
       case PAGESHOW.POLICY:
         return 'assets/docs/Policy.pdf';
@@ -20,13 +20,12 @@ class _DocsState extends State<Docs> {
         return 'assets/docs/About.pdf';
       case PAGESHOW.TERMS:
         return 'assets/docs/Terms.pdf';
-      case PAGESHOW.FAQ:
-        return 'assets/docs/Faq.pdf';
       default:
+        return 'assets/docs/Faq.pdf';
     }
   }
 
-  getTitle() {
+  String getTitle() {
     switch (widget.pageshow) {
       case PAGESHOW.POLICY:
         return 'Privacy Policy';
@@ -35,9 +34,8 @@ class _DocsState extends State<Docs> {
         return 'About Us';
       case PAGESHOW.TERMS:
         return 'Terms & Conditions';
-      case PAGESHOW.FAQ:
-        return 'FAQ';
       default:
+        return 'FAQ';
     }
   }
 

@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/modals/categorymodal.dart';
 import 'package:db_vendor/modals/modals.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ProductController extends GetxController {
-  var firestore = FirebaseFirestore.instance;
+  final firestore = FirebaseFirestore.instance;
   RxList<Products> products = <Products>[].obs;
   RxList<Products> allProducts = <Products>[].obs;
   RxList<Products> allProductsByCat = <Products>[].obs;
   RxList<CategoryModal> categories = <CategoryModal>[].obs;
   List<List<QueryDocumentSnapshot>> documentList = [];
   QueryDocumentSnapshot lastDoc;
+  final scrollController = ScrollController();
   final hasNext = true.obs;
   final limit = 20;
   final fetching = false.obs;
@@ -24,26 +26,27 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
-  getTopProducts() async {
+  void getTopProducts() async {
     firestore.collection('products').limit(20).snapshots().listen((event) {
       products.clear();
       for (var product in event.docChanges) {
-        var newProduct = new Products.fromJson(product.doc.data());
-        if (!products.any((element) => element.id == newProduct.id))
+        var newProduct = Products.fromJson(product.doc.data());
+        if (!products.any((element) => element.id == newProduct.id)) {
           products.add(newProduct);
+        }
       }
     });
   }
 
-  getCategories() async {
+  void getCategories() async {
     firestore.collection('categories').snapshots().listen((event) {
       for (var product in event.docChanges) {
-        categories.add(new CategoryModal.fromJson(product.doc.data()));
+        categories.add(CategoryModal.fromJson(product.doc.data()));
       }
     });
   }
 
-  getProductBYCategory(String catId) {
+  void getProductBYCategory(String catId) {
     firestore
         .collection('products')
         .where('catId', isEqualTo: catId)
@@ -51,7 +54,7 @@ class ProductController extends GetxController {
         .listen((event) {
       allProducts.clear();
       for (var product in event.docChanges) {
-        var newProduct = new Products.fromJson(product.doc.data());
+        var newProduct = Products.fromJson(product.doc.data());
         if (!allProducts.any((element) => element.id == newProduct.id)) {
           allProducts.add(newProduct);
         }
@@ -59,7 +62,7 @@ class ProductController extends GetxController {
     });
   }
 
-  getAllProducts() async {
+  void getAllProducts() async {
     fetching.value = true;
     var localDocumentList = await firestore
         .collection('products')
@@ -67,11 +70,11 @@ class ProductController extends GetxController {
         .orderBy('id')
         .get()
         .then((value) => value.docs);
-    if (localDocumentList.length > 0) {
+    if (localDocumentList.isNotEmpty) {
       documentList.add(localDocumentList);
       allProducts.clear();
       for (var product in localDocumentList) {
-        var newProduct = new Products.fromJson(product.data());
+        var newProduct = Products.fromJson(product.data());
         allProducts.add(newProduct);
       }
       if (localDocumentList.length < limit) {
@@ -84,7 +87,7 @@ class ProductController extends GetxController {
     fetching.value = false;
   }
 
-  getNextProducts() async {
+  Future<void> getNextProducts() async {
     if (!hasNext.value) return;
     if (fetching.value) return;
     try {
@@ -107,11 +110,11 @@ class ProductController extends GetxController {
         hasNext.value = true;
       }
       lastDoc = newDocumentList.last;
-      if (newDocumentList.length > 0) {
+      if (newDocumentList.isNotEmpty) {
         documentList.add(newDocumentList);
         allProducts.clear();
         for (var product in newDocumentList) {
-          var newProduct = new Products.fromJson(product.data());
+          var newProduct = Products.fromJson(product.data());
           allProducts.add(newProduct);
         }
         currentProductPage.value++;
@@ -125,14 +128,14 @@ class ProductController extends GetxController {
     }
   }
 
-  getPreviousProducts() async {
+  void getPreviousProducts() async {
     fetching.value = true;
     if (!(currentProductPage.value <= 0)) {
       var dlist = documentList[currentProductPage.value - 1];
       allProducts.clear();
-      if (dlist.length > 0) {
+      if (dlist.isNotEmpty) {
         for (var product in dlist) {
-          var newProduct = new Products.fromJson(product.data());
+          var newProduct = Products.fromJson(product.data());
           allProducts.add(newProduct);
         }
         currentProductPage.value--;
@@ -143,5 +146,5 @@ class ProductController extends GetxController {
     fetching.value = false;
   }
 
-  getALlCategories() {}
+  // getALlCategories() async {}
 }

@@ -1,4 +1,4 @@
-import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/controllers/auth.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/helpers/default_button.dart';
 import 'package:db_vendor/modals/size_config.dart';
@@ -19,23 +19,22 @@ class SignForm extends StatefulWidget {
 class _SignFormState extends State<SignForm> {
   final AuthController authController = Get.find();
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+
   bool remember = true;
   final List<String> errors = [];
 
   void addError({String error}) {
-    if (!errors.contains(error))
-      setState(() {
-        errors.add(error);
-      });
+    if (!errors.contains(error)) {
+      setState(() => errors.add(error));
+    }
   }
 
   void removeError({String error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   @override
@@ -63,7 +62,7 @@ class _SignFormState extends State<SignForm> {
                           pageshow: PAGESHOW.TERMS,
                         ));
                   },
-                  child: Text("Terms & Conditions")),
+                  child: Text('Terms & Conditions')),
               Spacer(),
             ],
           ),
@@ -71,7 +70,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           Obx(
             () => DefaultButton(
-              widget: authController.status.value == SignInStatus.PROCESSING
+              widget: authController.processing
                   ? Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(
@@ -80,19 +79,13 @@ class _SignFormState extends State<SignForm> {
                       ),
                     )
                   : null,
-              text: "Continue",
+              text: 'Continue',
               press: remember
                   ? () async {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
-                        // if all are valid then go to success screen
                         KeyboardUtil.hideKeyboard(context);
-                        await authController.sendOtp(
-                          phoneNumber: authController.number.value,
-                        );
-                        // Get.to(() => OtpScreen(
-                        //       phone: email,
-                        //     ));
+                        await authController.loginwithPhone();
                       }
                     }
                   : null,
@@ -106,9 +99,8 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) => email = newValue,
+      controller: authController.phone,
       onChanged: (value) {
-        authController.updateNumber(number1: value);
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
         } else if (value.length == 10) {
@@ -119,22 +111,22 @@ class _SignFormState extends State<SignForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kEmailNullError);
-          return "";
+          return '';
         } else if (value.length != 10) {
           addError(error: kInvalidEmailError);
-          return "";
+          return '';
         }
         return null;
       },
       maxLength: 10,
       decoration: InputDecoration(
-        labelText: "Phone",
-        hintText: "Enter your Phone Number",
+        labelText: 'Phone',
+        hintText: 'Enter your Phone Number',
         prefixText: '+91',
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/callcopy.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: 'assets/icons/callcopy.svg'),
       ),
     );
   }

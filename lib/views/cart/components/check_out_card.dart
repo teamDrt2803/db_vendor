@@ -73,58 +73,58 @@ class CheckoutCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),
-                  ValueListenableBuilder<Box<CartModal>>(
-                      valueListenable: box.listenable(),
-                      builder: (context, box, _) {
-                        double cartTotal = 0.0;
-                        box.values.toList().forEach((element) {
-                          double abc = double.parse(
-                                  element.totalQuantity.toString()) *
-                              double.parse(
-                                  element.wooProducts.salesPrice.toString());
-                          cartTotal = cartTotal + double.parse(abc.toString());
-                        });
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                text: "Total:\n",
-                                children: [
-                                  TextSpan(
-                                    text: "\₹$cartTotal",
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(190),
-                              child: DefaultButton(
-                                text: "Check Out",
-                                press: () {
-                                  if (cartTotal > 0) {
-                                    if (snapshot.data == null) {
-                                      Get.to(
-                                        () => SignInScreen(
-                                          authController: _authController,
-                                        ),
-                                      );
-                                    } else {
-                                      Get.to(
-                                        () => CheckoutScreen(
-                                          total: cartTotal,
-                                        ),
-                                      );
-                                    }
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
+
+                  ///TODO:  show cart items
+                  // ValueListenableBuilder<Box<CartModal>>(
+                  //     valueListenable: box.listenable(),
+                  //     builder: (context, box, _) {
+                  //       double cartTotal = 0.0;
+                  //       box.values.toList().forEach((element) {
+                  //         double abc = double.parse(
+                  //                 element.totalQuantity.toString()) *
+                  //             double.parse(
+                  //                 element.wooProducts.salesPrice.toString());
+                  //         cartTotal = cartTotal + double.parse(abc.toString());
+                  //       });
+                  //       return Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text.rich(
+                  //             TextSpan(
+                  //               text: "Total:\n",
+                  //               children: [
+                  //                 TextSpan(
+                  //                   text: "\₹$cartTotal",
+                  //                   style: TextStyle(
+                  //                       fontSize: 16, color: Colors.black),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           SizedBox(
+                  //             width: getProportionateScreenWidth(190),
+                  //             child: DefaultButton(
+                  //               text: "Check Out",
+                  //               press: () {
+                  //                 if (cartTotal > 0) {
+                  //                   if (snapshot.data == null) {
+                  //                     Get.to(
+                  //                       () => SignInScreen(),
+                  //                     );
+                  //                   } else {
+                  //                     Get.to(
+                  //                       () => CheckoutScreen(
+                  //                         total: cartTotal,
+                  //                       ),
+                  //                     );
+                  //                   }
+                  //                 }
+                  //               },
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       );
+                  //     }),
                 ],
               ),
             ),

@@ -17,7 +17,7 @@ class HomeHeader extends StatelessWidget {
   HomeHeader({
     Key key,
   }) : super(key: key);
-  final CartController cartController = Get.find();
+  // final CartController cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,16 +27,16 @@ class HomeHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SearchField(),
-          ValueListenableBuilder<Box<CartModal>>(
-            valueListenable: box.listenable(),
-            builder: (context, Box<CartModal> cart, _) {
-              return IconBtnWithCounter(
-                svgSrc: "assets/icons/Cart Icon.svg",
-                numOfitem: cart.length,
-                press: () => Get.to(() => CartScreen()),
-              );
-            },
-          ),
+          // ValueListenableBuilder<Box<CartModal>>(
+          //   valueListenable: box.listenable(),
+          //   builder: (context, Box<CartModal> cart, _) {
+          //     return IconBtnWithCounter(
+          //       svgSrc: "assets/icons/Cart Icon.svg",
+          //       numOfitem: cart.length,
+          //       press: () => Get.to(() => CartScreen()),
+          //     );
+          //   },
+          // ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
             numOfitem: 3,

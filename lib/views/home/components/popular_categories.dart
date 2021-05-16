@@ -14,12 +14,13 @@ class PopularCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-              title: "Popular Categories",
+              title: 'Popular Categories',
               press: () {
                 Get.to(() => AllCategories());
               }),
@@ -27,15 +28,15 @@ class PopularCategories extends StatelessWidget {
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
           child: Obx(
             () => Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ...List.generate(
                   _controller.categories.length,
                   (index) {
-                    CategoryModal wooProducts = _controller.categories[index];
+                    var wooProducts = _controller.categories[index];
                     return wooProducts.images.first == null
                         ? SizedBox.shrink()
                         : CategoryCard(product: wooProducts);

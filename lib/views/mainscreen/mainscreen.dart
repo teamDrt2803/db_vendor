@@ -1,5 +1,4 @@
 import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
 import 'package:db_vendor/helpers/enums.dart';
 import 'package:db_vendor/views/favourites/favouritespage.dart';
 import 'package:db_vendor/views/views.dart';
@@ -8,34 +7,18 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
+  static String routeName = '/mainscreen';
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   final Color inActiveIconColor = Color(0xFFB6B6B6);
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int currentIndex = 0;
-  onPageChanged(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
-  getMenuState() {
-    switch (currentIndex) {
-      case 0:
-        return MenuState.home;
-        break;
-      case 1:
-        return MenuState.message;
-        break;
-      default:
-        return MenuState.favourite;
-        break;
-    }
-  }
-
+  Future<void> onPageChanged(int index) async => setState(() {
+        currentIndex = index;
+      });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,40 +28,26 @@ class _MainScreenState extends State<MainScreen> {
         showUnselectedLabels: false,
         showSelectedLabels: true,
         currentIndex: currentIndex,
-        onTap: (index) async {
-          _pageController.jumpToPage(
-            index,
-          );
-          setState(() {});
-        },
+        selectedItemColor: kPrimaryColor,
+        snakeViewColor: kPrimaryColor,
+        onTap: (index) async => await _pageController.animateToPage(
+          index,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeIn,
+        ),
         items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              "assets/icons/Shop Icon.svg",
-              color: currentIndex == 0 ? kPrimaryColor : inActiveIconColor,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-              color: currentIndex == 1 ? kPrimaryColor : inActiveIconColor,
-            ),
-            label: 'Favourites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.verified_outlined,
-              color: currentIndex == 2 ? kPrimaryColor : inActiveIconColor,
-            ),
-            label: 'Offers',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.branding_watermark_outlined,
-                color: currentIndex == 3 ? kPrimaryColor : inActiveIconColor,
-              ),
-              label: 'Brand List'),
+          ...List.generate(navigationItem.length, (index) {
+            return BottomNavigationBarItem(
+              icon: navigationItem[index]['icon']
+                  ? Icon(navigationItem[index]['svg'])
+                  : SvgPicture.asset(
+                      navigationItem[index]['svg'],
+                      color:
+                          currentIndex == 0 ? kPrimaryColor : inActiveIconColor,
+                    ),
+              label: navigationItem[index]['label'],
+            );
+          }),
         ],
       ),
       body: PageView(
@@ -94,3 +63,26 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+var navigationItem = [
+  {
+    'label': 'Home',
+    'icon': false,
+    'svg': 'assets/icons/Shop Icon.svg',
+  },
+  {
+    'label': 'Favourites',
+    'icon': true,
+    'svg': Icons.favorite_outline_outlined,
+  },
+  {
+    'label': 'Offers',
+    'icon': true,
+    'svg': Icons.verified_outlined,
+  },
+  {
+    'label': 'Brand List',
+    'icon': true,
+    'svg': Icons.branding_watermark_outlined,
+  }
+];

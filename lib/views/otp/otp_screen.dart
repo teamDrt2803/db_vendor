@@ -1,21 +1,22 @@
-import 'package:db_vendor/controllers/controllers.dart';
 import 'package:flutter/material.dart';
+
+import 'package:db_vendor/controllers/auth.dart';
 import 'package:db_vendor/modals/size_config.dart';
+import 'package:get/get.dart';
 
 import 'components/body.dart';
 
 class OtpScreen extends StatefulWidget {
-  final String phone;
-  static String routeName = "/otp";
-  final AuthController authController;
+  static String routeName = '/otp';
 
-  const OtpScreen({Key key, this.phone, this.authController}) : super(key: key);
+  const OtpScreen({Key key}) : super(key: key);
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  final AuthController authController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -26,10 +27,10 @@ class _OtpScreenState extends State<OtpScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("OTP Verification"),
+        title: Text('OTP Verification'),
       ),
       body: Body(
-        phone: widget.phone ?? widget.authController.number.value,
+        phone: authController.phone.text,
       ),
     );
   }

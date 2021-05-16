@@ -1,28 +1,78 @@
-import 'package:db_vendor/modals/modals.dart';
-import 'package:hive/hive.dart';
-part 'cartmodal.g.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-@HiveType(typeId: 4)
+import 'modals.dart';
+
 class CartModal {
-  @HiveField(0)
-  int totalQuantity = 0;
-  @HiveField(1)
-  Products wooProducts;
-  dynamic time;
+  final int totalQuantity;
+  final Products wooProducts;
+  final dynamic time;
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
 
-  CartModal({this.totalQuantity, this.wooProducts});
+  CartModal({
+    this.totalQuantity,
+    this.wooProducts,
+    this.time,
+    this.snapshot,
+    this.reference,
+    this.documentID,
+  });
 
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map<String, dynamic>();
-    data['totalQuantity'] = totalQuantity;
-    data['wooProducts'] = wooProducts.toJson();
-    data['ts'] = time;
-    return data;
+  factory CartModal.fromFirestore(DocumentSnapshot snapshot) {
+    if (snapshot == null) return null;
+    var map = snapshot.data();
+    return CartModal(
+      totalQuantity: map['totalQuantity'],
+      wooProducts: map['wooProducts'] != null
+          ? Products.fromJson(map['wooProducts'])
+          : null,
+      time: map['time'],
+      snapshot: snapshot,
+      reference: snapshot.reference,
+      documentID: snapshot.id,
+    );
   }
 
-  CartModal.fromJson(Map<String, dynamic> json) {
-    time = json['ts'];
-    wooProducts = Products.fromJson(json['wooProducts']);
-    totalQuantity = json['totalQuantity'];
+  factory CartModal.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return CartModal(
+      totalQuantity: map['totalQuantity'],
+      wooProducts: map['wooProducts'] != null
+          ? Products.fromJson(map['wooProducts'])
+          : null,
+      time: map['time'],
+    );
   }
+
+  Map<String, dynamic> toMap() => {
+        'totalQuantity': totalQuantity,
+        'wooProducts': wooProducts,
+        'time': time,
+      };
+
+  CartModal copyWith({
+    int totalQuantity,
+    Products wooProducts,
+    dynamic time,
+  }) {
+    return CartModal(
+      totalQuantity: totalQuantity ?? this.totalQuantity,
+      wooProducts: wooProducts ?? this.wooProducts,
+      time: time ?? this.time,
+    );
+  }
+
+  @override
+  String toString() {
+    return '${totalQuantity.toString()}, ${wooProducts.toString()}, ${time.toString()}, ';
+  }
+
+  @override
+  bool operator ==(other) =>
+      other is CartModal && documentID == other.documentID;
+
+  @override
+  int get hashCode => documentID.hashCode;
 }

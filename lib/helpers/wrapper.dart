@@ -14,7 +14,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  AuthController _authController = Get.find<AuthController>();
+  final AuthController _authController = Get.find<AuthController>();
   @override
   void initState() {
     super.initState();
@@ -27,19 +27,12 @@ class _WrapperState extends State<Wrapper> {
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
       ),
-      child: StreamBuilder<User>(
-        stream: _authController.auth.userChanges(),
-        builder: (context, snapshot) {
-          return Obx(
-            () => _authController.firstBoot.value
-                ? SplashScreen()
-                : snapshot.data == null
-                    ? MainScreen()
-                    : _authController.setupComplete.value
-                        ? MainScreen()
-                        : CompleteProfileScreen(),
-          );
-        },
+      child: Obx(
+        () => _authController.firstBoot
+            ? SplashScreen()
+            : _authController.firestoreUser.value.setupComplete
+                ? MainScreen()
+                : CompleteProfileScreen(),
       ),
     );
   }

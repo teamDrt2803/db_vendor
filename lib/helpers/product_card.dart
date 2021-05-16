@@ -2,83 +2,157 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/views/views.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'constants.dart';
 import '../modals/size_config.dart';
+import 'package:db_vendor/helpers/extensions.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key key,
     this.width = 140,
+    this.onPressed,
     this.aspectRetio = 1.02,
     @required this.product,
   }) : super(key: key);
 
   final double width, aspectRetio;
   final Products product;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: SizedBox(
-        width: getProportionateScreenWidth(width),
-        child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(product: product),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: 1.02,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                          color: kSecondaryColor.withOpacity(0.7),
-                          offset: Offset(0, 3),
-                          blurRadius: 10),
-                    ],
-                  ),
-                  child: Hero(
-                    tag: product.id.toString(),
-                    child:
-                        CachedNetworkImage(imageUrl: product.images.first.src),
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(
+        context,
+        DetailsScreen.routeName,
+        arguments: ProductDetailsArguments(product: product),
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 16.0,
+        ),
+        width: SizeConfig.screenWidth - getProportionateScreenWidth(32),
+        height: getProportionateScreenHeight(150),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: kSecondaryColor.withOpacity(
+                0.2,
+              ),
+              blurRadius: 16,
+              offset: Offset(1, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Hero(
+              tag: product.id.toString(),
+              child: Container(
+                height: getProportionateScreenHeight(150),
+                width:
+                    (SizeConfig.screenWidth - getProportionateScreenWidth(32)) *
+                        0.35,
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(product.images.first.src),
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                product.name,
-                style: GoogleFonts.roboto(
-                  // color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
+            ),
+            SizedBox(
+              width: getProportionateScreenWidth(10),
+            ),
+            Flexible(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(
+                  0.0,
+                  8.0,
+                  16.0,
+                  8.0,
                 ),
-                maxLines: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\₹${product.salesPrice}",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      product.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.openSans(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ],
-          ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(5),
+                    ),
+                    Text(
+                      product.shortDescription.normalize(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(10),
+                    ),
+                    Text(
+                      product.salesPrice.toString().rupee(),
+                      style: GoogleFonts.openSans(
+                        fontSize: 18,
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SmoothStarRating(
+                            color: kPrimaryColor,
+                            borderColor: kPrimaryColor,
+                            defaultIconData: Icons.star_outline,
+                            isReadOnly: true,
+                            starCount: 5,
+                            rating: double.parse(
+                              product.rating.toString(),
+                            ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(10),
+                          ),
+                          Flexible(
+                            child: FloatingActionButton(
+                              mini: true,
+                              elevation: 1,
+                              heroTag: ValueKey(product.id),
+                              backgroundColor: kPrimaryColor,
+                              tooltip: 'Add to cart',
+                              onPressed: onPressed,
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    // RatingBar(ratingWidget: Ra, onRatingUpdate: onRatingUpdate)
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -112,11 +186,12 @@ class DBProductCard extends StatelessWidget {
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                      color: kSecondaryColor.withOpacity(0.7),
-                      offset: Offset(0, 3),
-                      blurRadius: 14),
+                    color: kSecondaryColor.withOpacity(0.1),
+                    offset: Offset(0, 3),
+                    blurRadius: 14,
+                  ),
                 ],
-                color: Color(0xfff5f6f9).withOpacity(0.7),
+                color: Color(0xfff5f6f9),
                 borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,16 +211,11 @@ class DBProductCard extends StatelessWidget {
                         color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Hero(
-                          tag: product.id.toString(),
-                          child: Icon(
-                            Icons.verified_outlined,
-                            size: 96,
-                            color: kPrimaryColor,
-                          )
-                          // child: CachedNetworkImage(
-                          //     imageUrl: product.images.first.src),
-                          ),
+                      child: Icon(
+                        Icons.verified_outlined,
+                        size: 96,
+                        color: kPrimaryColor,
+                      ),
                     ),
                   ),
                 ),

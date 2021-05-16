@@ -16,13 +16,13 @@ class AllProductWidget extends StatelessWidget {
   }) : super(key: key);
 
   final Products products;
-  final CartController _cartController = Get.find();
+  // final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (products.images.length > 0) {
+        if (products.images.isNotEmpty) {
           Get.to(
             () => DetailsScreen(),
             arguments: ProductDetailsArguments(product: products),
@@ -43,7 +43,7 @@ class AllProductWidget extends StatelessWidget {
                   child: SizedBox(
                     height: getProportionateScreenHeight(130),
                     width: getProportionateScreenWidth(130),
-                    child: products.images.length > 0
+                    child: products.images.isNotEmpty
                         ? CachedNetworkImage(
                             imageUrl: products.images.first.src)
                         : Icon(
@@ -74,14 +74,15 @@ class AllProductWidget extends StatelessWidget {
                                 ),
                               ),
                               SmoothStarRating(
-                                  color: kPrimaryColor,
-                                  borderColor: kPrimaryColor,
-                                  defaultIconData: Icons.star_outline,
-                                  //isReadOnly: true,
-                                  starCount: 5,
-                                  rating: double.parse(
-                                    products.rating.toString(),
-                                  )),
+                                color: kPrimaryColor,
+                                borderColor: kPrimaryColor,
+                                defaultIconData: Icons.star_outline,
+                                //isReadOnly: true,
+                                starCount: 5,
+                                rating: double.parse(
+                                  products.rating.toString(),
+                                ),
+                              ),
                             ],
                           ),
                           Positioned(
@@ -101,7 +102,7 @@ class AllProductWidget extends StatelessWidget {
                                 SizedBox(
                                   width: getProportionateScreenWidth(10),
                                 ),
-                                if (products.onSale == "true" &&
+                                if (products.onSale == 'true' &&
                                     products.regularPrice.toString().isNotEmpty)
                                   Text(
                                     '\₹${products.regularPrice}',
@@ -122,7 +123,7 @@ class AllProductWidget extends StatelessWidget {
                             bottom: -20,
                             child: RawMaterialButton(
                               onPressed: () {
-                                _cartController.addToCart(products: products);
+                                // _cartController.addToCart(products: products);
                               },
                               fillColor: kPrimaryColor,
                               constraints: BoxConstraints(
@@ -148,7 +149,7 @@ class AllProductWidget extends StatelessWidget {
               ],
             ),
             if (products.salesPrice.toString().isNotEmpty &&
-                products.onSale == "true")
+                products.onSale == 'true')
               Align(
                 alignment: Alignment.topRight,
                 child: Container(

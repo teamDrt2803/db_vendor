@@ -22,11 +22,11 @@ final headingStyle = TextStyle(
 
 class Consts {
   static const String app_name = 'Discount Bazaar';
-  static const String url = "https://www.discount-bazaar.com";
+  static const String url = 'https://www.discount-bazaar.com';
   static const String consumerKey =
-      "ck_a8200f8c74b2f73c16a7e178b954c7977891000c";
+      'ck_a8200f8c74b2f73c16a7e178b954c7977891000c';
   static const String consumerSecret =
-      "cs_043642983a3d8799b786429a154264cb400d7fd2";
+      'cs_043642983a3d8799b786429a154264cb400d7fd2';
   static const String prroductEp = '/wp-json/wc/v3/products/categories';
   static const String firstBoot = 'firstBoot';
   static const String state = 'state';
@@ -43,15 +43,15 @@ const defaultDuration = Duration(milliseconds: 250);
 
 // Form Error
 final RegExp emailValidatorRegExp =
-    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-const String kEmailNullError = "Please Enter your phone";
-const String kInvalidEmailError = "Please Enter Valid phone";
-const String kPassNullError = "Please Enter your password";
-const String kShortPassError = "Password is too short";
+    RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
+const String kEmailNullError = 'Please Enter your phone';
+const String kInvalidEmailError = 'Please Enter Valid phone';
+const String kPassNullError = 'Please Enter your password';
+const String kShortPassError = 'Password is too short';
 const String kMatchPassError = "Passwords don't match";
-const String kNamelNullError = "Please Enter your name";
-const String kPhoneNumberNullError = "Please Enter your phone number";
-const String kAddressNullError = "Please Enter your address";
+const String kNamelNullError = 'Please Enter your name';
+const String kPhoneNumberNullError = 'Please Enter your phone number';
+const String kAddressNullError = 'Please Enter your address';
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -80,22 +80,22 @@ class BrandDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['brandName'] = this.brandName;
-    data['imageUrl'] = this.imageUrl;
+    final data = <String, dynamic>{};
+    data['brandName'] = brandName;
+    data['imageUrl'] = imageUrl;
     return data;
   }
 }
 
 List<Map<String, String>> brandsData = [
   {
-    "brandName": "Nestle india",
-    "imageUrl": "https://www.crazymasalafood.com/wp-content/images/nestle.jpg"
+    'brandName': 'Nestle india',
+    'imageUrl': 'https://www.crazymasalafood.com/wp-content/images/nestle.jpg'
   },
   {
-    "brandName": "Parle Agro",
-    "imageUrl":
-        "https://www.crazymasalafood.com/wp-content/images/parle-agro.jpg"
+    'brandName': 'Parle Agro',
+    'imageUrl':
+        'https://www.crazymasalafood.com/wp-content/images/parle-agro.jpg'
   },
   {
     "brandName": "Britania Industries Limited",

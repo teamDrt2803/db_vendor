@@ -1,13 +1,9 @@
-import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/custom_surfix_icon.dart';
-
-import 'package:db_vendor/views/notification.dart';
-
-import 'package:db_vendor/views/views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/helpers/constants.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -15,9 +11,8 @@ import 'profile_pic.dart';
 class Body extends StatelessWidget {
   final AuthController _controller = Get.find();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  TextEditingController namecontroller = TextEditingController();
-
-  TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +27,8 @@ class Body extends StatelessWidget {
                 SizedBox(height: 20),
                 Obx(
                   () => ProfileMenu(
-                    text: _controller.userName.value,
-                    icon: "assets/icons/User Icon.svg",
+                    text: _controller.firestoreUser.value.displayName,
+                    icon: 'assets/icons/User Icon.svg',
                     press: () {
                       showModalBottomSheet(
                           backgroundColor: Colors.transparent,
@@ -63,27 +58,27 @@ class Body extends StatelessWidget {
                                     TextFormField(
                                       controller: namecontroller,
                                       decoration:
-                                          InputDecoration(labelText: "Name"),
+                                          InputDecoration(labelText: 'Name'),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
                                       child: TextButton(
-                                        child: Text(
-                                          "Save",
-                                          style:
-                                              TextStyle(color: kPrimaryColor),
-                                        ),
                                         onPressed: () {
                                           if (namecontroller.text.length >= 6) {
-                                            _controller.updateName(
-                                                name: namecontroller.text);
+                                            // _controller.updateName(
+                                            //     name: namecontroller.text);
                                             Get.back();
                                           } else {
                                             Get.snackbar(
-                                                "Username should be greate than 6 letters.",
-                                                "Please re-check your input.");
+                                                'Username should be greate than 6 letters.',
+                                                'Please re-check your input.');
                                           }
                                         },
+                                        child: Text(
+                                          'Save',
+                                          style:
+                                              TextStyle(color: kPrimaryColor),
+                                        ),
                                       ),
                                     )
                                   ],
@@ -92,20 +87,20 @@ class Body extends StatelessWidget {
                             );
                           });
                     },
-                    label: "Name",
+                    label: 'Name',
                   ),
                 ),
                 ProfileMenu(
                   text: auth.currentUser.phoneNumber,
-                  label: "Phone",
-                  icon: "assets/icons/Question mark.svg",
+                  label: 'Phone',
+                  icon: 'assets/icons/Question mark.svg',
                   press: () {},
                 ),
                 Obx(
                   () => ProfileMenu(
-                    text: _controller.email.value,
-                    label: "Email",
-                    icon: "assets/icons/Question mark.svg",
+                    text: _controller.firestoreUser.value.email,
+                    label: 'Email',
+                    icon: 'assets/icons/Question mark.svg',
                     press: () {
                       showModalBottomSheet(
                           backgroundColor: Colors.transparent,
@@ -135,27 +130,27 @@ class Body extends StatelessWidget {
                                     TextFormField(
                                       controller: emailcontroller,
                                       decoration:
-                                          InputDecoration(labelText: "Email"),
+                                          InputDecoration(labelText: 'Email'),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
                                       child: TextButton(
+                                        onPressed: () {
+                                          if (emailcontroller.text.isEmail) {
+                                            // _controller.updateEmail(
+                                            //     email: emailcontroller.text);
+                                            // Get.back();
+                                          } else {
+                                            Get.snackbar(
+                                                'Please enter a valid email.',
+                                                '');
+                                          }
+                                        },
                                         child: Text(
-                                          "Save",
+                                          'Save',
                                           style:
                                               TextStyle(color: kPrimaryColor),
                                         ),
-                                        onPressed: () {
-                                          if (emailcontroller.text.isEmail) {
-                                            _controller.updateEmail(
-                                                email: emailcontroller.text);
-                                            Get.back();
-                                          } else {
-                                            Get.snackbar(
-                                                "Please enter a valid email.",
-                                                "");
-                                          }
-                                        },
                                       ),
                                     )
                                   ],
@@ -167,9 +162,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 ProfileMenu(
-                  text: "106, Ambika Bhuvan ,\nKopar road,\tDombivli(West).",
-                  label: "Address",
-                  icon: "assets/icons/Question mark.svg",
+                  text: '106, Ambika Bhuvan ,\nKopar road,\tDombivli(West).',
+                  label: 'Address',
+                  icon: 'assets/icons/Question mark.svg',
                   press: () {},
                 )
               ],

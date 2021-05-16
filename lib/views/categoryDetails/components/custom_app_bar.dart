@@ -39,7 +39,7 @@ class CustomAppBar extends PreferredSize {
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset(
-                  "assets/icons/Back ICon.svg",
+                  'assets/icons/Back ICon.svg',
                   height: 15,
                 ),
               ),
@@ -53,28 +53,28 @@ class CustomAppBar extends PreferredSize {
               ),
               child: Row(
                 children: [
-                  ValueListenableBuilder<Box<CartModal>>(
-                    valueListenable: box.listenable(),
-                    builder: (context, Box<CartModal> cart, _) {
-                      return IconBtnWithCounter(
-                        svgSrc: "assets/icons/Cart Icon.svg",
-                        numOfitem: cart.length,
-                        press: () => Get.to(() => CartScreen()),
-                      );
-                    },
-                  ),
+                  // ValueListenableBuilder<Box<CartModal>>(
+                  //   valueListenable: box.listenable(),
+                  //   builder: (context, Box<CartModal> cart, _) {
+                  //     return IconBtnWithCounter(
+                  //       svgSrc: "assets/icons/Cart Icon.svg",
+                  //       numOfitem: cart.length,
+                  //       press: () => Get.to(() => CartScreen()),
+                  //     );
+                  //   },
+                  // ),
                   SizedBox(
                     width: getProportionateScreenWidth(20),
                   ),
                   Text(
-                    "$rating",
+                    '$rating',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SvgPicture.asset("assets/icons/Star Icon.svg"),
+                  SvgPicture.asset('assets/icons/Star Icon.svg'),
                 ],
               ),
             )

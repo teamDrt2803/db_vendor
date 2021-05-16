@@ -1,6 +1,7 @@
 import 'package:db_vendor/helpers/constants.dart';
 
 import 'package:db_vendor/helpers/wrapper.dart';
+import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -41,6 +42,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: SafeArea(

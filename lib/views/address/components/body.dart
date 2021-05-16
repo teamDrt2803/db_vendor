@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
 
   final AuthController _authController = Get.find();
 
-  final CartController authController = Get.find();
+  // final CartController authController = Get.find();
 
   final TextEditingController firstName = TextEditingController();
 
@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     contactNumber.text = _authController.auth.currentUser.phoneNumber;
-    firstName.text = _authController.userName.value ??
+    firstName.text = _authController.firestoreUser.value.displayName ??
         _authController.auth.currentUser.displayName;
     super.initState();
   }
@@ -371,9 +371,10 @@ class _BodyState extends State<Body> {
             modal.landMark = landmark.text;
             modal.city = city.text;
             modal.pincode = pincode.text;
-            await authController
-                .addToAddress(addressModal: modal)
-                .then((value) => Get.back());
+            // await authController
+            //     .addToAddress(addressModal: modal)
+            //     .then((value) => Get.back());
+            ///TODO: address ddition method
           }
         },
       ),

@@ -1,0 +1,325 @@
+import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sms_autofill/sms_autofill.dart';
+
+import 'package:db_vendor/helpers/helpers.dart';
+import 'package:db_vendor/modals/user.dart';
+import 'package:db_vendor/views/complete_profile/complete_profile_screen.dart';
+import 'package:db_vendor/views/mainscreen/mainscreen.dart';
+import 'package:db_vendor/views/otp/otp_screen.dart';
+import 'package:db_vendor/views/splash/splash_screen.dart';
+
+class AuthController extends GetxController {
+  ///
+  ///Declaration
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final Rx<FirestoreUser> firestoreUser = Rx<FirestoreUser>(null);
+  final Rxn<User> _user = Rxn<User>();
+  final RxBool otpSent = false.obs;
+  final RxnString otpCode = RxnString();
+  final RxnBool _processing = RxnBool(false);
+  final RxnBool _firstBoot = RxnBool(false);
+  final storage = GetStorage('preferences');
+  Box preferenceBox;
+  String verificationId;
+  int resendToken;
+
+  ///TextEditingControllers for textformfields used in login Process
+  final phone = TextEditingController();
+  final otp = TextEditingController();
+
+  ///TextEditingControllers for textformfields used in setup Process
+  final email = TextEditingController();
+  final city = TextEditingController();
+  final state = TextEditingController();
+  final postalCode = TextEditingController();
+  final storeName = TextEditingController();
+  final displayName = TextEditingController();
+  final address = TextEditingController();
+
+  ///Getters
+  // FirestoreUser get firestoreUser => firestoreUser.value;
+  FirebaseAuth get auth => _auth;
+  FirebaseFirestore get firestore => _firestore;
+  User get user => _user.value;
+  Rxn<User> get userStream => _user;
+  bool get processing => _processing.value;
+  bool get firstBoot => _firstBoot.value;
+
+  ///
+  ///[Login] Helper Methods
+  ///
+
+  ///
+  ///Method to send [otp]
+  ///
+  Future<void> loginwithPhone() async {
+    if (processing) return;
+    _processing.value = true;
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phone.text.countrycode(),
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      );
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  ///
+  ///Method to verify [otp]
+  ///
+  Future<void> verifyOtp() async {
+    if (processing) return;
+    _processing.value = true;
+    try {
+      var credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: otp.text,
+      );
+      await _auth
+          .signInWithCredential(credential)
+          .then((value) => _processing.value = false);
+    } on FirebaseAuthException catch (e) {
+      verificationFailed(e);
+    }
+  }
+
+  ///
+  ///Method to [Complete] profle setup
+  ///
+  Future<void> completeSetup() async {
+    _processing.value = true;
+    var storeUser = FirestoreUser(
+      setupComplete: true,
+      email: email.text,
+      displayName: displayName.text,
+      storeName: storeName.text,
+      city: 'Chhindwara',
+      postalCode: '480001',
+      state: 'Madhya Pradesh',
+    ).toMap();
+    await firestore.collection('users').doc(user.uid).set(storeUser).then(
+          (value) => _processing.value = false,
+        );
+  }
+
+  ///
+  ///[Callback] when code is auto verified
+  ///
+  Future<void> verificationCompleted(PhoneAuthCredential credential) async {
+    debugPrint('**********SMS CODE*********');
+    debugPrint(credential.smsCode);
+    debugPrint('**********SMS CODE*********');
+  }
+
+  ///
+  ///[Callback] for exceptionoccurred while sending otp
+  ///
+  void verificationFailed(FirebaseAuthException exception) {
+    switch (exception.code) {
+      case 'invalid-verification-code':
+        FlushbarHelper.createError(
+          message:
+              'The Verification code you entered is invalid. Please try again!',
+          title: 'Error occurred',
+        );
+        break;
+      default:
+        FlushbarHelper.createError(
+          message: exception.message,
+          title: exception.code,
+        );
+    }
+  }
+
+  ///
+  ///Methods to uodate user data on firestore database [Start]
+  ///
+  ///
+  ///Update [UserName]
+  ///
+  void updateUserName(String displayName) async {
+    await firestore
+        .collection('users')
+        .doc(user.uid)
+        .update({'displayName': displayName});
+  }
+
+  ///
+  ///Update [Address]
+  ///
+  void updateAddress() async {}
+
+  ///
+  ///Add New [Address]
+  ///
+  void addNewAddress() async {}
+
+  ///
+  ///[End]
+  ///
+
+  ///
+  ///[Callback] when code is sent successfully
+  ///
+  void codeSent(String verificationId, int resendToken) {
+    _processing.value = false;
+    otpSent.value = true;
+    this.verificationId = verificationId;
+    this.resendToken = resendToken;
+    print('Otp Sent');
+  }
+
+  ///
+  ///[Callback] when code auto retrival has failed due to timeout
+  ///
+  void codeAutoRetrievalTimeout(String verificationID) {
+    FlushbarHelper.createInformation(
+      message: 'Unable to autodetect sms. Please enter it manually',
+      title: 'Code auto retreival failed',
+    );
+  }
+
+  ///
+  /// handle stream changes methods [start]
+  ///
+
+  ///
+  ///This method gets fired [everytime] user [changes]
+  ///
+  ///It checks if the the user is [valid] then binds [firestoreUser] user stream to [_streamUserChanges]
+  void handleUserChanges(User user) {
+    if (user?.uid != null) {
+      firestoreUser.bindStream(_streamUserChanges());
+      // firestore.collection('users').doc(user.uid).snapshots().listen((event) {
+      //   firestoreUser.value = FirestoreUser.fromMap(event.data());
+      //   print(FirestoreUser.fromMap(event.data()).toMap());
+      //   print(firestoreUser.value.toMap());
+      //   _handleFirestoreUserChanges(FirestoreUser.fromMap(event.data()));
+      // });
+    }
+  }
+
+  ///This method [stream] [changes] happened in [Firestore] Database
+  Stream<FirestoreUser> _streamUserChanges() {
+    return firestore
+        .collection('users')
+        .doc(user.uid)
+        .snapshots()
+        .map((snapshot) => FirestoreUser.fromMap(snapshot.data()));
+  }
+
+  ///
+  ///This method handles change in otp sent value
+  ///
+  void _handleOtpSent(bool sent) {
+    if (sent) {
+      SmsAutoFill().listenForCode;
+      otpCode.bindStream(_streamOtp());
+      if (Get.currentRoute != OtpScreen.routeName) {
+        Get.offAllNamed(OtpScreen.routeName);
+      }
+    } else {
+      SmsAutoFill().unregisterListener();
+    }
+  }
+
+  ///
+  ///This method fires when otp is auto detected
+  void _handleAutodetectOtp(String code) {
+    otp.text = code;
+  }
+
+  ///
+  ///handle firstboot value changes
+  ///
+  void _handleFirstBootChange(firstboot) {
+    if (firstBoot) {
+      if (Get.currentRoute != SplashScreen.routeName) {
+        Get.offAllNamed(SplashScreen.routeName);
+      }
+    } else {
+      if (Get.currentRoute != MainScreen.routeName) {
+        Get.offAllNamed(MainScreen.routeName);
+      }
+    }
+  }
+
+  ///
+  ///handle [firestore] changes
+  ///
+  void _handleFirestoreUserChanges(FirestoreUser firestoreUser) {
+    print(firestoreUser.toMap());
+    if (!firestoreUser.setupComplete) {
+      if (Get.currentRoute != CompleteProfileScreen.routeName) {
+        Get.offAllNamed(CompleteProfileScreen.routeName);
+      }
+    } else {
+      if (Get.currentRoute == CompleteProfileScreen.routeName) {
+        Get.offAllNamed(MainScreen.routeName);
+      }
+    }
+  }
+
+  ///
+  ///This streams otp code auto detected if listener is added
+  Stream<String> _streamOtp() {
+    return SmsAutoFill().code;
+  }
+
+  ///
+  ///[SignOut] and clear user data
+  ///
+  void signout() async {
+    try {
+      await preferenceBox.clear();
+      await _auth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  ///
+  /// handle stream changes methods [ends]
+  ///
+
+  ///[Overridden] methods
+  @override
+  Future<void> onInit() async {
+    preferenceBox = await Hive.openBox('preferences');
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    ever(_user, handleUserChanges);
+    ever(otpCode, _handleAutodetectOtp);
+    ever(otpSent, _handleOtpSent);
+    ever(_firstBoot, _handleFirstBootChange);
+    ever(firestoreUser, _handleFirestoreUserChanges);
+    _user.bindStream(auth.userChanges());
+    _firstBoot.value = preferenceBox.get(
+      'firstBoot',
+      defaultValue: true,
+    );
+    preferenceBox.listenable(keys: ['firstBoot']).addListener(() {
+      _firstBoot.value = preferenceBox.get(
+        'firstBoot',
+        defaultValue: true,
+      );
+    });
+    super.onReady();
+  }
+}

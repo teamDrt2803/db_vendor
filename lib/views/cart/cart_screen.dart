@@ -12,11 +12,11 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (context, box, _) {
-            return box.length > 0 ? CheckoutCard() : SizedBox.shrink();
-          }),
+      // bottomNavigationBar: ValueListenableBuilder(
+      //     valueListenable: box.listenable(),
+      //     builder: (context, box, _) {
+      //       return box.length > 0 ? CheckoutCard() : SizedBox.shrink();
+      //     }),
     );
   }
 
@@ -29,15 +29,15 @@ class CartScreen extends StatelessWidget {
             "Your Cart",
             style: TextStyle(color: Colors.black),
           ),
-          ValueListenableBuilder(
-            valueListenable: box.listenable(),
-            builder: (context, box, _) {
-              return Text(
-                "${box.length} items",
-                style: Theme.of(context).textTheme.caption,
-              );
-            },
-          ),
+          // ValueListenableBuilder(
+          //   valueListenable: box.listenable(),
+          //   builder: (context, box, _) {
+          //     return Text(
+          //       "${box.length} items",
+          //       style: Theme.of(context).textTheme.caption,
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

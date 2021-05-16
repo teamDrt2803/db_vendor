@@ -1,4 +1,3 @@
-import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/views/home/components/icon_btn_with_counter.dart';
 
@@ -20,8 +19,6 @@ class AllCategories extends StatefulWidget {
 }
 
 class _AllCategoriesState extends State<AllCategories> {
-  ProductController _wooController = Get.find();
-
   @override
   void initState() {
     print('object');
@@ -36,19 +33,19 @@ class _AllCategoriesState extends State<AllCategories> {
         title: Text('All Categories'),
         backgroundColor: Colors.transparent,
         actions: [
-          ValueListenableBuilder<Box<CartModal>>(
-            valueListenable: box.listenable(),
-            builder: (context, Box<CartModal> cart, _) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconBtnWithCounter(
-                  svgSrc: "assets/icons/Cart Icon.svg",
-                  numOfitem: cart.length,
-                  press: () => Get.to(() => CartScreen()),
-                ),
-              );
-            },
-          ),
+          // ValueListenableBuilder<Box<CartModal>>(
+          //   valueListenable: box.listenable(),
+          //   builder: (context, Box<CartModal> cart, _) {
+          //     return Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: IconBtnWithCounter(
+          //         svgSrc: "assets/icons/Cart Icon.svg",
+          //         numOfitem: cart.length,
+          //         press: () => Get.to(() => CartScreen()),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
       body: Body(

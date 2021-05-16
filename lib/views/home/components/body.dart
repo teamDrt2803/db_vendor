@@ -8,12 +8,18 @@ import 'popular_product.dart';
 import 'special_offers.dart';
 
 class Body extends StatelessWidget {
+  final ScrollController scrollController;
+
+  const Body({Key key, this.scrollController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SafeArea(
       child: SingleChildScrollView(
+        controller: scrollController,
         physics: BouncingScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: getProportionateScreenHeight(30)),
             DiscountBanner(),
@@ -26,17 +32,17 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(30)),
             DBPopularProducts(
               first: 'Offer',
-              title: "My Discount Bazaar Products",
+              title: 'My Discount Bazaar Products',
             ),
             SizedBox(height: getProportionateScreenWidth(30)),
             DBPopularProducts(
               first: 'Trader',
-              title: "Top RMC yard Traders",
+              title: 'Top RMC yard Traders',
             ),
             SizedBox(height: getProportionateScreenWidth(30)),
             DBPopularProducts(
               first: 'Brand',
-              title: "Top Brands of the Day",
+              title: 'Top Brands of the Day',
             ),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],

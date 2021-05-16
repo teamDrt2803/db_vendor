@@ -19,7 +19,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xFFB6B6B6);
+    final inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class CustomBottomNavBar extends StatelessWidget {
             children: [
               IconButton(
                 icon: SvgPicture.asset(
-                  "assets/icons/Shop Icon.svg",
+                  'assets/icons/Shop Icon.svg',
                   color: MenuState.home == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,

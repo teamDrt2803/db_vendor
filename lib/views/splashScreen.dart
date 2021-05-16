@@ -23,7 +23,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         setState(() {});
       });
     controller.forward().then((_) {
-      navigationPage();
+      // navigationPage();
     });
   }
 

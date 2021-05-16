@@ -1,5 +1,4 @@
 import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'section_title.dart';
 
 class PopularProducts extends StatelessWidget {
   final ProductController _controller = Get.find();
+  // final CartController _cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +19,7 @@ class PopularProducts extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-              title: "Popular Products",
+              title: 'Popular Products',
               press: () {
                 Get.to(() => AllProducts());
               }),
@@ -35,8 +35,17 @@ class PopularProducts extends StatelessWidget {
                 ...List.generate(
                   _controller.products.length,
                   (index) {
-                    Products wooProducts = _controller.products[index];
-                    return ProductCard(product: wooProducts);
+                    var wooProducts = _controller.products[index];
+                    return ProductCard(
+                      product: wooProducts,
+                      onPressed: () {
+                        // _cartController.addToCart(
+                        //   products: wooProducts,
+                        //   item: 1,
+                        //   context: context,
+                        // );
+                      },
+                    );
                     // here by default width and height is 0
                   },
                 ),
@@ -78,7 +87,7 @@ class DBPopularProducts extends StatelessWidget {
                 ...List.generate(
                   _controller.products.length,
                   (index) {
-                    Products wooProducts = _controller.products[index];
+                    var wooProducts = _controller.products[index];
                     return DBProductCard(
                       product: wooProducts,
                       index: index + 1,

@@ -5,23 +5,22 @@ import 'package:flutter/material.dart';
 import 'sign_form.dart';
 
 class Body extends StatelessWidget {
-  final AuthController authController;
-
-  const Body({Key key, this.authController}) : super(key: key);
+  const Body({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20),
+          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
-                  "Welcome",
+                  'Welcome',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),

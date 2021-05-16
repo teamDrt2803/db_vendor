@@ -1,126 +1,202 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/main.dart';
+import 'package:db_vendor/abstracts/abstractclasses.dart';
+import 'package:db_vendor/controllers/auth.dart';
 
 import 'package:db_vendor/modals/modals.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
-class CartController extends GetxController {
-  FirebaseDatabase _firebaseDatabase = FirebaseDatabase();
-  DatabaseReference databaseReference;
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  GetStorage storage = GetStorage();
-  final uploading = false.obs;
-  var firestore = FirebaseFirestore.instance;
-  RxList<CartModal> cartList = <CartModal>[].obs;
+class CartController extends GetxController implements CartControllerInterface {
+  ///
+  ///Final constant [variables]
+  ///
+  final _auth = FirebaseAuth.instance;
+  final AuthController _authController = Get.find();
+  final _processing = false.obs;
+  final orders = <CartModal>[].obs;
+  final cartItems = <CartModal>[].obs;
+  StreamSubscription orderStreamSubscription;
+  StreamSubscription cartStreamSubscription;
+
+  ///[Getters]
+  FirebaseAuth get auth => _auth;
+  AuthController get authController => _authController;
+  bool get processing => _processing.value;
+
+  ///
+  ///[Overridden] methods
+  ///
+
   @override
-  Future<void> onInit() async {
-    databaseReference = _firebaseDatabase.reference();
-    fetchOrders();
+  void listenToOrderItem() {
+    orderStreamSubscription = _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('orders')
+        .snapshots()
+        .listen(
+      (snapshot) {
+        for (var item in snapshot.docChanges) {
+          switch (item.type) {
+            case DocumentChangeType.added:
+              var orders = CartModal.fromFirestore(item.doc);
+              this.orders.add(orders);
+              break;
+            case DocumentChangeType.modified:
+              var orders = CartModal.fromFirestore(item.doc);
+              var index =
+                  this.orders.indexWhere((element) => element == orders);
+              if (index != -1) {
+                this.orders[index] = orders;
+              } else {
+                this.orders.add(orders);
+              }
+              break;
+            default:
+              var orders = CartModal.fromFirestore(item.doc);
+              var index =
+                  this.orders.indexWhere((element) => element == orders);
+              if (index != -1) {
+                this.orders.removeAt(index);
+              }
+              break;
+          }
+        }
+      },
+    );
+  }
+
+  @override
+  void listenToCartItem() {
+    cartStreamSubscription = _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('orders')
+        .snapshots()
+        .listen(
+      (snapshot) {
+        for (var item in snapshot.docChanges) {
+          switch (item.type) {
+            case DocumentChangeType.added:
+              var cartItems = CartModal.fromFirestore(item.doc);
+              this.cartItems.add(cartItems);
+              break;
+            case DocumentChangeType.modified:
+              var cartItems = CartModal.fromFirestore(item.doc);
+              var index =
+                  this.cartItems.indexWhere((element) => element == cartItems);
+              if (index != -1) {
+                this.cartItems[index] = cartItems;
+              } else {
+                this.cartItems.add(cartItems);
+              }
+              break;
+            default:
+              var cartItems = CartModal.fromFirestore(item.doc);
+              var index =
+                  this.cartItems.indexWhere((element) => element == cartItems);
+              if (index != -1) {
+                this.cartItems.removeAt(index);
+              }
+              break;
+          }
+        }
+      },
+    );
+  }
+
+  @override
+  Future<void> updateCartItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('cart')
+        .doc(cartModal.documentID)
+        .update(cartModal.toMap());
+  }
+
+  @override
+  Future<void> addCartItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('cart')
+        .add(cartModal.toMap());
+  }
+
+  @override
+  Future<void> addOrderItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('orders')
+        .add(cartModal.toMap());
+  }
+
+  @override
+  Future<void> deleteCartItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('cart')
+        .doc(cartModal.documentID)
+        .delete();
+  }
+
+  @override
+  Future<void> deleteOrderItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('orders')
+        .doc(cartModal.documentID)
+        .delete();
+  }
+
+  @override
+  Future<void> updateOrderItem(CartModal cartModal) async {
+    await _authController.firestore
+        .collection('users')
+        .doc(_authController.auth.currentUser.uid)
+        .collection('orders')
+        .doc(cartModal.documentID)
+        .update(cartModal.toMap());
+  }
+
+  @override
+  void handleUserChanges(User user) {
+    if (user?.uid != null) {
+      listenToCartItem();
+      listenToOrderItem();
+    } else {
+      if (cartStreamSubscription != null) {
+        cartStreamSubscription.cancel();
+      }
+      if (orderStreamSubscription != null) {
+        orderStreamSubscription.cancel();
+      }
+    }
+  }
+
+  @override
+  void onInit() {
     super.onInit();
   }
 
-  Future<bool> addToAddress({AddressModal addressModal}) async {
-    _auth.currentUser;
-    return addressBox.add(addressModal).then((value) async {
-      return await databaseReference
-          .child(
-            _auth.currentUser.uid,
-          )
-          .child(
-            'address',
-          )
-          .set(
-            addressModal.toJson(),
-          )
-          .then((value) => true);
-    });
+  @override
+  void onReady() {
+    ever(_authController.userStream, handleUserChanges);
+    super.onReady();
   }
 
-  Future<void> confirmOrder() async {
-    uploading.value = true;
-    DateTime time = DateTime.now();
-    var firstproduct = box.values.toList().first;
-    var cartlist = box.values.toList().map((e) {
-      e.time = time.millisecondsSinceEpoch;
-      return e.toJson();
-    }).toList();
-    for (var item in cartlist) {
-      await firestore.collection(_auth.currentUser.uid + "_orders").add(item);
-    }
-
-    var response = await http.get(
-      Uri.parse(
-        'https://api.discount-bazaar.com/orders/placed?email=${storage.read(Consts.email)}&name=${storage.read(Consts.userName)}&order_id=${time.millisecondsSinceEpoch.toString()}&product=${firstproduct.wooProducts.name}',
-      ),
-    );
-    debugPrint(response.statusCode.toString());
-    await box.deleteAll(box.keys);
-    fetchOrders();
-    uploading.value = false;
-  }
-
-  fetchOrders() async {
-    var orders = await firestore
-        .collection(_auth.currentUser.uid + "_orders")
-        .orderBy('ts')
-        .get();
-    cartList.clear();
-    for (var item in orders.docs) {
-      cartList.add(new CartModal.fromJson(item.data()));
-    }
-  }
-
-  addToCart({Products products, int item}) async {
-    if (box.length > 0) {
-      dynamic exist = box.values.toList().firstWhere(
-          (element) => element.wooProducts.id == products.id, orElse: () {
-        return null;
-      });
-      if (exist == null) {
-        await box.add(CartModal(
-          wooProducts: products,
-          totalQuantity: item ?? 1,
-        ));
-      } else {
-        incrementCart(
-          box.values.toList().indexWhere(
-              (element) => element.wooProducts.id == exist.wooProducts.id),
-          CartModal(
-            wooProducts: products,
-            totalQuantity: exist.totalQuantity,
-          ),
-        );
-      }
-      //box.putAt(, )
-    } else {
-      await box.add(CartModal(
-        wooProducts: products,
-        totalQuantity: item ?? 1,
-      ));
-    }
-    Get.snackbar('Product Added to Cart',
-        'Your Product ${products.name} has been addd to cart');
-  }
-
-  incrementCart(int index, CartModal modal) async {
-    modal.totalQuantity = modal.totalQuantity + 1;
-    await box.putAt(index, modal);
-  }
-
-  decrementCart(int index, CartModal modal) async {
-    modal.totalQuantity = modal.totalQuantity - 1;
-    await box.putAt(index, modal);
-  }
-
-  deleteCartItem(int index) async {
-    await box.deleteAt(index);
+  @override
+  void onClose() {
+    orderStreamSubscription.cancel();
+    cartStreamSubscription.cancel();
+    super.onClose();
   }
 }

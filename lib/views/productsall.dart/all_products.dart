@@ -42,19 +42,19 @@ class _AllProductsState extends State<AllProducts> {
         title: Text('All Products'),
         backgroundColor: Colors.transparent,
         actions: [
-          ValueListenableBuilder<Box<CartModal>>(
-            valueListenable: box.listenable(),
-            builder: (context, Box<CartModal> cart, _) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconBtnWithCounter(
-                  svgSrc: "assets/icons/Cart Icon.svg",
-                  numOfitem: cart.length,
-                  press: () => Get.to(() => CartScreen()),
-                ),
-              );
-            },
-          ),
+          // ValueListenableBuilder<Box<CartModal>>(
+          //   valueListenable: box.listenable(),
+          //   builder: (context, Box<CartModal> cart, _) {
+          //     return Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: IconBtnWithCounter(
+          //         svgSrc: "assets/icons/Cart Icon.svg",
+          //         numOfitem: cart.length,
+          //         press: () => Get.to(() => CartScreen()),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
       body: Body(

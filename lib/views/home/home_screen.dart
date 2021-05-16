@@ -1,8 +1,9 @@
+import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
-import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
-import 'package:db_vendor/helpers/enums.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
@@ -13,46 +14,69 @@ import 'components/drawer.dart';
 import 'components/icon_btn_with_counter.dart';
 
 class HomeScreen extends StatelessWidget {
-  static String routeName = "/home";
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+  final ProductController _productController = Get.find();
+  static String routeName = '/home';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Custdrawer(),
-      appBar: AppBar(
-        title: Text('Discount Bazaar'),
-        centerTitle: true,
-        actions: [
-          ValueListenableBuilder<Box<CartModal>>(
-            valueListenable: box.listenable(),
-            builder: (context, Box<CartModal> cart, _) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconBtnWithCounter(
-                  svgSrc: "assets/icons/Cart Icon.svg",
-                  numOfitem: cart.length,
-                  press: () => Get.to(
-                    () => CartScreen(),
-                  ),
-                ),
-              );
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        key: _globalKey,
+        drawer: Custdrawer(),
+        appBar: CustAppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu,
+            ),
+            onPressed: () {
+              _globalKey.currentState.openDrawer();
             },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-            child: IconBtnWithCounter(
-              svgSrc: "assets/icons/Bell.svg",
-              numOfitem: 3,
-              press: () {
-                Get.to(
-                  () => NotificationsPage(),
-                );
-              },
-            ),
+          title: Text('Discount Bazaar'),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ValueListenableBuilder<Box<CartModal>>(
+              //   valueListenable: box.listenable(),
+              //   builder: (context, Box<CartModal> cart, _) {
+              //     return Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: IconBtnWithCounter(
+              //         svgSrc: 'assets/icons/Cart Icon.svg',
+              //         numOfitem: cart.length,
+              //         press: () => Get.to(
+              //           () => CartScreen(),
+              //           transition: Transition.cupertino,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                child: IconBtnWithCounter(
+                  svgSrc: 'assets/icons/Bell.svg',
+                  numOfitem: 3,
+                  press: () {
+                    Get.to(
+                      () => NotificationsPage(),
+                      transition: Transition.cupertino,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+        body: Body(
+          scrollController: _productController.scrollController,
+        ),
       ),
-      body: Body(),
-      //bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
 }

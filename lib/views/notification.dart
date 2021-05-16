@@ -1,6 +1,8 @@
 import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../helpers/enums.dart';
 
@@ -8,32 +10,28 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //color: Colors.grey[100],
+      appBar: CustAppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Text(
+          'Notifications',
+        ),
+      ),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
       body: Container(
           margin: const EdgeInsets.only(top: kToolbarHeight),
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          // padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Notification',
-                  style: TextStyle(
-                    color: kSecondaryColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                CloseButton()
-              ],
-            ),
             Flexible(
               child: ListView(
                 children: <Widget>[
                   // Request amount
                   Container(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     margin: const EdgeInsets.symmetric(vertical: 4.0),
                     decoration: BoxDecoration(
                         color: Colors.white,

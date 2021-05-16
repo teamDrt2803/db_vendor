@@ -1,7 +1,8 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:db_vendor/views/views.dart';
+import 'package:db_vendor/views/mainscreen/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/helpers/custom_surfix_icon.dart';
 import 'package:db_vendor/helpers/default_button.dart';
@@ -18,33 +19,29 @@ class CompleteProfileForm extends StatefulWidget {
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
-  String firstName;
-  String email;
-  String storeName;
-  String address;
-  AuthController _controller = Get.find();
-  TextEditingController controller = TextEditingController();
-  bool process = false;
+  final AuthController _authController = Get.find();
   @override
   void initState() {
-    _controller.searchResult.listen((result) {
-      controller.text = result.name ?? '';
-    });
+    // _controller.searchResult.listen((result) {
+    //   controller.text = result.name ?? '';
+    // });
     super.initState();
   }
 
   void addError({String error}) {
-    if (!errors.contains(error))
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
   void removeError({String error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   @override
@@ -63,37 +60,18 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            widget: process
+            widget: _authController.processing
                 ? Center(
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation(Colors.white),
                     ),
                   )
                 : null,
-            text: "continue",
-            press: () {
-              print(firstName);
+            text: 'continue',
+            press: () async {
               if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                if (mounted)
-                  setState(() {
-                    process = true;
-                  });
-                _controller
-                    .completeSetup(
-                  email: email,
-                  storeName: storeName,
-                  userName: firstName,
-                )
-                    .then((value) async {
-                  if (mounted)
-                    setState(() {
-                      process = false;
-                    });
-                  await Get.to(() => LoginSuccessScreen());
-                });
+                await _authController.completeSetup();
               }
-              print(firstName);
             },
           ),
         ],
@@ -101,44 +79,41 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  buildAddressFormField() {
+  TextFormField buildAddressFormField() {
     return TextFormField(
-      controller: controller,
+      controller: _authController.address,
       readOnly: true,
-      onSaved: (newValue) => address = newValue,
       onChanged: (value) {
-        if (value.isNotEmpty) {
+        if (_authController.address.text.isNotEmpty) {
           removeError(error: kAddressNullError);
         }
-        return null;
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (_authController.address.text.isEmpty) {
           addError(error: kAddressNullError);
-          return "";
+          return '';
         }
         return null;
       },
-      onTap: () {
-        Get.to(() => GoogleMaps());
+      onTap: () async {
+        await Get.to(() => GoogleMaps());
       },
       decoration: InputDecoration(
-        labelText: "Name",
-        hintText: "Enter your phone address",
+        labelText: 'Address',
+        hintText: 'Click to choose your address',
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon:
-            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+            CustomSurffixIcon(svgIcon: 'assets/icons/Location point.svg'),
       ),
     );
   }
 
   TextFormField buildStorenameFormField() {
     return TextFormField(
-      onSaved: (newValue) => storeName = newValue,
+      controller: _authController.storeName,
       onChanged: (value) {
-        storeName = value;
         if (value.isNotEmpty) {
           removeError(error: 'Please Enter Store Name');
         }
@@ -147,13 +122,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: 'Please Enter Store Name');
-          return "";
+          return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Store Name",
-        hintText: "Enter your Store name",
+        labelText: 'Store Name',
+        hintText: 'Enter your Store name',
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -168,9 +143,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildEMailFormField() {
     return TextFormField(
-      onSaved: (newValue) => email = newValue,
+      controller: _authController.email,
       onChanged: (value) {
-        email = value;
         if (value.isNotEmpty) {
           removeError(error: 'Please Enter Email Address');
         }
@@ -179,14 +153,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: 'Please Enter Email Address');
-          return "";
+          return '';
         }
         return null;
       },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email address",
+        labelText: 'Email',
+        hintText: 'Enter your email address',
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -198,54 +172,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildPhoneNumberFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.phone,
-      //onSaved: (newValue) => phoneNumber = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kPhoneNumberNullError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPhoneNumberNullError);
-          return "";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Phone Number",
-        hintText: "Enter your phone number",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildLastNameFormField() {
-    return TextFormField(
-      //onSaved: (newValue) => lastName = newValue,
-      decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
-
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) {},
+      controller: _authController.displayName,
       onChanged: (value) {
-        firstName = value;
-
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }
@@ -254,17 +184,17 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kNamelNullError);
-          return "";
+          return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
+        labelText: 'First Name',
+        hintText: 'Enter your first name',
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: 'assets/icons/User.svg'),
       ),
     );
   }

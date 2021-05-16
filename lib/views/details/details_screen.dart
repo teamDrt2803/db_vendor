@@ -12,8 +12,8 @@ import 'components/body.dart';
 import 'components/custom_app_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
-  static String routeName = "/details";
-  final CartController _cartController = Get.find();
+  static String routeName = '/details';
+  // final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -54,20 +54,19 @@ class DetailsScreen extends StatelessWidget {
               children: [
                 DefaultButton(
                   color: kSecondaryColor.withOpacity(0.1),
-                  text: "Add To Cart",
+                  text: 'Add To Cart',
                   press: () {
-                    _cartController.addToCart(products: agrs.product, item: 1);
+                    // _cartController.addToCart(products: agrs.product, item: 1);
                   },
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
                 ),
                 DefaultButton(
-                  text: "Buy Now",
+                  text: 'Buy Now',
                   press: () async {
-                    await _cartController.addToCart(
-                        products: agrs.product, item: 1);
-                    Get.to(() => CartScreen());
+                    // _cartController.addToCart(products: agrs.product, item: 1);
+                    await Get.to(() => CartScreen());
                   },
                 ),
               ],

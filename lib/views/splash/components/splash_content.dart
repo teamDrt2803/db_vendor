@@ -38,12 +38,12 @@ class SplashContent extends StatelessWidget {
         Spacer(flex: 2),
         Image.asset(
           image,
-          height: image == "assets/images/splash_4.png" ||
-                  image == "assets/images/splash_2.png"
+          height: image == 'assets/images/splash_4.png' ||
+                  image == 'assets/images/splash_2.png'
               ? getProportionateScreenHeight(300)
               : getProportionateScreenHeight(265),
-          width: image == "assets/images/splash_4.png" ||
-                  image == "assets/images/splash_2.png"
+          width: image == 'assets/images/splash_4.png' ||
+                  image == 'assets/images/splash_2.png'
               ? getProportionateScreenHeight(300)
               : getProportionateScreenWidth(235),
         ),

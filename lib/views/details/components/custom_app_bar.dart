@@ -53,16 +53,16 @@ class CustomAppBar extends PreferredSize {
               ),
               child: Row(
                 children: [
-                  ValueListenableBuilder<Box<CartModal>>(
-                    valueListenable: box.listenable(),
-                    builder: (context, Box<CartModal> cart, _) {
-                      return IconBtnWithCounter(
-                        svgSrc: "assets/icons/Cart Icon.svg",
-                        numOfitem: cart.length,
-                        press: () => Get.to(() => CartScreen()),
-                      );
-                    },
-                  ),
+                  // ValueListenableBuilder<Box<CartModal>>(
+                  //   valueListenable: box.listenable(),
+                  //   builder: (context, Box<CartModal> cart, _) {
+                  //     return IconBtnWithCounter(
+                  //       svgSrc: "assets/icons/Cart Icon.svg",
+                  //       numOfitem: cart.length,
+                  //       press: () => Get.to(() => CartScreen()),
+                  //     );
+                  //   },
+                  // ),
                   SizedBox(
                     width: getProportionateScreenWidth(20),
                   ),

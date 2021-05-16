@@ -71,7 +71,7 @@ class Products {
     if (json['images'] != null) {
       images = [];
       json['images'].forEach((v) {
-        images.add(new Images.fromJson(v));
+        images.add(Images.fromJson(v));
       });
     }
     quantity = json['quantity'];
@@ -95,29 +95,29 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['longDescription'] = this.longDescription;
-    if (this.images != null) {
-      data['images'] = this.images.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    data['longDescription'] = longDescription;
+    if (images != null) {
+      data['images'] = images.map((v) => v.toJson()).toList();
     }
-    data['quantity'] = this.quantity;
-    data['salesPrice'] = this.salesPrice;
-    data['regularPrice'] = this.regularPrice;
-    data['weight (g)'] = this.weightG;
-    data['stock-status'] = this.stockStatus;
-    data['length'] = this.length;
-    data['rating'] = this.rating;
-    data['short-description'] = this.shortDescription;
-    data['sub-category'] = this.subCategory;
-    data['subbrand'] = this.subbrand;
-    data['name'] = this.name;
-    data['width'] = this.width;
-    data['onSale'] = this.onSale;
-    data['id'] = this.id;
-    data['category'] = this.category;
-    data['brand'] = this.brand;
-    data['setOf'] = this.setOf;
-    data['height'] = this.height;
+    data['quantity'] = quantity;
+    data['salesPrice'] = salesPrice;
+    data['regularPrice'] = regularPrice;
+    data['weight (g)'] = weightG;
+    data['stock-status'] = stockStatus;
+    data['length'] = length;
+    data['rating'] = rating;
+    data['short-description'] = shortDescription;
+    data['sub-category'] = subCategory;
+    data['subbrand'] = subbrand;
+    data['name'] = name;
+    data['width'] = width;
+    data['onSale'] = onSale;
+    data['id'] = id;
+    data['category'] = category;
+    data['brand'] = brand;
+    data['setOf'] = setOf;
+    data['height'] = height;
     return data;
   }
 }
@@ -137,9 +137,9 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['number'] = this.number;
-    data['src'] = this.src;
+    final data = <String, dynamic>{};
+    data['number'] = number;
+    data['src'] = src;
     return data;
   }
 }

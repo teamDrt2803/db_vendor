@@ -11,16 +11,16 @@ class WooCategories {
   Links lLinks;
 
   WooCategories(
-      {this.id,
-      this.name,
-      this.slug,
-      this.parent,
-      this.description,
-      this.display,
-      this.image,
-      this.menuOrder,
-      this.count,
-      this.lLinks});
+      {id,
+      name,
+      slug,
+      parent,
+      description,
+      display,
+      image,
+      menuOrder,
+      count,
+      lLinks});
 
   WooCategories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -29,27 +29,27 @@ class WooCategories {
     parent = json['parent'];
     description = json['description'];
     display = json['display'];
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     menuOrder = json['menu_order'];
     count = json['count'];
-    lLinks = json['_links'] != null ? new Links.fromJson(json['_links']) : null;
+    lLinks = json['_links'] != null ? Links.fromJson(json['_links']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['slug'] = this.slug;
-    data['parent'] = this.parent;
-    data['description'] = this.description;
-    data['display'] = this.display;
-    if (this.image != null) {
-      data['image'] = this.image.toJson();
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['slug'] = slug;
+    data['parent'] = parent;
+    data['description'] = description;
+    data['display'] = display;
+    if (image != null) {
+      data['image'] = image.toJson();
     }
-    data['menu_order'] = this.menuOrder;
-    data['count'] = this.count;
-    if (this.lLinks != null) {
-      data['_links'] = this.lLinks.toJson();
+    data['menu_order'] = menuOrder;
+    data['count'] = count;
+    if (lLinks != null) {
+      data['_links'] = lLinks.toJson();
     }
     return data;
   }
@@ -66,14 +66,14 @@ class Image {
   String alt;
 
   Image(
-      {this.id,
-      this.dateCreated,
-      this.dateCreatedGmt,
-      this.dateModified,
-      this.dateModifiedGmt,
-      this.src,
-      this.name,
-      this.alt});
+      {id,
+      dateCreated,
+      dateCreatedGmt,
+      dateModified,
+      dateModifiedGmt,
+      src,
+      name,
+      alt});
 
   Image.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -87,15 +87,15 @@ class Image {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['date_created'] = this.dateCreated;
-    data['date_created_gmt'] = this.dateCreatedGmt;
-    data['date_modified'] = this.dateModified;
-    data['date_modified_gmt'] = this.dateModifiedGmt;
-    data['src'] = this.src;
-    data['name'] = this.name;
-    data['alt'] = this.alt;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['date_created'] = dateCreated;
+    data['date_created_gmt'] = dateCreatedGmt;
+    data['date_modified'] = dateModified;
+    data['date_modified_gmt'] = dateModifiedGmt;
+    data['src'] = src;
+    data['name'] = name;
+    data['alt'] = alt;
     return data;
   }
 }
@@ -103,21 +103,21 @@ class Image {
 class Links {
   List<Self> self;
 
-  Links({this.self});
+  Links({self});
 
   Links.fromJson(Map<String, dynamic> json) {
     if (json['self'] != null) {
       self = [];
       json['self'].forEach((v) {
-        self.add(new Self.fromJson(v));
+        self.add(Self.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.self != null) {
-      data['self'] = this.self.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    if (self != null) {
+      data['self'] = self.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -126,15 +126,15 @@ class Links {
 class Self {
   String href;
 
-  Self({this.href});
+  Self({href});
 
   Self.fromJson(Map<String, dynamic> json) {
     href = json['href'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['href'] = this.href;
+    final data = <String, dynamic>{};
+    data['href'] = href;
     return data;
   }
 }

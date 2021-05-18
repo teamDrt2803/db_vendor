@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
+    var categories = <Map<String, dynamic>>[
       {'icon': 'assets/icons/atta.svg', 'text': 'Atta'},
       {'icon': 'assets/icons/cleaning.svg', 'text': 'Cleaning'},
       {'icon': 'assets/icons/biscuit.svg', 'text': 'Biscuits'},

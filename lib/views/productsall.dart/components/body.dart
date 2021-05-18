@@ -1,5 +1,4 @@
 import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/modals.dart';
 
 import 'package:db_vendor/helpers/default_button.dart';
 import 'package:db_vendor/helpers/constants.dart';
@@ -22,33 +21,32 @@ class Body extends StatelessWidget {
       () => Column(
         children: [
           Flexible(
-            child:
-                controller.allProducts.length == 0 || controller.fetching.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(
-                        //color: kSecondaryColor.withOpacity(0.2),
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        child: StaggeredGridView.extentBuilder(
-                          physics: BouncingScrollPhysics(),
-                          itemCount: catId == null
-                              ? controller.allProducts.length
-                              : controller.allProducts.length,
-                          itemBuilder: (context, index) {
-                            Products products = catId == null
-                                ? controller.allProducts[index]
-                                : controller.allProducts[index];
-                            return AllProductWidget(products: products);
-                          },
-                          maxCrossAxisExtent: 200,
-                          crossAxisSpacing: getProportionateScreenHeight(20),
-                          mainAxisSpacing: getProportionateScreenWidth(20),
-                          staggeredTileBuilder: (int index) {
-                            return StaggeredTile.extent(1, 300);
-                          },
-                        ),
-                      ),
+            child: controller.allProducts.isEmpty || controller.fetching.value
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container(
+                    //color: kSecondaryColor.withOpacity(0.2),
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: StaggeredGridView.extentBuilder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: catId == null
+                          ? controller.allProducts.length
+                          : controller.allProducts.length,
+                      itemBuilder: (context, index) {
+                        var products = catId == null
+                            ? controller.allProducts[index]
+                            : controller.allProducts[index];
+                        return AllProductWidget(products: products);
+                      },
+                      maxCrossAxisExtent: 200,
+                      crossAxisSpacing: getProportionateScreenHeight(20),
+                      mainAxisSpacing: getProportionateScreenWidth(20),
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.extent(1, 300);
+                      },
+                    ),
+                  ),
           ),
           SizedBox(
             height: getProportionateScreenHeight(70),
@@ -80,8 +78,9 @@ class Body extends StatelessWidget {
                       text: 'Next',
                       press: controller.hasNext.value
                           ? () {
-                              if (!controller.fetching.value)
+                              if (!controller.fetching.value) {
                                 controller.getNextProducts();
+                              }
                             }
                           : null,
                       //color: kPrimaryColor,

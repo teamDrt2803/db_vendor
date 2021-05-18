@@ -10,7 +10,7 @@ class FavouriteProduct {
     id = json['id'];
   }
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data['id'] = id;
     return data;
   }

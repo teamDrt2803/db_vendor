@@ -17,25 +17,24 @@ class FavouritesController extends GetxController {
     super.onInit();
   }
 
-  updateFavourites(dynamic id, BuildContext context) {
+  void updateFavourites(dynamic id, BuildContext context) {
     var index =
         favouritesBox.values.toList().indexWhere((element) => element.id == id);
     if (index == -1) {
       Get.snackbar('Added to Favourites', '');
-      favouritesBox.add(new FavouriteProduct(id: id));
+      favouritesBox.add(FavouriteProduct(id: id));
     } else {
       Get.snackbar('Removed from Favourites', '');
       favouritesBox.deleteAt(index);
     }
   }
 
-  getdata() {
+  void getdata() {
     print('object');
     favouritesBox.listenable().addListener(() async {
       print('object');
       favouriteProducts.clear();
-      List<dynamic> fav =
-          favouritesBox.values.toList().map((e) => e.id).toList();
+      var fav = favouritesBox.values.toList().map((e) => e.id).toList();
       for (var item in fav) {
         var snsapshhot = await firestore
             .collection('products')
@@ -43,16 +42,17 @@ class FavouritesController extends GetxController {
             .get();
         for (var item in snsapshhot.docs) {
           if (!favouriteProducts
-              .any((element) => element.id == item.data()['id']))
-            favouriteProducts.add(new Products.fromJson(item.data()));
+              .any((element) => element.id == item.data()['id'])) {
+            favouriteProducts.add(Products.fromJson(item.data()));
+          }
         }
       }
     });
   }
 
-  getFirstTime() async {
+  void getFirstTime() async {
     favouriteProducts.clear();
-    List<dynamic> fav = favouritesBox.values.toList().map((e) => e.id).toList();
+    var fav = favouritesBox.values.toList().map((e) => e.id).toList();
     for (var item in fav) {
       var snsapshhot = await firestore
           .collection('products')
@@ -60,8 +60,9 @@ class FavouritesController extends GetxController {
           .get();
       for (var item in snsapshhot.docs) {
         if (!favouriteProducts
-            .any((element) => element.id == item.data()['id']))
-          favouriteProducts.add(new Products.fromJson(item.data()));
+            .any((element) => element.id == item.data()['id'])) {
+          favouriteProducts.add(Products.fromJson(item.data()));
+        }
       }
     }
   }

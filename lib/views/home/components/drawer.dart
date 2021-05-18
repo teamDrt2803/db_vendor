@@ -244,7 +244,7 @@ class ProfileMenu2 extends StatelessWidget {
           15,
         ),
       ),
-      // color: Color(0xFFF5F6F9),
+      color: Color(0xFFF5F6F9),
       onPressed: press,
       child: Row(
         children: [

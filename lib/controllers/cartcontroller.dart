@@ -75,7 +75,7 @@ class CartController extends GetxController implements CartControllerInterface {
     cartStreamSubscription = _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
-        .collection('orders')
+        .collection('cart')
         .snapshots()
         .listen(
       (snapshot) {
@@ -83,7 +83,13 @@ class CartController extends GetxController implements CartControllerInterface {
           switch (item.type) {
             case DocumentChangeType.added:
               var cartItems = CartModal.fromFirestore(item.doc);
-              this.cartItems.add(cartItems);
+              var index =
+                  this.cartItems.indexWhere((element) => element == cartItems);
+              if (index != -1) {
+                this.cartItems[index] = cartItems;
+              } else {
+                this.cartItems.add(cartItems);
+              }
               break;
             case DocumentChangeType.modified:
               var cartItems = CartModal.fromFirestore(item.doc);
@@ -111,6 +117,7 @@ class CartController extends GetxController implements CartControllerInterface {
 
   @override
   Future<void> updateCartItem(CartModal cartModal) async {
+    print(cartModal.documentID);
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
@@ -121,6 +128,14 @@ class CartController extends GetxController implements CartControllerInterface {
 
   @override
   Future<void> addCartItem(CartModal cartModal) async {
+    var index = cartItems.indexWhere(
+        (element) => element.wooProducts.id == cartModal.wooProducts.id);
+    if (index != -1) {
+      await updateCartItem(cartItems[index].copyWith(
+          totalQuantity:
+              cartItems[index].totalQuantity + cartModal.totalQuantity));
+      return;
+    }
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
@@ -170,6 +185,13 @@ class CartController extends GetxController implements CartControllerInterface {
   @override
   void handleUserChanges(User user) {
     if (user?.uid != null) {
+      print('*****************************************************');
+      print('*****************************************************');
+      print('*****************************************************');
+      print(user.uid);
+      print('*****************************************************');
+      print('*****************************************************');
+      print('*****************************************************');
       listenToCartItem();
       listenToOrderItem();
     } else {

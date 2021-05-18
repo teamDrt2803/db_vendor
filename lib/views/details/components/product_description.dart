@@ -42,7 +42,7 @@ class ProductDescription extends StatelessWidget {
                       product.name,
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    Text("Minimum Quantity: " + product.setOf),
+                    Text('Minimum Quantity: ' + product.setOf),
                   ],
                 ),
               ),
@@ -82,7 +82,7 @@ class ProductDescription extends StatelessWidget {
                   valueListenable: favouritesBox.listenable(),
                   builder: (context, snapshot, _) {
                     return SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
+                      'assets/icons/Heart Icon_2.svg',
                       color: snapshot.values
                               .toList()
                               .any((element) => element.id == product.id)
@@ -113,7 +113,7 @@ class ProductDescription extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "See More Detail",
+                  'See More Detail',
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),
@@ -134,7 +134,7 @@ class ProductDescription extends StatelessWidget {
 
 String _parseHtmlString(String htmlString) {
   final document = parse(htmlString);
-  final String parsedString = parse(document.body.text).documentElement.text;
+  final parsedString = parse(document.body.text).documentElement.text;
 
   return parsedString;
 }

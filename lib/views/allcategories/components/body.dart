@@ -1,5 +1,4 @@
 import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/categorymodal.dart';
 
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/views/allcategories/components/productwidget.dart';
@@ -25,7 +24,7 @@ class Body extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemCount: controller.categories.length,
                 itemBuilder: (context, index) {
-                  CategoryModal categories = controller.categories[index];
+                  var categories = controller.categories[index];
                   return AllCategoriesWidget(products: categories);
                 },
                 maxCrossAxisExtent: 200,

@@ -16,7 +16,7 @@ ThemeData theme() {
 }
 
 InputDecorationTheme inputDecorationTheme() {
-  OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+  var outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
     borderSide: BorderSide(color: kTextColor),
     gapPadding: 10,
@@ -47,7 +47,7 @@ AppBarTheme appBarTheme() {
     brightness: Brightness.light,
     iconTheme: IconThemeData(color: Colors.black),
     textTheme: TextTheme(
-      headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
+      headline6: TextStyle(color: Color(0xff8b8b8b), fontSize: 18),
     ),
   );
 }

@@ -31,7 +31,7 @@ class WooController extends GetxController {
   var firstore = FirebaseFirestore.instance;
 
   @override
-  onInit() async {
+  void onInit() async {
     super.onInit();
   }
 
@@ -77,7 +77,7 @@ class WooController extends GetxController {
         final responseJson = json.decode(response);
         print(responseJson.length);
         for (dynamic rsp in responseJson) {
-          Products wooProducts = Products.fromJson(rsp);
+          var wooProducts = Products.fromJson(rsp);
           allProducts.add(wooProducts);
         }
       } catch (e) {
@@ -124,8 +124,9 @@ class WooController extends GetxController {
       if (previous) {
         if (currentPageCat >= 0) currentPageCat--;
       } else {
-        if (currentPageCat < totalProductPageCountCat)
+        if (currentPageCat < totalProductPageCountCat) {
           currentPageCat = currentPageCat + 1;
+        }
       }
 
       fetchingProductsCat.value = true;
@@ -167,7 +168,7 @@ class WooController extends GetxController {
         final responseJson = json.decode(response);
 
         for (dynamic rsp in responseJson) {
-          Products wooProducts = Products.fromJson(rsp);
+          var wooProducts = Products.fromJson(rsp);
           allProductsCat.add(wooProducts);
         }
       } catch (e) {
@@ -193,10 +194,8 @@ class WooController extends GetxController {
     }
   }
 
-  getCategories({int pageCount}) async {
-    if (pageCount == null) {
-      pageCount = 10;
-    }
+  void getCategories({int pageCount}) async {
+    pageCount ??= 10;
     final response = await cache.remember(
       'categories$pageCount',
       () async => await http
@@ -224,18 +223,18 @@ class WooController extends GetxController {
     }
   }
 
-  getCategorDetails({String link}) async {
+  void getCategorDetails({String link}) async {
     final response = await http.get(
       Uri.parse(link +
           '?consumer_key=${Consts.consumerKey}&consumer_secret=${Consts.consumerSecret}'),
     );
 
     final responseJson = json.decode(response.body);
-    SingleCategory category = SingleCategory.fromJson(responseJson);
+    var category = SingleCategory.fromJson(responseJson);
     print(category.id);
   }
 
-  getSubCategories({String id}) async {
+  Future<void> getSubCategories({String id}) async {
     final response = await cache.remember(
       'subCategories$id',
       () async => await http
@@ -263,7 +262,7 @@ class WooController extends GetxController {
     }
   }
 
-  getTopProducts() async {
+  Future<void> getTopProducts() async {
     final response = await cache.remember(
       'topProducts',
       () async => await http
@@ -276,7 +275,7 @@ class WooController extends GetxController {
     );
     final responseJson = json.decode(response);
     for (dynamic rsp in responseJson) {
-      Products wooProducts = Products.fromJson(rsp);
+      var wooProducts = Products.fromJson(rsp);
       topProducts.add(wooProducts);
     }
   }

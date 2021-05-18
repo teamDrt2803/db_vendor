@@ -1,11 +1,4 @@
-import 'package:db_vendor/controllers/cartcontroller.dart';
-import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/modals/size_config.dart';
-import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class MyOrders extends StatelessWidget {
   // final CartController _cartController = Get.find();

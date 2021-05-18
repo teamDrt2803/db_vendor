@@ -48,7 +48,7 @@ class IconBtnWithCounter extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "$numOfitem",
+                    '$numOfitem',
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(10),
                       height: 1,

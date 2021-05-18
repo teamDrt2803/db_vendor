@@ -1,14 +1,7 @@
-import 'package:db_vendor/main.dart';
-import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:db_vendor/views/home/components/icon_btn_with_counter.dart';
-import 'package:db_vendor/views/views.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class CustomAppBar extends PreferredSize {
   final double rating;

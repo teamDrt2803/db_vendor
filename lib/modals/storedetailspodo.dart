@@ -24,7 +24,7 @@ class Storedetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['userName'] = userName;
     data['storeName'] = storeName;
     data['state'] = state;

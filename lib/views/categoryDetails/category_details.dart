@@ -5,7 +5,7 @@ import 'components/body.dart';
 import 'components/custom_app_bar.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
-  static String routeName = "/catdetails";
+  static String routeName = '/catdetails';
 
   @override
   Widget build(BuildContext context) {

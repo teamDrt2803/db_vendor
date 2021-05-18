@@ -48,7 +48,7 @@ class CartModal {
 
   Map<String, dynamic> toMap() => {
         'totalQuantity': totalQuantity,
-        'wooProducts': wooProducts,
+        'wooProducts': wooProducts.toJson(),
         'time': time,
       };
 
@@ -58,6 +58,9 @@ class CartModal {
     dynamic time,
   }) {
     return CartModal(
+      documentID: documentID,
+      reference: reference,
+      snapshot: snapshot,
       totalQuantity: totalQuantity ?? this.totalQuantity,
       wooProducts: wooProducts ?? this.wooProducts,
       time: time ?? this.time,

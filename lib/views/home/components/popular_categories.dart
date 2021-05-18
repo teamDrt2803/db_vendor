@@ -1,6 +1,5 @@
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/helpers/categorycard.dart';
-import 'package:db_vendor/modals/categorymodal.dart';
 import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';

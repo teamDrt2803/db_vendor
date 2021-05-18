@@ -1,4 +1,4 @@
-import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,24 +12,17 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
+      // backgroundColor: kPrimaryColor,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-        ),
-        brightness: Brightness.dark,
-        backgroundColor: Colors.transparent,
+      appBar: CustAppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            }),
+        title: Text('Order complete'),
       ),
-      body: Body(
-        total: total,
-      ),
+      body: Body(),
     );
   }
 }

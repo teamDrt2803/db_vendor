@@ -1,14 +1,6 @@
-import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:db_vendor/views/home/components/icon_btn_with_counter.dart';
-import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../../main.dart';
 
 class CustomAppBar extends PreferredSize {
   final double rating;
@@ -39,7 +31,7 @@ class CustomAppBar extends PreferredSize {
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset(
-                  "assets/icons/Back ICon.svg",
+                  'assets/icons/Back ICon.svg',
                   height: 15,
                 ),
               ),
@@ -67,14 +59,14 @@ class CustomAppBar extends PreferredSize {
                     width: getProportionateScreenWidth(20),
                   ),
                   Text(
-                    "$rating",
+                    '$rating',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SvgPicture.asset("assets/icons/Star Icon.svg"),
+                  SvgPicture.asset('assets/icons/Star Icon.svg'),
                 ],
               ),
             )

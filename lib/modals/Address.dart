@@ -37,7 +37,7 @@ class AddressModal {
   });
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data['firstname'] = firstname;
     data['lastName'] = lastName;
     data['contactName'] = contactName;
@@ -51,5 +51,5 @@ class AddressModal {
     return data;
   }
 
-  AddressModal.fromJson() {}
+  // AddressModal.fromJson() {}
 }

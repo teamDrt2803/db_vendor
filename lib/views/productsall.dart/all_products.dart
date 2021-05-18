@@ -1,15 +1,9 @@
 import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/modals.dart';
 
-import 'package:db_vendor/views/views.dart';
-import 'package:db_vendor/views/home/components/icon_btn_with_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
-import '../../main.dart';
 import 'components/body.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class AllProducts extends StatefulWidget {
   final int catId;
@@ -20,7 +14,7 @@ class AllProducts extends StatefulWidget {
 }
 
 class _AllProductsState extends State<AllProducts> {
-  ProductController _productController = Get.find();
+  final ProductController _productController = Get.find();
 
   @override
   void initState() {

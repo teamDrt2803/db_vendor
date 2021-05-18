@@ -356,9 +356,8 @@ class _BodyState extends State<Body> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kPrimaryColor,
-        child: Icon(Icons.save_outlined),
         onPressed: () async {
-          AddressModal modal = AddressModal();
+          var modal = AddressModal();
           if (formState.currentState.validate()) {
             formState.currentState.save();
             modal.appartmentName = appartmentName.text;
@@ -374,9 +373,11 @@ class _BodyState extends State<Body> {
             // await authController
             //     .addToAddress(addressModal: modal)
             //     .then((value) => Get.back());
+            // ignore: todo
             ///TODO: address ddition method
           }
         },
+        child: Icon(Icons.save_outlined),
       ),
     );
   }

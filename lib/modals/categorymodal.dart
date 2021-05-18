@@ -12,13 +12,13 @@ class CategoryModal {
   @HiveField(3)
   int id;
 
-  CategoryModal({this.images, this.name, this.description, this.id});
+  CategoryModal({images, name, description, id});
 
   CategoryModal.fromJson(Map<String, dynamic> json) {
     if (json['images'] != null) {
       images = [];
       json['images'].forEach((v) {
-        images.add(new CatImages.fromJson(v));
+        images.add(CatImages.fromJson(v));
       });
     }
     name = json['name'];
@@ -27,13 +27,13 @@ class CategoryModal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.images != null) {
-      data['images'] = this.images.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    if (images != null) {
+      data['images'] = images.map((v) => v.toJson()).toList();
     }
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['id'] = this.id;
+    data['name'] = name;
+    data['description'] = description;
+    data['id'] = id;
     return data;
   }
 }
@@ -45,7 +45,7 @@ class CatImages {
   @HiveField(1)
   String src;
 
-  CatImages({this.number, this.src});
+  CatImages({number, src});
 
   CatImages.fromJson(Map<String, dynamic> json) {
     number = int.parse(json['number']);
@@ -53,9 +53,9 @@ class CatImages {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['number'] = this.number;
-    data['src'] = this.src;
+    final data = <String, dynamic>{};
+    data['number'] = number;
+    data['src'] = src;
     return data;
   }
 }

@@ -49,7 +49,7 @@ class _BrandListState extends State<BrandList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Visibility(
-                      visible: list.length > 0,
+                      visible: list.isNotEmpty,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
@@ -69,7 +69,7 @@ class _BrandListState extends State<BrandList> {
                         itemCount: list.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index1) {
-                          BrandDetails details = BrandDetails.fromJson(
+                          var details = BrandDetails.fromJson(
                             list[index1],
                           );
                           return Padding(

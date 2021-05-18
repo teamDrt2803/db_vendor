@@ -1,44 +1,45 @@
+import 'package:db_vendor/controllers/cartcontroller.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'components/body.dart';
 import 'components/check_out_card.dart';
-import 'package:db_vendor/main.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class CartScreen extends StatelessWidget {
-  static String routeName = "/cart";
+  static String routeName = '/cart';
+  final CartController _cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      // bottomNavigationBar: ValueListenableBuilder(
-      //     valueListenable: box.listenable(),
-      //     builder: (context, box, _) {
-      //       return box.length > 0 ? CheckoutCard() : SizedBox.shrink();
-      //     }),
+      bottomNavigationBar: Obx(
+        () => _cartController.cartItems.isNotEmpty
+            ? CheckoutCard()
+            : SizedBox.shrink(),
+      ),
     );
   }
 
-  AppBar buildAppBar(context) {
-    return AppBar(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Your Cart",
-            style: TextStyle(color: Colors.black),
+  CustAppBar buildAppBar(context) {
+    return CustAppBar(
+      leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
           ),
-          // ValueListenableBuilder(
-          //   valueListenable: box.listenable(),
-          //   builder: (context, box, _) {
-          //     return Text(
-          //       "${box.length} items",
-          //       style: Theme.of(context).textTheme.caption,
-          //     );
-          //   },
-          // ),
-        ],
+          onPressed: () {
+            Get.back();
+          }),
+      title: Text(
+        'Your Cart',
+        // style: TextStyle(color: Colors.black),
+      ),
+      subtitle: Obx(
+        () => Text(
+          '${_cartController.cartItems.length} Items',
+        ),
       ),
     );
   }

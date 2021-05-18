@@ -62,7 +62,7 @@ class CategoryDescription extends StatelessWidget {
               ),
             ),
             child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
+              'assets/icons/Heart Icon_2.svg',
               color: Color(0xFFFF4848),
               height: getProportionateScreenWidth(16),
             ),
@@ -87,7 +87,7 @@ class CategoryDescription extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "See More Detail",
+                  'See More Detail',
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),
@@ -108,7 +108,7 @@ class CategoryDescription extends StatelessWidget {
 
 String _parseHtmlString(String htmlString) {
   final document = parse(htmlString);
-  final String parsedString = parse(document.body.text).documentElement.text;
+  final parsedString = parse(document.body.text).documentElement.text;
 
   return parsedString;
 }

@@ -54,12 +54,12 @@ class CartCard extends StatelessWidget {
                   Flexible(
                     child: Text.rich(
                       TextSpan(
-                        text: "\₹${cart.wooProducts.salesPrice}",
+                        text: '\₹${cart.wooProducts.salesPrice}',
                         style: TextStyle(
                             fontWeight: FontWeight.w600, color: kPrimaryColor),
                         children: [
                           TextSpan(
-                              text: " x${cart.totalQuantity}",
+                              text: ' x${cart.totalQuantity}',
                               style: Theme.of(context).textTheme.bodyText1),
                         ],
                       ),

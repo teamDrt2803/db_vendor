@@ -5,15 +5,24 @@ class CustAppBar extends PreferredSize {
   final Widget leading;
   final Widget title;
   final Widget trailing;
+  final Widget subtitle;
 
-  CustAppBar({this.leading, this.title, this.trailing});
+  CustAppBar({
+    this.leading,
+    this.title,
+    this.trailing,
+    this.subtitle,
+  });
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: leading == null && title == null && trailing == null
+      child: leading == null &&
+              title == null &&
+              trailing == null &&
+              subtitle == null
           ? SizedBox.shrink()
           : Container(
               decoration: BoxDecoration(
@@ -30,6 +39,7 @@ class CustAppBar extends PreferredSize {
                 leading: leading,
                 title: title,
                 trailing: trailing,
+                subtitle: subtitle,
               ),
             ),
     );

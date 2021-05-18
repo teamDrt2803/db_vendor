@@ -1,5 +1,8 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:db_vendor/controllers/controllers.dart';
+import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:db_vendor/helpers/product_card.dart';
@@ -10,7 +13,7 @@ import 'section_title.dart';
 
 class PopularProducts extends StatelessWidget {
   final ProductController _controller = Get.find();
-  // final CartController _cartController = Get.find();
+  final CartController _cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,12 +41,18 @@ class PopularProducts extends StatelessWidget {
                     var wooProducts = _controller.products[index];
                     return ProductCard(
                       product: wooProducts,
-                      onPressed: () {
-                        // _cartController.addToCart(
-                        //   products: wooProducts,
-                        //   item: 1,
-                        //   context: context,
-                        // );
+                      onPressed: () async {
+                        await _cartController.addCartItem(
+                          CartModal(
+                            totalQuantity: 1,
+                            wooProducts: wooProducts,
+                            time: ServerValue.timestamp,
+                          ),
+                        );
+                        // ignore: unawaited_futures
+                        FlushbarHelper.createInformation(
+                                message: '${wooProducts.name} added to cart')
+                            .show(context);
                       },
                     );
                     // here by default width and height is 0

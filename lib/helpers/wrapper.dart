@@ -2,7 +2,6 @@ import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/views/mainscreen/mainscreen.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

@@ -71,13 +71,13 @@ class _OrderState extends State<Order> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Today, 7:30 PM",
+                                      'Today, 7:30 PM',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: kPrimaryColor),
                                     ),
                                     Text(
-                                      "₹20",
+                                      '₹20',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: kSecondaryColor),
@@ -91,7 +91,7 @@ class _OrderState extends State<Order> {
                                 Row(
                                   children: [
                                     Text(
-                                      "Items",
+                                      'Items',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey),
@@ -114,16 +114,16 @@ class _OrderState extends State<Order> {
                                                 height: 50,
                                                 width: 50,
                                                 child: Image.network(
-                                                    "https://www.pngfind.com/pngs/m/672-6725952_amul-masti-spiced-amul-butter-milk-hd-png.png"),
+                                                    'https://www.pngfind.com/pngs/m/672-6725952_amul-masti-spiced-amul-butter-milk-hd-png.png'),
                                               ),
                                               Text(
-                                                "Amul Masti Buttermilk x 2",
+                                                'Amul Masti Buttermilk x 2',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 16),
                                               ),
                                               Text(
-                                                "₹20",
+                                                '₹20',
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -154,7 +154,7 @@ class _OrderState extends State<Order> {
                                               getProportionateScreenWidth(10),
                                         ),
                                         Text(
-                                          "Delivered",
+                                          'Delivered',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         )
@@ -167,7 +167,7 @@ class _OrderState extends State<Order> {
                                       ),
                                       onPressed: () {},
                                       child: Text(
-                                        "Re-order",
+                                        'Re-order',
                                         style: TextStyle(
                                           color: kPrimaryColor,
                                         ),

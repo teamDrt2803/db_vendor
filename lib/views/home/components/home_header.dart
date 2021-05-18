@@ -1,17 +1,12 @@
-import 'package:db_vendor/controllers/controllers.dart';
-import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:db_vendor/views/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
-import '../../../main.dart';
 import 'icon_btn_with_counter.dart';
 import 'search_field.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeHeader extends StatelessWidget {
   HomeHeader({
@@ -38,7 +33,7 @@ class HomeHeader extends StatelessWidget {
           //   },
           // ),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
+            svgSrc: 'assets/icons/Bell.svg',
             numOfitem: 3,
             press: () {
               Get.to(() => NotificationsPage());

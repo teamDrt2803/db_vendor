@@ -85,7 +85,7 @@ class _SignFormState extends State<SignForm> {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
                         KeyboardUtil.hideKeyboard(context);
-                        await authController.loginwithPhone();
+                        await authController.loginwithPhone(context);
                       }
                     }
                   : null,

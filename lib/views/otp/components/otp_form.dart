@@ -47,7 +47,7 @@ class _OtpFormState extends State<OtpForm> {
             appContext: context,
             length: 6,
             onCompleted: (s) async {
-              await _authController.verifyOtp();
+              await _authController.verifyOtp(context);
             },
             pinTheme: PinTheme(
               shape: PinCodeFieldShape.box,
@@ -76,7 +76,7 @@ class _OtpFormState extends State<OtpForm> {
               text: 'Continue',
               press: () async {
                 if (_authController.otp.text.length == 6) {
-                  await _authController.verifyOtp();
+                  await _authController.verifyOtp(context);
                 }
               },
             ),

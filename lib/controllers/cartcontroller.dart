@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/abstracts/abstractclasses.dart';
 import 'package:db_vendor/controllers/auth.dart';
@@ -128,7 +127,6 @@ class CartController extends GetxController implements CartControllerInterface {
 
   @override
   Future<void> updateCartItem(CartModal cartModal) async {
-    print(cartModal.documentID);
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
@@ -138,27 +136,29 @@ class CartController extends GetxController implements CartControllerInterface {
   }
 
   @override
-  Future<void> addCartItem(CartModal cartModal) async {
+  Future<bool> addCartItem(CartModal cartModal) async {
     if (_authController.auth.currentUser != null) {
       var index = cartItems.indexWhere(
           (element) => element.wooProducts.id == cartModal.wooProducts.id);
       if (index != -1) {
-        await updateCartItem(cartItems[index].copyWith(
-            totalQuantity:
-                cartItems[index].totalQuantity + cartModal.totalQuantity));
-        return;
+        await updateCartItem(
+          cartItems[index].copyWith(
+              totalQuantity:
+                  cartItems[index].totalQuantity + cartModal.totalQuantity),
+        );
+        return true;
       }
       await _authController.firestore
           .collection('users')
           .doc(_authController.auth.currentUser.uid)
           .collection('cart')
           .add(cartModal.toMap());
+      return true;
     } else {
       // ignore: unawaited_futures
-      FlushbarHelper.createInformation(
-          message: 'Please Login to use Cart functionality');
-      // ignore: unawaited_futures
       Get.to(() => SignInScreen());
+      return false;
+      // ignore: unawaited_futures
     }
   }
 

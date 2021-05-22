@@ -42,17 +42,25 @@ class PopularProducts extends StatelessWidget {
                     return ProductCard(
                       product: wooProducts,
                       onPressed: () async {
-                        await _cartController.addCartItem(
+                        var done = await _cartController.addCartItem(
                           CartModal(
                             totalQuantity: 1,
                             wooProducts: wooProducts,
                             time: ServerValue.timestamp,
                           ),
                         );
-                        // ignore: unawaited_futures
-                        FlushbarHelper.createInformation(
-                                message: '${wooProducts.name} added to cart')
-                            .show(context);
+                        if (done) {
+                          // ignore: unawaited_futures
+                          FlushbarHelper.createInformation(
+                                  message: '${wooProducts.name} added to cart')
+                              .show(context);
+                        } else {
+                          // ignore: unawaited_futures
+                          FlushbarHelper.createInformation(
+                                  message:
+                                      'PLease login first to add Items to cart')
+                              .show(context);
+                        }
                       },
                     );
                     // here by default width and height is 0

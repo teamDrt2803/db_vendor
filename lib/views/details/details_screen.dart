@@ -64,8 +64,20 @@ class DetailsScreen extends StatelessWidget {
                       FlushbarHelper.createInformation(
                               message: 'Added ${agrs.product.name} to cart')
                           .show(context);
-                      await _cartController.addCartItem(CartModal(
+                      var done = await _cartController.addCartItem(CartModal(
                           wooProducts: agrs.product, totalQuantity: 1));
+                      if (done) {
+                        // ignore: unawaited_futures
+                        FlushbarHelper.createInformation(
+                                message: '${agrs.product.name} added to cart')
+                            .show(context);
+                      } else {
+                        // ignore: unawaited_futures
+                        FlushbarHelper.createInformation(
+                                message:
+                                    'PLease login first to add Items to cart')
+                            .show(context);
+                      }
                     } else {
                       // ignore: unawaited_futures
                       FlushbarHelper.createInformation(
@@ -83,8 +95,20 @@ class DetailsScreen extends StatelessWidget {
                   text: 'Buy Now',
                   press: () async {
                     if (_authController.auth.currentUser != null) {
-                      await _cartController.addCartItem(CartModal(
+                      var done = await _cartController.addCartItem(CartModal(
                           wooProducts: agrs.product, totalQuantity: 1));
+                      if (done) {
+                        // ignore: unawaited_futures
+                        FlushbarHelper.createInformation(
+                                message: '${agrs.product.name} added to cart')
+                            .show(context);
+                      } else {
+                        // ignore: unawaited_futures
+                        FlushbarHelper.createInformation(
+                                message:
+                                    'PLease login first to add Items to cart')
+                            .show(context);
+                      }
                       // ignore: unawaited_futures
                       Get.to(() => CartScreen());
                     } else {

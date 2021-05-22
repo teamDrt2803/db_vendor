@@ -123,13 +123,24 @@ class AllProductWidget extends StatelessWidget {
                             right: 0,
                             bottom: -20,
                             child: RawMaterialButton(
-                              onPressed: () {
-                                _cartController.addCartItem(CartModal(
-                                    wooProducts: products, totalQuantity: 1));
-                                FlushbarHelper.createInformation(
-                                        message:
-                                            'Added ${products.name} to cart')
-                                    .show(context);
+                              onPressed: () async {
+                                var done = await _cartController.addCartItem(
+                                    CartModal(
+                                        wooProducts: products,
+                                        totalQuantity: 1));
+                                if (done) {
+                                  // ignore: unawaited_futures
+                                  FlushbarHelper.createInformation(
+                                          message:
+                                              '${products.name} added to cart')
+                                      .show(context);
+                                } else {
+                                  // ignore: unawaited_futures
+                                  FlushbarHelper.createInformation(
+                                          message:
+                                              'PLease login first to add Items to cart')
+                                      .show(context);
+                                }
                               },
                               fillColor: kPrimaryColor,
                               constraints: BoxConstraints(

@@ -7,6 +7,7 @@ import 'package:db_vendor/modals/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -68,14 +69,14 @@ class AuthController extends GetxController {
   ///
   ///Method to send [otp]
   ///
-  Future<void> loginwithPhone() async {
+  Future<void> loginwithPhone(BuildContext context) async {
     if (processing) return;
     _processing.value = true;
     try {
       await _auth.verifyPhoneNumber(
         phoneNumber: phone.text.countrycode(),
         verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
+        verificationFailed: (e) => verificationFailed(e, context),
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
@@ -87,7 +88,7 @@ class AuthController extends GetxController {
   ///
   ///Method to verify [otp]
   ///
-  Future<void> verifyOtp() async {
+  Future<void> verifyOtp(context) async {
     if (processing) return;
     _processing.value = true;
     try {
@@ -99,7 +100,7 @@ class AuthController extends GetxController {
           .signInWithCredential(credential)
           .then((value) => _processing.value = false);
     } on FirebaseAuthException catch (e) {
-      verificationFailed(e);
+      verificationFailed(e, context);
     }
   }
 
@@ -116,6 +117,7 @@ class AuthController extends GetxController {
       city: 'Chhindwara',
       postalCode: '480001',
       state: 'Madhya Pradesh',
+      fcmToken: await _messaging.getToken(),
     ).toMap();
     await firestore.collection('users').doc(user.uid).set(storeUser).then(
           (value) => _processing.value = false,
@@ -125,23 +127,20 @@ class AuthController extends GetxController {
   ///
   ///[Callback] when code is auto verified
   ///
-  Future<void> verificationCompleted(PhoneAuthCredential credential) async {
-    debugPrint('**********SMS CODE*********');
-    debugPrint(credential.smsCode);
-    debugPrint('**********SMS CODE*********');
-  }
+  Future<void> verificationCompleted(PhoneAuthCredential credential) async {}
 
   ///
   ///[Callback] for exceptionoccurred while sending otp
   ///
-  void verificationFailed(FirebaseAuthException exception) {
+  void verificationFailed(
+      FirebaseAuthException exception, BuildContext context) {
     switch (exception.code) {
       case 'invalid-verification-code':
         FlushbarHelper.createError(
           message:
               'The Verification code you entered is invalid. Please try again!',
           title: 'Error occurred',
-        );
+        ).show(context);
         break;
       default:
         FlushbarHelper.createError(
@@ -268,7 +267,7 @@ class AuthController extends GetxController {
         Get.offAllNamed(CompleteProfileScreen.routeName);
       }
     } else {
-      if (Get.currentRoute == CompleteProfileScreen.routeName) {
+      if (Get.currentRoute != MainScreen.routeName) {
         Get.offAllNamed(MainScreen.routeName);
       }
     }
@@ -293,11 +292,12 @@ class AuthController extends GetxController {
   ///
   ///[SignOut] and clear user data
   ///
-  void signout() async {
+  void signout(BuildContext context) async {
     try {
       await preferenceBox.clear();
       await _auth.signOut();
       await Hive.deleteFromDisk();
+      Phoenix.rebirth(context);
     } catch (e) {
       print(e);
     }

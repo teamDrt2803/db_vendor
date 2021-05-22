@@ -1,4 +1,5 @@
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,18 +12,27 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff6f7f9),
+      backgroundColor: Colors.white,
+      key: _scaffoldKey,
       drawer: Custdrawer(),
       //bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
-      appBar: AppBar(
+      appBar: CustAppBar(
+        leading: IconButton(
+            onPressed: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
+            icon: Icon(Icons.menu)),
         title: Text('Offers'),
       ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16.0),
+          color: Colors.white,
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
           child: ListView(
             clipBehavior: Clip.none,
             physics: BouncingScrollPhysics(),

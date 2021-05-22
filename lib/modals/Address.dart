@@ -1,55 +1,129 @@
-import 'package:hive/hive.dart';
-part 'Address.g.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-@HiveType(typeId: 6)
 class AddressModal {
-  @HiveField(0)
-  String firstname;
-  @HiveField(1)
-  String lastName;
-  @HiveField(2)
-  String contactName;
-  @HiveField(3)
-  String houseNo;
-  @HiveField(4)
-  String appartmentName;
-  @HiveField(5)
-  String streetName;
-  @HiveField(6)
-  String landMark;
-  @HiveField(7)
-  String areaDetails;
-  @HiveField(8)
-  String city;
-  @HiveField(9)
-  String pincode;
+  final String firstname;
+  final String lastName;
+  final String contactName;
+  final String houseNo;
+  final String appartmentName;
+  final String streetName;
+  final String landMark;
+  final String areaDetails;
+  final String city;
+  final String pincode;
+  final bool primary;
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
+
   AddressModal({
+    this.firstname,
+    this.lastName,
+    this.contactName,
+    this.houseNo,
     this.appartmentName,
+    this.streetName,
+    this.landMark,
     this.areaDetails,
     this.city,
-    this.contactName,
-    this.firstname,
-    this.houseNo,
-    this.landMark,
-    this.lastName,
     this.pincode,
-    this.streetName,
+    this.primary,
+    this.snapshot,
+    this.reference,
+    this.documentID,
   });
 
-  Map<String, dynamic> toJson() {
-    var data = <String, dynamic>{};
-    data['firstname'] = firstname;
-    data['lastName'] = lastName;
-    data['contactName'] = contactName;
-    data['houseNo'] = houseNo;
-    data['appartmentName'] = appartmentName;
-    data['streetName'] = streetName;
-    data['landMark'] = landMark;
-    data['areaDetails'] = areaDetails;
-    data['city'] = city;
-    data['pincode'] = pincode;
-    return data;
+  factory AddressModal.fromFirestore(DocumentSnapshot snapshot) {
+    if (snapshot == null) return null;
+    var map = snapshot.data();
+
+    return AddressModal(
+      firstname: map['firstname'],
+      lastName: map['lastName'],
+      contactName: map['contactName'],
+      houseNo: map['houseNo'],
+      appartmentName: map['appartmentName'],
+      streetName: map['streetName'],
+      landMark: map['landMark'],
+      areaDetails: map['areaDetails'],
+      city: map['city'],
+      pincode: map['pincode'],
+      primary: map['primary'],
+      snapshot: snapshot,
+      reference: snapshot.reference,
+      documentID: snapshot.id,
+    );
   }
 
-  // AddressModal.fromJson() {}
+  factory AddressModal.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return AddressModal(
+      firstname: map['firstname'],
+      lastName: map['lastName'],
+      contactName: map['contactName'],
+      houseNo: map['houseNo'],
+      appartmentName: map['appartmentName'],
+      streetName: map['streetName'],
+      landMark: map['landMark'],
+      areaDetails: map['areaDetails'],
+      city: map['city'],
+      pincode: map['pincode'],
+      primary: map['primary'],
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'firstname': firstname,
+        'lastName': lastName,
+        'contactName': contactName,
+        'houseNo': houseNo,
+        'appartmentName': appartmentName,
+        'streetName': streetName,
+        'landMark': landMark,
+        'areaDetails': areaDetails,
+        'city': city,
+        'pincode': pincode,
+        'primary': primary,
+      };
+
+  AddressModal copyWith({
+    String firstname,
+    String lastName,
+    String contactName,
+    String houseNo,
+    String appartmentName,
+    String streetName,
+    String landMark,
+    String areaDetails,
+    String city,
+    String pincode,
+    bool primary,
+  }) {
+    return AddressModal(
+      firstname: firstname ?? this.firstname,
+      lastName: lastName ?? this.lastName,
+      contactName: contactName ?? this.contactName,
+      houseNo: houseNo ?? this.houseNo,
+      appartmentName: appartmentName ?? this.appartmentName,
+      streetName: streetName ?? this.streetName,
+      landMark: landMark ?? this.landMark,
+      areaDetails: areaDetails ?? this.areaDetails,
+      city: city ?? this.city,
+      pincode: pincode ?? this.pincode,
+      primary: primary ?? this.primary,
+    );
+  }
+
+  @override
+  String toString() {
+    return '${firstname.toString()},\n${contactName.toString()},\n${houseNo.toString()}, ${appartmentName.toString()}, ${streetName.toString()}, ${landMark.toString()}, ${areaDetails.toString()}, ${pincode.isEmpty ? 480001 : pincode.toString()}';
+  }
+
+  @override
+  bool operator ==(other) =>
+      other is AddressModal && documentID == other.documentID;
+
+  @override
+  int get hashCode => documentID.hashCode;
 }

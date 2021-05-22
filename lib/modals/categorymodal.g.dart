@@ -17,10 +17,10 @@ class CategoryModalAdapter extends TypeAdapter<CategoryModal> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CategoryModal(
-      images: (fields[0] as List)?.cast<CatImages>(),
-      name: fields[1] as String,
-      description: fields[2] as String,
-      id: fields[3] as int,
+      images: fields[0] as dynamic,
+      name: fields[1] as dynamic,
+      description: fields[2] as dynamic,
+      id: fields[3] as dynamic,
     );
   }
 
@@ -60,8 +60,8 @@ class CatImagesAdapter extends TypeAdapter<CatImages> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CatImages(
-      number: fields[0] as int,
-      src: fields[1] as String,
+      number: fields[0] as dynamic,
+      src: fields[1] as dynamic,
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/main.dart';
 import 'package:db_vendor/modals/favorites.dart';
@@ -21,10 +22,12 @@ class FavouritesController extends GetxController {
     var index =
         favouritesBox.values.toList().indexWhere((element) => element.id == id);
     if (index == -1) {
-      Get.snackbar('Added to Favourites', '');
+      FlushbarHelper.createInformation(message: 'Added to favourites')
+          .show(context);
       favouritesBox.add(FavouriteProduct(id: id));
     } else {
-      Get.snackbar('Removed from Favourites', '');
+      FlushbarHelper.createInformation(message: 'Removed to favourites')
+          .show(context);
       favouritesBox.deleteAt(index);
     }
   }

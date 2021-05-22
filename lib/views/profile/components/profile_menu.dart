@@ -8,11 +8,13 @@ class ProfileMenu extends StatelessWidget {
     @required this.text,
     @required this.label,
     @required this.icon,
-    this.press,
+    @required this.press,
+    @required this.showEdit,
   }) : super(key: key);
 
   final String text, label, icon;
   final VoidCallback press;
+  final bool showEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +49,12 @@ class ProfileMenu extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.edit_outlined,
-              color: kSecondaryColor,
+            Visibility(
+              visible: showEdit,
+              child: Icon(
+                Icons.edit_outlined,
+                color: kSecondaryColor,
+              ),
             ),
           ],
         ),

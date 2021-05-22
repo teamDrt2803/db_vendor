@@ -1,6 +1,11 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:db_vendor/main.dart';
+import 'package:db_vendor/modals/modals.dart';
+import 'package:db_vendor/modals/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -21,10 +26,12 @@ class AuthController extends GetxController {
   ///Declaration
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final Rx<FirestoreUser> firestoreUser = Rx<FirestoreUser>(null);
   final Rxn<User> _user = Rxn<User>();
   final RxBool otpSent = false.obs;
   final RxnString otpCode = RxnString();
+  final RxnString fcmToken = RxnString();
   final RxnBool _processing = RxnBool(false);
   final RxnBool _firstBoot = RxnBool(false);
   final storage = GetStorage('preferences');
@@ -160,7 +167,7 @@ class AuthController extends GetxController {
   ///
   ///Update [Address]
   ///
-  void updateAddress() async {}
+  void updateAddress(AddressModal addressModal) async {}
 
   ///
   ///Add New [Address]
@@ -203,12 +210,7 @@ class AuthController extends GetxController {
   void handleUserChanges(User user) {
     if (user?.uid != null) {
       firestoreUser.bindStream(_streamUserChanges());
-      // firestore.collection('users').doc(user.uid).snapshots().listen((event) {
-      //   firestoreUser.value = FirestoreUser.fromMap(event.data());
-      //   print(FirestoreUser.fromMap(event.data()).toMap());
-      //   print(firestoreUser.value.toMap());
-      //   _handleFirestoreUserChanges(FirestoreUser.fromMap(event.data()));
-      // });
+      fcmToken.bindStream(_messaging.onTokenRefresh);
     }
   }
 
@@ -261,7 +263,6 @@ class AuthController extends GetxController {
   ///handle [firestore] changes
   ///
   void _handleFirestoreUserChanges(FirestoreUser firestoreUser) {
-    print(firestoreUser.toMap());
     if (!firestoreUser.setupComplete) {
       if (Get.currentRoute != CompleteProfileScreen.routeName) {
         Get.offAllNamed(CompleteProfileScreen.routeName);
@@ -271,6 +272,16 @@ class AuthController extends GetxController {
         Get.offAllNamed(MainScreen.routeName);
       }
     }
+  }
+
+  ///
+  ///handle [FCM] [Token] Refresh
+  ///
+  void _handleFcmTokenChanges(String token) async {
+    await firestore
+        .collection('users')
+        .doc(user.uid)
+        .update({'fcmToken': token});
   }
 
   ///
@@ -286,6 +297,7 @@ class AuthController extends GetxController {
     try {
       await preferenceBox.clear();
       await _auth.signOut();
+      await Hive.deleteFromDisk();
     } catch (e) {
       print(e);
     }
@@ -309,6 +321,27 @@ class AuthController extends GetxController {
     ever(otpSent, _handleOtpSent);
     ever(_firstBoot, _handleFirstBootChange);
     ever(firestoreUser, _handleFirestoreUserChanges);
+    ever(fcmToken, _handleFcmTokenChanges);
+    FirebaseMessaging.onMessage.listen((event) {
+      print('Message Received');
+      var not = NotificationData.fromMap(event.data);
+      if (!notificationBox.values
+          .toList()
+          .any((element) => element.orderId == not.orderId)) {
+        notificationBox.add(not);
+      }
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+        id: 10,
+        title: event.notification.title,
+        body: event.notification.body,
+        channelKey: 'KeyOrders1234567890',
+        largeIcon: event.notification.android.imageUrl,
+        bigPicture: event.notification.android.imageUrl,
+        hideLargeIconOnExpand: false,
+      ));
+    });
+    _messaging.onTokenRefresh.listen((event) {});
     _user.bindStream(auth.userChanges());
     _firstBoot.value = preferenceBox.get(
       'firstBoot',

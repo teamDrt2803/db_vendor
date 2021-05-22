@@ -24,16 +24,21 @@ dependencies:
   flutter:
     sdk: flutter
   animated_splash_screen: ^1.1.0
+  awesome_notifications: ^0.0.6+7
   animations: ^2.0.0
   another_flushbar: ^1.10.22
   cached_network_image: ^3.0.0
   carousel_slider: ^3.0.0
   cloud_firestore: ^1.0.6
   cupertino_icons: ^1.0.3
+  firebase: ^9.0.1
+  firebase_analytics: ^8.1.0
+  firebase_analytics_web: ^0.3.0+1
   firebase_auth: ^1.1.4
-  firebase_core: ^1.1.1
-  firebase_crashlytics: ^2.0.3
+  firebase_core: ^1.2.0
+  firebase_crashlytics: ^2.0.4
   firebase_database: ^6.1.2
+  firebase_messaging: ^10.0.0
   flappy_search_bar_fork: ^1.7.4
   flare_splash_screen: ^3.0.1
   flutter_animation_progress_bar: ^2.0.0
@@ -68,7 +73,7 @@ dependencies:
   rubber: ^0.5.0
   smooth_star_rating: ^1.1.1
   sms_autofill: ^2.0.0
-  syncfusion_flutter_pdfviewer: ^19.1.56-beta
+  syncfusion_flutter_pdfviewer: ^19.1.64-beta
   url_launcher: ^6.0.3
 
 flutter_icons:

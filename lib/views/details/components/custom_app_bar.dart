@@ -1,8 +1,14 @@
+import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/size_config.dart';
+import 'package:db_vendor/views/home/components/icon_btn_with_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+import '../../views.dart';
 
 class CustomAppBar extends PreferredSize {
+  final CartController _cartController = Get.find();
   final double rating;
 
   CustomAppBar({@required this.rating});
@@ -45,16 +51,13 @@ class CustomAppBar extends PreferredSize {
               ),
               child: Row(
                 children: [
-                  // ValueListenableBuilder<Box<CartModal>>(
-                  //   valueListenable: box.listenable(),
-                  //   builder: (context, Box<CartModal> cart, _) {
-                  //     return IconBtnWithCounter(
-                  //       svgSrc: "assets/icons/Cart Icon.svg",
-                  //       numOfitem: cart.length,
-                  //       press: () => Get.to(() => CartScreen()),
-                  //     );
-                  //   },
-                  // ),
+                  Obx(
+                    () => IconBtnWithCounter(
+                      svgSrc: 'assets/icons/Cart Icon.svg',
+                      numOfitem: _cartController.cartItems.length,
+                      press: () => Get.to(() => CartScreen()),
+                    ),
+                  ),
                   SizedBox(
                     width: getProportionateScreenWidth(20),
                   ),

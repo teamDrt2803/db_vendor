@@ -1,374 +1,169 @@
-import 'package:db_vendor/helpers/coustom_bottom_nav_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/custappbar.dart';
+import 'package:db_vendor/main.dart';
+import 'package:db_vendor/modals/notification.dart';
+import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../helpers/enums.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 
 class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustAppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Get.back();
-          },
+        appBar: CustAppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          title: Text(
+            'Notifications',
+          ),
         ),
-        title: Text(
-          'Notifications',
-        ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
-      body: Container(
-          margin: const EdgeInsets.only(top: kToolbarHeight),
-          // padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(children: <Widget>[
-            Flexible(
-              child: ListView(
-                children: <Widget>[
-                  // Request amount
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/background.jpg',
-                              ),
-                              maxRadius: 24,
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Colors.black,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                            text: 'Sai Sankar Ram',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        TextSpan(
-                                          text: ' Requested for ',
-                                        ),
-                                        TextSpan(
-                                          text: '\$45.25',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ]),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 14,
-                                  color: Colors.blue[700],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text('Pay',
-                                      style:
-                                          TextStyle(color: Colors.blue[700])),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.cancel,
-                                  size: 14,
-                                  color: Color(0xffF94D4D),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text('Decline',
-                                      style:
-                                          TextStyle(color: Color(0xffF94D4D))),
-                                )
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            children: [
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    NotificationCategoryButton(
+                      color: Colors.blue,
+                      svg: 'assets/icons/Shop Icon.svg',
+                      title: 'Orders',
                     ),
-                  ),
-                  // Send amount
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/background.jpg',
-                              ),
-                              maxRadius: 24,
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Colors.black,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                            text: 'Sai Sankar Ram',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        TextSpan(
-                                          text: ' Send You ',
-                                        ),
-                                        TextSpan(
-                                          text: '\$45.25',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ]),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 14,
-                                  color: Colors.blue[700],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text('Accept',
-                                      style:
-                                          TextStyle(color: Colors.blue[700])),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.cancel,
-                                  size: 14,
-                                  color: Color(0xffF94D4D),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text('Decline',
-                                      style:
-                                          TextStyle(color: Color(0xffF94D4D))),
-                                )
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+                    NotificationCategoryButton(
+                      svg: 'assets/icons/tag.svg',
+                      color: Colors.green,
+                      title: 'Promos',
                     ),
-                  ),
-                  // Share your feedback.
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            SizedBox(
-                              height: 110,
-                              width: 110,
-                              child: Stack(children: <Widget>[
-                                Positioned(
-                                  left: 5.0,
-                                  bottom: -10.0,
-                                  child: SizedBox(
-                                    height: 100,
-                                    width: 100,
-                                    child: Transform.scale(
-                                      scale: 1.2,
-                                      child: Image.asset(
-                                          'assets/bottom_yellow.png'),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 8.0,
-                                  left: 10.0,
-                                  child: SizedBox(
-                                      height: 80,
-                                      width: 80,
-                                      child:
-                                          Image.asset('assets/headphones.png')),
-                                )
-                              ]),
-                            ),
-                            Flexible(
-                              child: Column(children: [
-                                Text(
-                                    'Boat Rockerz 350 On-Ear Bluetooth Headphones',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10)),
-                                SizedBox(height: 4.0),
-                                Text(
-                                    'Your package has been delivered. Thanks for shopping!',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 10))
-                              ]),
-                            )
-                          ]),
-                        ),
-                        InkWell(
-                          // onTap: () => Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (_) => RatingPage())),
-                          child: Container(
-                              padding: const EdgeInsets.all(14.0),
-                              decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(5.0),
-                                      bottomLeft: Radius.circular(5.0))),
-                              child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Share your feedback',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10),
-                                  ))),
-                        )
-                      ],
+                    NotificationCategoryButton(
+                      svg: 'assets/icons/delivery.svg',
+                      color: Colors.red,
+                      title: 'Delivery',
                     ),
-                  ),
-                  // Track the product.
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            SizedBox(
-                              height: 110,
-                              width: 110,
-                              child: Stack(children: <Widget>[
-                                Positioned(
-                                  left: 5.0,
-                                  bottom: -10.0,
-                                  child: SizedBox(
-                                    height: 100,
-                                    width: 100,
-                                    child: Transform.scale(
-                                      scale: 1.2,
-                                      child: Image.asset(
-                                          'assets/bottom_yellow.png'),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 8.0,
-                                  left: 10.0,
-                                  child: SizedBox(
-                                      height: 80,
-                                      width: 80,
-                                      child: Image.asset(
-                                          'assets/headphones_3.png')),
-                                )
-                              ]),
-                            ),
-                            Flexible(
-                              child: Column(children: [
-                                Text(
-                                    'Boat Rockerz 440 On-Ear Bluetooth Headphones',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10)),
-                                SizedBox(height: 4.0),
-                                Text(
-                                    'Your package has been dispatched. You can keep track of your product.',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 10))
-                              ]),
-                            )
-                          ]),
-                        ),
-                        InkWell(
-                          // onTap: () => Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (_) => TrackingPage())),
-                          child: Container(
-                              padding: const EdgeInsets.all(14.0),
-                              decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(5.0),
-                                      bottomLeft: Radius.circular(5.0))),
-                              child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Track the product',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10),
-                                  ))),
-                        )
-                      ],
+                    NotificationCategoryButton(
+                      svg: 'assets/icons/User.svg',
+                      color: Colors.purple,
+                      title: 'Account',
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            )
-          ])),
+              SizedBox(
+                height: getProportionateScreenHeight(25),
+              ),
+              Flexible(
+                child: ValueListenableBuilder<Box<NotificationData>>(
+                  valueListenable: notificationBox.listenable(),
+                  builder: (context, box, _) {
+                    return ListView.builder(
+                      itemCount: box.values
+                          .toList()
+                          .where((element) => element.type.contains('order'))
+                          .length,
+                      itemBuilder: (context, index) {
+                        var not = box.values
+                            .toList()
+                            .where((element) => element.type.contains('order'))
+                            .toList()[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 8),
+                          height: getProportionateScreenHeight(80),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 5),
+                                blurRadius: 16,
+                                color: Colors.grey.shade200,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                radius: 24,
+                                backgroundColor: kPrimaryColor,
+                                foregroundColor: kPrimaryLightColor,
+                                child: Icon(
+                                  Icons.shopping_bag_sharp,
+                                ),
+                              ),
+                              title: Text(not.title.toUpperCase()),
+                              subtitle: RichText(
+                                text: TextSpan(
+                                  text: not.body
+                                      .substring(not.body.indexOf('order'))
+                                      .split('#${not.orderId}')[0],
+                                  style: TextStyle(color: kTextColor),
+                                  children: [
+                                    TextSpan(
+                                      text: '#${not.orderId}',
+                                      style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: not.body
+                                          .substring(not.body.indexOf('order'))
+                                          .split('${not.orderId}')[1],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ));
+  }
+}
+
+class NotificationCategoryButton extends StatelessWidget {
+  const NotificationCategoryButton({
+    Key key,
+    this.svg,
+    this.title,
+    this.color,
+  }) : super(key: key);
+  final String svg, title;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        FloatingActionButton(
+          elevation: 0,
+          backgroundColor: color ?? kPrimaryColor,
+          onPressed: () {},
+          child: SvgPicture.asset(
+            svg ?? 'assets/icons/Shop Icon.svg',
+            height: 24,
+            color: Colors.white,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(title ?? ''),
+        )
+      ],
     );
   }
 }

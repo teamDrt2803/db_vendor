@@ -1,4 +1,5 @@
 import 'package:db_vendor/modals/cartmodal.dart';
+import 'package:db_vendor/modals/modals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class CartControllerInterface {
@@ -51,7 +52,37 @@ abstract class CartControllerInterface {
   Future<void> deleteCartItem(CartModal cartModal);
 
   ///
+  ///[LISTEN] the [Adress] item on the server
+  ///
+
+  Future<void> listenToAddress();
+
+  ///
+  ///[Add] the [Address] item on the server
+  ///
+
+  Future<void> addAddress(AddressModal addressModal);
+
+  ///
+  ///[Update] the [Address] item on the server
+  ///
+
+  Future<void> updateAddress(AddressModal addressModal);
+
+  ///
+  ///[DELETE] the [Address] item on the server
+  ///
+
+  Future<void> deleteAddress(AddressModal addressModal);
+
+  ///
+  ///[Change] primry [Address] to the passed one
+  ///
+  Future<void> updatePrimaryAddress(AddressModal addressModal);
+
+  ///
   ///[Handle] user auth state chnages for something like initialise listeners
   ///
+
   void handleUserChanges(User user);
 }

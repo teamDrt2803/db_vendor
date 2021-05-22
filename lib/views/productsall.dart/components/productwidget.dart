@@ -1,4 +1,6 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/modals/size_config.dart';
@@ -15,7 +17,7 @@ class AllProductWidget extends StatelessWidget {
   }) : super(key: key);
 
   final Products products;
-  // final CartController _cartController = Get.find();
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,12 @@ class AllProductWidget extends StatelessWidget {
                             bottom: -20,
                             child: RawMaterialButton(
                               onPressed: () {
-                                // _cartController.addToCart(products: products);
+                                _cartController.addCartItem(CartModal(
+                                    wooProducts: products, totalQuantity: 1));
+                                FlushbarHelper.createInformation(
+                                        message:
+                                            'Added ${products.name} to cart')
+                                    .show(context);
                               },
                               fillColor: kPrimaryColor,
                               constraints: BoxConstraints(

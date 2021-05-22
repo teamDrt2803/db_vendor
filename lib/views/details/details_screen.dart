@@ -1,3 +1,6 @@
+import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:db_vendor/controllers/cartcontroller.dart';
+import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/helpers/default_button.dart';
@@ -12,7 +15,8 @@ import 'components/custom_app_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
   static String routeName = '/details';
-  // final CartController _cartController = Get.find();
+  final CartController _cartController = Get.find();
+  final AuthController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,22 @@ class DetailsScreen extends StatelessWidget {
                 DefaultButton(
                   color: kSecondaryColor.withOpacity(0.1),
                   text: 'Add To Cart',
-                  press: () {
-                    // _cartController.addToCart(products: agrs.product, item: 1);
+                  press: () async {
+                    if (_authController.auth.currentUser != null) {
+                      // ignore: unawaited_futures
+                      FlushbarHelper.createInformation(
+                              message: 'Added ${agrs.product.name} to cart')
+                          .show(context);
+                      await _cartController.addCartItem(CartModal(
+                          wooProducts: agrs.product, totalQuantity: 1));
+                    } else {
+                      // ignore: unawaited_futures
+                      FlushbarHelper.createInformation(
+                              message: 'Please Login First')
+                          .show(context);
+                      // ignore: unawaited_futures
+                      Get.to(() => SignInScreen());
+                    }
                   },
                 ),
                 SizedBox(
@@ -64,8 +82,19 @@ class DetailsScreen extends StatelessWidget {
                 DefaultButton(
                   text: 'Buy Now',
                   press: () async {
-                    // _cartController.addToCart(products: agrs.product, item: 1);
-                    await Get.to(() => CartScreen());
+                    if (_authController.auth.currentUser != null) {
+                      await _cartController.addCartItem(CartModal(
+                          wooProducts: agrs.product, totalQuantity: 1));
+                      // ignore: unawaited_futures
+                      Get.to(() => CartScreen());
+                    } else {
+                      // ignore: unawaited_futures
+                      FlushbarHelper.createInformation(
+                              message: 'Please Login First')
+                          .show(context);
+                      // ignore: unawaited_futures
+                      Get.to(() => SignInScreen());
+                    }
                   },
                 ),
               ],

@@ -6,6 +6,7 @@ class CartModal {
   final int totalQuantity;
   final Products wooProducts;
   final dynamic time;
+  final bool emailSent;
   final DocumentSnapshot snapshot;
   final DocumentReference reference;
   final String documentID;
@@ -17,6 +18,7 @@ class CartModal {
     this.snapshot,
     this.reference,
     this.documentID,
+    this.emailSent = false,
   });
 
   factory CartModal.fromFirestore(DocumentSnapshot snapshot) {
@@ -31,6 +33,7 @@ class CartModal {
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
+      emailSent: map['emailSent'] ?? false,
     );
   }
 
@@ -43,6 +46,7 @@ class CartModal {
           ? Products.fromJson(map['wooProducts'])
           : null,
       time: map['time'],
+      emailSent: map['emailSent'] ?? false,
     );
   }
 
@@ -50,17 +54,20 @@ class CartModal {
         'totalQuantity': totalQuantity,
         'wooProducts': wooProducts.toJson(),
         'time': time,
+        'emailSent': false,
       };
 
   CartModal copyWith({
     int totalQuantity,
     Products wooProducts,
     dynamic time,
+    bool emailSent,
   }) {
     return CartModal(
       documentID: documentID,
       reference: reference,
       snapshot: snapshot,
+      emailSent: emailSent ?? false,
       totalQuantity: totalQuantity ?? this.totalQuantity,
       wooProducts: wooProducts ?? this.wooProducts,
       time: time ?? this.time,
@@ -69,7 +76,7 @@ class CartModal {
 
   @override
   String toString() {
-    return '${totalQuantity.toString()}, ${wooProducts.toString()}, ${time.toString()}, ';
+    return '${totalQuantity.toString()}, ${wooProducts.toString()}, ${time.toString()}, ${emailSent.toString()} ';
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:db_vendor/helpers/constants.dart';
-import 'package:db_vendor/helpers/wrapper.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -22,20 +21,13 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       ..addListener(() {
         setState(() {});
       });
-    controller.forward().then((_) {
-      // navigationPage();
-    });
+    controller.forward();
   }
 
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  void navigationPage() {
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => Wrapper()));
   }
 
   @override
@@ -51,12 +43,13 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Opacity(
-                      opacity: opacity.value,
-                      child: Image.asset(
-                        'assets/logo.png',
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                      )),
+                    opacity: opacity.value,
+                    child: Image.asset(
+                      'assets/logo.png',
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                    ),
+                  ),
                 ],
               ),
               Padding(
@@ -64,16 +57,21 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                 child: Opacity(
                   opacity: opacity.value,
                   child: RichText(
+                    textAlign: TextAlign.center,
                     text: TextSpan(
-                        style: TextStyle(color: Colors.black),
-                        children: [
-                          TextSpan(text: 'Powered by '),
-                          TextSpan(
-                              text: 'teamDrt',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor))
-                        ]),
+                      style: TextStyle(color: Colors.black),
+                      children: [
+                        TextSpan(text: 'Brought to you by'),
+                        TextSpan(
+                          text: '\nCool Cart',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryColor,
+                            fontSize: 22,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )

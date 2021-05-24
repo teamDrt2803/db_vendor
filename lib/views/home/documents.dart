@@ -1,5 +1,7 @@
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class Docs extends StatefulWidget {
@@ -42,16 +44,27 @@ class _DocsState extends State<Docs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
+      appBar: CustAppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         title: Text(
           getTitle(),
-          style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor),
-          textAlign: TextAlign.center,
+          style: TextStyle(),
         ),
       ),
-      body: Container(
-        child: SfPdfViewer.asset(getAssets()),
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: SfPdfViewer.asset(
+          getAssets(),
+          searchTextHighlightColor: kPrimaryLightColor,
+        ),
       ),
     );
   }

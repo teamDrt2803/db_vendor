@@ -1,5 +1,6 @@
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/helpers/custappbar.dart';
+import 'package:db_vendor/views/about.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -58,14 +59,16 @@ class _DocsState extends State<Docs> {
           style: TextStyle(),
         ),
       ),
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: SfPdfViewer.asset(
-          getAssets(),
-          searchTextHighlightColor: kPrimaryLightColor,
-        ),
-      ),
+      body: widget.pageshow == PAGESHOW.ABOUT
+          ? About()
+          : SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: SfPdfViewer.asset(
+                getAssets(),
+                searchTextHighlightColor: kPrimaryLightColor,
+              ),
+            ),
     );
   }
 }

@@ -156,7 +156,7 @@ class AuthController extends GetxController {
   ///
   ///Update [UserName]
   ///
-  void updateUserName(String displayName) async {
+  Future<void> updateUserName(String displayName) async {
     await firestore
         .collection('users')
         .doc(user.uid)

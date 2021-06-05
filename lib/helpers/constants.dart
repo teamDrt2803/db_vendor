@@ -176,3 +176,18 @@ List<Map<String, String>> brandsData = [
     'imageUrl': 'https://www.crazymasalafood.com/wp-content/images/sunfeast.jpg'
   }
 ];
+
+var coupons = [
+  {
+    'code': 'DBNEWUSER',
+    'id': 'abcdefghijkl',
+    'title': 'Get 20% off on first purchase',
+    'description':
+        'use code DBNEWUSER to get 20% off upto INR 50/- on your first ever purchase on Discount Bazaar. T&C\'s Apply',
+    'dicount': 20,
+    'unit': '%',
+    'maxDiscount': 50,
+    'minOrderValue': 200,
+  },
+  {}
+];

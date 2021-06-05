@@ -1,6 +1,4 @@
-import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:db_vendor/helpers/default_button.dart';
-import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/views/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -138,58 +136,58 @@ class Body extends StatelessWidget {
         });
   }
 
-  _buildShowModalBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-          ),
-        ),
-        context: context,
-        builder: (BuildContext context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0, right: 16, left: 16),
-                child: TextFormField(
-                  initialValue: _controller.firestoreUser.value.displayName,
-                  onChanged: (value) {
-                    namecontroller.text = value;
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: TextButton(
-                  onPressed: () async {
-                    if (namecontroller.text.length >= 6 &&
-                        namecontroller.text !=
-                            _controller.firestoreUser.value.displayName) {
-                      await _controller.updateUserName(
-                        namecontroller.text,
-                      );
-                      return;
-                    }
-                    return;
-                  },
-                  child: Text(
-                    'Save',
-                    style: TextStyle(color: kPrimaryColor),
-                  ),
-                ),
-              )
-            ],
-          );
-        });
-  }
+  // _buildShowModalBottomSheet(BuildContext context) {
+  //   return showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       backgroundColor: Colors.white,
+  //       shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.only(
+  //           topLeft: Radius.circular(16),
+  //           topRight: Radius.circular(16),
+  //         ),
+  //       ),
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //           crossAxisAlignment: CrossAxisAlignment.end,
+  //           children: [
+  //             Padding(
+  //               padding: const EdgeInsets.only(top: 24.0, right: 16, left: 16),
+  //               child: TextFormField(
+  //                 initialValue: _controller.firestoreUser.value.displayName,
+  //                 onChanged: (value) {
+  //                   namecontroller.text = value;
+  //                 },
+  //                 decoration: InputDecoration(
+  //                   labelText: 'Name',
+  //                 ),
+  //               ),
+  //             ),
+  //             Padding(
+  //               padding: EdgeInsets.only(
+  //                   bottom: MediaQuery.of(context).viewInsets.bottom),
+  //               child: TextButton(
+  //                 onPressed: () async {
+  //                   if (namecontroller.text.length >= 6 &&
+  //                       namecontroller.text !=
+  //                           _controller.firestoreUser.value.displayName) {
+  //                     await _controller.updateUserName(
+  //                       namecontroller.text,
+  //                     );
+  //                     return;
+  //                   }
+  //                   return;
+  //                 },
+  //                 child: Text(
+  //                   'Save',
+  //                   style: TextStyle(color: kPrimaryColor),
+  //                 ),
+  //               ),
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 }

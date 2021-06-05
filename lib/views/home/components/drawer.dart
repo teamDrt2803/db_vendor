@@ -2,6 +2,7 @@ import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/views/categoryselector.dart';
 
 import 'package:db_vendor/helpers/constants.dart';
+import 'package:db_vendor/views/coupons.dart';
 import 'package:db_vendor/views/views.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -126,6 +127,13 @@ class Custdrawer extends StatelessWidget {
                         Get.to(() => Docs(
                               pageshow: PAGESHOW.FAQ,
                             ));
+                      },
+                    ),
+                    ProfileMenu2(
+                      text: 'Coupons',
+                      icon: 'assets/icons/Question mark.svg',
+                      press: () {
+                        Get.to(() => CouponsScreen());
                       },
                     ),
                     ProfileMenu2(

@@ -91,16 +91,48 @@ class CheckoutCard extends StatelessWidget {
             Obx(() {
               var cartTotal = 0.0;
               var discount = 0.0;
-
               _cartController.cartItems.forEach((element) {
                 var amount = (double.parse(element.totalQuantity.toString()) *
                     double.parse(element.wooProducts.salesPrice.toString()));
                 cartTotal = cartTotal + double.parse(amount.toString());
               });
-              if (cartTotal >
-                  _cartController.selectedCoupon.value.minCartValue) {
-                if (_cartController.selectedCoupon.value.newCustomersOnly &&
-                    _cartController.orders.isNotEmpty) {}
+              if (_cartController.selectedCoupon.value != null) {
+                var coupon = _cartController.selectedCoupon.value;
+                debugPrint(coupon.newCustomersOnly.toString());
+                if (coupon.newCustomersOnly) {
+                  if (_cartController.orders.isEmpty) {
+                    if (cartTotal >= coupon.minCartValue) {
+                      switch (coupon.type) {
+                        case 'Rs':
+                          discount = coupon.maxDiscount.toDouble();
+                          cartTotal = cartTotal - coupon.maxDiscount;
+                          break;
+                        default:
+                          discount = cartTotal * (coupon.discount / 100);
+                          if (discount > coupon.maxDiscount) {
+                            discount = coupon.maxDiscount.toDouble();
+                          }
+                          cartTotal = cartTotal - discount;
+                      }
+                    }
+                  }
+                } else {
+                  if (cartTotal >= coupon.minCartValue) {
+                    switch (coupon.type) {
+                      case 'Rs':
+                        discount = coupon.maxDiscount.toDouble();
+
+                        cartTotal = cartTotal - coupon.maxDiscount;
+                        break;
+                      default:
+                        discount = cartTotal * (coupon.discount / 100);
+                        if (discount > coupon.maxDiscount) {
+                          discount = coupon.maxDiscount.toDouble();
+                        }
+                        cartTotal = cartTotal - discount;
+                    }
+                  }
+                }
               }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,6 +163,8 @@ class CheckoutCard extends StatelessWidget {
                                 if (cartTotal > 0) {
                                   Get.to(
                                     () => CheckoutScreen(
+                                      cartTotal: cartTotal,
+                                      discount: discount,
                                       total: cartTotal,
                                     ),
                                   );

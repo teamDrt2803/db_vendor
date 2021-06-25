@@ -1,6 +1,7 @@
 import 'package:db_vendor/controllers/cartcontroller.dart';
 import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:db_vendor/helpers/default_button.dart';
+import 'package:db_vendor/modals/orders.dart';
 import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/views/views.dart';
 
@@ -12,9 +13,17 @@ import 'components/body.dart';
 
 class CheckoutScreen extends StatelessWidget {
   final double total;
+  final discount;
+  final cartTotal;
 
   final CartController _cartController = Get.find();
-  CheckoutScreen({Key key, @required this.total}) : super(key: key);
+
+  CheckoutScreen(
+      {Key key,
+      @required this.total,
+      @required this.cartTotal,
+      @required this.discount})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,18 +75,62 @@ class CheckoutScreen extends StatelessWidget {
                   ],
                 ));
               } else {
-                var time = DateTime.now();
                 if (_cartController.processing) return;
+                var time = DateTime.now();
                 _cartController.processing = true;
                 var cart = _cartController.cartItems;
-                for (var item in cart) {
-                  await _cartController.addOrderItem(
-                      item.copyWith(time: time.millisecondsSinceEpoch));
-                }
+                var coupon = _cartController.selectedCoupon.value;
+                // _cartController.cartItems.forEach((element) {
+                //   var amount = (double.parse(element.totalQuantity.toString()) *
+                //       double.parse(element.wooProducts.salesPrice.toString()));
+                //   cartTotal = cartTotal + double.parse(amount.toString());
+                // });
+                // if (coupon.newCustomersOnly) {
+                //   if (_cartController.orders.isEmpty) {
+                //     if (cartTotal >= coupon.minCartValue) {
+                //       switch (coupon.type) {
+                //         case 'Rs':
+                //           discount = coupon.maxDiscount.toDouble();
+                //           cartTotal = cartTotal - coupon.maxDiscount;
+                //           break;
+                //         default:
+                //           discount = cartTotal * (coupon.discount / 100);
+                //           if (discount > coupon.maxDiscount) {
+                //             discount = coupon.maxDiscount.toDouble();
+                //           }
+                //           cartTotal = cartTotal - discount;
+                //       }
+                //     }
+                //   }
+                // } else {
+                //   if (cartTotal >= coupon.minCartValue) {
+                //     switch (coupon.type) {
+                //       case 'Rs':
+                //         discount = coupon.maxDiscount.toDouble();
+                //         cartTotal = cartTotal - coupon.maxDiscount;
+                //         break;
+                //       default:
+                //         discount = cartTotal * (coupon.discount / 100);
+                //         if (discount > coupon.maxDiscount) {
+                //           discount = coupon.maxDiscount.toDouble();
+                //         }
+                //         cartTotal = cartTotal - discount;
+                //     }
+                //   }
+                // }
+                var ordersItem = OrdersItem(
+                  timeStamp: time.microsecondsSinceEpoch,
+                  cartItems: cart,
+                  originalPrice: total + 40 + 100 + discount,
+                  appliedCoupon: coupon,
+                  discountedPrice: cartTotal + 40 + 100,
+                  disocunt: discount,
+                );
+                await _cartController.addOrderItem(ordersItem);
                 await _cartController.emptyCart();
+                _cartController.processing = false;
                 // ignore: unawaited_futures
                 Get.off(() => OrderPlacedScreen());
-                _cartController.processing = false;
               }
             },
             text: 'PLACE ORDER',
@@ -93,7 +146,10 @@ class CheckoutScreen extends StatelessWidget {
             }),
         title: Text('Order complete'),
       ),
-      body: Body(),
+      body: Body(
+        cartTotal: cartTotal,
+        discount: discount,
+      ),
     );
   }
 }

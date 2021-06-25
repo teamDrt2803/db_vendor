@@ -49,7 +49,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                     physics: BouncingScrollPhysics(),
                     itemCount: _favouritesController.favouriteProducts.length,
                     itemBuilder: (context, index) {
-                      print('size' +
+                      debugPrint('size' +
                           _favouritesController.favouriteProducts.length
                               .toString());
                       var product =

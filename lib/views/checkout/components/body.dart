@@ -11,6 +11,10 @@ import 'package:db_vendor/modals/size_config.dart';
 import 'package:db_vendor/helpers/extensions.dart';
 
 class Body extends StatefulWidget {
+  final double discount;
+  final double cartTotal;
+
+  const Body({Key key, this.discount, this.cartTotal}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -214,14 +218,8 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-              Flexible(child: Obx(() {
-                var cartTotal = 0.0;
-                _cartController.cartItems.forEach((element) {
-                  var abc = double.parse(element.totalQuantity.toString()) *
-                      double.parse(element.wooProducts.salesPrice.toString());
-                  cartTotal = cartTotal + double.parse(abc.toString());
-                });
-                return Container(
+              Flexible(
+                child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
@@ -249,7 +247,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            '${cartTotal.toString().rupee()}',
+                            '${widget.cartTotal.toString().rupee()}',
                             style: GoogleFonts.roboto(
                               color: kSecondaryColor,
                               fontWeight: FontWeight.w400,
@@ -273,9 +271,9 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            '40'.rupee(),
+                            '+ ' + '40'.rupee(),
                             style: GoogleFonts.roboto(
-                              color: kSecondaryColor,
+                              color: Colors.green,
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
                             ),
@@ -297,9 +295,33 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            '100'.rupee(),
+                            '+ ' + '100'.rupee(),
+                            style: GoogleFonts.roboto(
+                              color: Colors.green,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(5),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Discount',
                             style: GoogleFonts.roboto(
                               color: kSecondaryColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            '- ' + '${widget.discount}'.rupee(),
+                            style: GoogleFonts.roboto(
+                              color: Colors.red,
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
                             ),
@@ -321,7 +343,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            '${cartTotal + 40 + 100}'.rupee(),
+                            '${widget.cartTotal + 40 + 100}'.rupee(),
                             style: GoogleFonts.roboto(
                               color: kSecondaryColor,
                               fontWeight: FontWeight.bold,
@@ -335,8 +357,8 @@ class _BodyState extends State<Body> {
                       ),
                     ],
                   ),
-                );
-              })),
+                ),
+              ),
             ],
           ),
         ),

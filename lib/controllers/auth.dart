@@ -81,7 +81,7 @@ class AuthController extends GetxController {
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
     } catch (exception) {
-      print(exception);
+      debugPrint(exception);
     }
   }
 
@@ -185,7 +185,7 @@ class AuthController extends GetxController {
     otpSent.value = true;
     this.verificationId = verificationId;
     this.resendToken = resendToken;
-    print('Otp Sent');
+    debugPrint('Otp Sent');
   }
 
   ///
@@ -299,7 +299,7 @@ class AuthController extends GetxController {
       await Hive.deleteFromDisk();
       Phoenix.rebirth(context);
     } catch (e) {
-      print(e);
+      debugPrint(e);
     }
   }
 
@@ -323,7 +323,7 @@ class AuthController extends GetxController {
     ever(firestoreUser, _handleFirestoreUserChanges);
     ever(fcmToken, _handleFcmTokenChanges);
     FirebaseMessaging.onMessage.listen((event) {
-      print('Message Received');
+      debugPrint('Message Received');
       var not = NotificationData.fromMap(event.data);
       if (!notificationBox.values
           .toList()

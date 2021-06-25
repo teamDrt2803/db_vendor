@@ -33,7 +33,7 @@ class _CategorySelectorState extends State<CategorySelector> {
               'selectedCategory',
               _categorySelector.selectedCategory.value,
             );
-            print(Get.previousRoute);
+            debugPrint(Get.previousRoute);
 
             if (Get.previousRoute == SplashScreen.routeName) {
               await _authController.preferenceBox.put('firstBoot', false);

@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
   CouponsScreen.routesName: (context) => CouponsScreen(),
-  CategoriesDetailsScreen.routeName: (context) => CategoriesDetailsScreen(),
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),

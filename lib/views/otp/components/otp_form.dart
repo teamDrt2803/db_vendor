@@ -58,7 +58,7 @@ class _OtpFormState extends State<OtpForm> {
               inactiveColor: Colors.grey.shade400,
             ),
             onChanged: (String value) {
-              print(value);
+              debugPrint(value);
             },
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.15),

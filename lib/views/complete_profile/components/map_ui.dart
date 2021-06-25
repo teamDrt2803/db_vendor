@@ -106,7 +106,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
               );
             }
           }).onError((error, stackTrace) {
-            print(stackTrace);
+            debugPrint(stackTrace.toString());
           });
         },
         mapType: MapType.normal,

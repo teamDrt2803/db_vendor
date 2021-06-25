@@ -237,43 +237,9 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      // var cartTotal = 0.0;
-                                      // var coupon =
-                                      //     _cartController.couponItems[index];
-                                      // _cartController.cartItems
-                                      //     .forEach((element) {
-                                      //   var amount = (double.parse(element
-                                      //           .totalQuantity
-                                      //           .toString()) *
-                                      //       double.parse(element
-                                      //           .wooProducts.salesPrice
-                                      //           .toString()));
-                                      //   cartTotal = cartTotal +
-                                      //       double.parse(amount.toString());
-                                      // });
-                                      // if (coupon.newCustomersOnly) {
-                                      //   if (_cartController.orders.isNotEmpty) {
-                                      //     if (cartTotal >=
-                                      //         coupon.minCartValue) {
-                                      //       switch (coupon.type) {
-                                      //         case 'Rs':
-                                      //           cartTotal = cartTotal -
-                                      //               coupon.maxDiscount;
-                                      //           break;
-                                      //         default:
-                                      //           var discount = cartTotal *
-                                      //               (coupon.discount / 100);
-                                      //           if (discount >
-                                      //               coupon.maxDiscount) {
-                                      //             discount = coupon.maxDiscount
-                                      //                 .toDouble();
-                                      //           }
-                                      //           cartTotal =
-                                      //               cartTotal - discount;
-                                      //       }
-                                      //     }
-                                      //   }
-                                      // }
+                                      _cartController.selectedCoupon.value =
+                                          _cartController.couponItems[index];
+
                                       Get.back();
                                     },
                                     child: Text('Apply'),

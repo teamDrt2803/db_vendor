@@ -27,7 +27,7 @@ class CategoryCard extends StatelessWidget {
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
           onTap: () {
-            print(product.id);
+            debugPrint(product.id.toString());
             Get.to(
               () => AllProducts(
                 catId: product.id,

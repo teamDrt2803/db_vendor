@@ -1,5 +1,6 @@
 import 'package:db_vendor/modals/cartmodal.dart';
 import 'package:db_vendor/modals/modals.dart';
+import 'package:db_vendor/modals/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class CartControllerInterface {
@@ -13,19 +14,19 @@ abstract class CartControllerInterface {
   ///[Update] the [Order] item on the server
   ///
 
-  Future<void> updateOrderItem(CartModal cartModal);
+  Future<void> updateOrderItem(OrdersItem ordersItem);
 
   ///
   ///[Add] the [Order] item on the server
   ///
 
-  Future<void> addOrderItem(CartModal cartModal);
+  Future<void> addOrderItem(OrdersItem ordersItem);
 
   ///
   ///[Delete] the [Order] item on the server
   ///
 
-  Future<void> deleteOrderItem(CartModal cartModal);
+  Future<void> deleteOrderItem(OrdersItem ordersItem);
 
   ///
   ///[Listener] for [Cart] on the server

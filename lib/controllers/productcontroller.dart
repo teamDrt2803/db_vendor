@@ -92,8 +92,8 @@ class ProductController extends GetxController {
     if (fetching.value) return;
     try {
       fetching.value = true;
-      print('First');
-      print(currentProductPage.value);
+      debugPrint('First');
+      debugPrint(currentProductPage.value.toString());
       var newDocumentList = await firestore
           .collection('products')
           .orderBy('id')
@@ -104,7 +104,7 @@ class ProductController extends GetxController {
             (value) => value.docs,
           );
       if (newDocumentList.length < limit) {
-        print('right');
+        debugPrint('right');
         hasNext.value = false;
       } else {
         hasNext.value = true;
@@ -122,7 +122,7 @@ class ProductController extends GetxController {
         lastDoc = newDocumentList.last;
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     } finally {
       fetching.value = false;
     }

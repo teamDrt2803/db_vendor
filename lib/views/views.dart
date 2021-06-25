@@ -2,7 +2,6 @@ export './address/address.dart';
 export './allcategories/all_categories.dart';
 export './brands.dart';
 export './cart/cart_screen.dart';
-export './categoryDetails/category_details.dart';
 export './categoryselector.dart';
 export './checkout/checkout.dart';
 export './complete_profile/complete_profile_screen.dart';

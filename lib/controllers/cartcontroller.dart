@@ -6,6 +6,7 @@ import 'package:db_vendor/controllers/auth.dart';
 import 'package:db_vendor/modals/coupons.dart';
 
 import 'package:db_vendor/modals/modals.dart';
+import 'package:db_vendor/modals/orders.dart';
 import 'package:db_vendor/views/sign_in/sign_in_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +20,7 @@ class CartController extends GetxController implements CartControllerInterface {
   final _auth = FirebaseAuth.instance;
   final AuthController _authController = Get.find();
   final _processing = false.obs;
-  final orders = <CartModal>[].obs;
+  final orders = <OrdersItem>[].obs;
   final cartItems = <CartModal>[].obs;
   final addressItems = <AddressModal>[].obs;
   final couponItems = <Coupons>[].obs;
@@ -51,7 +52,7 @@ class CartController extends GetxController implements CartControllerInterface {
         for (var item in snapshot.docChanges) {
           switch (item.type) {
             case DocumentChangeType.added:
-              var orders = CartModal.fromFirestore(item.doc);
+              var orders = OrdersItem.fromFirestore(item.doc);
               var index =
                   this.orders.indexWhere((element) => element == orders);
               if (index != -1) {
@@ -61,7 +62,7 @@ class CartController extends GetxController implements CartControllerInterface {
               }
               break;
             case DocumentChangeType.modified:
-              var orders = CartModal.fromFirestore(item.doc);
+              var orders = OrdersItem.fromFirestore(item.doc);
               var index =
                   this.orders.indexWhere((element) => element == orders);
               if (index != -1) {
@@ -71,7 +72,7 @@ class CartController extends GetxController implements CartControllerInterface {
               }
               break;
             default:
-              var orders = CartModal.fromFirestore(item.doc);
+              var orders = OrdersItem.fromFirestore(item.doc);
               var index =
                   this.orders.indexWhere((element) => element == orders);
               if (index != -1) {
@@ -142,7 +143,14 @@ class CartController extends GetxController implements CartControllerInterface {
   @override
   Future<bool> addCartItem(CartModal cartModal) async {
     if (_authController.auth.currentUser != null) {
-      if (cartModal.documentID != null) {
+      var index = cartItems.indexWhere(
+          (element) => element.wooProducts.id == cartModal.wooProducts.id);
+      if (index != -1) {
+        await updateCartItem(
+          cartItems[index].copyWith(
+              totalQuantity:
+                  cartItems[index].totalQuantity + cartModal.totalQuantity),
+        );
         return true;
       }
       await _authController.firestore
@@ -155,16 +163,17 @@ class CartController extends GetxController implements CartControllerInterface {
       // ignore: unawaited_futures
       Get.to(() => SignInScreen());
       return false;
+      // ignore: unawaited_futures
     }
   }
 
   @override
-  Future<void> addOrderItem(CartModal cartModal) async {
+  Future<void> addOrderItem(OrdersItem ordersItem) async {
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
         .collection('orders')
-        .add(cartModal.toMap());
+        .add(ordersItem.toMap());
   }
 
   @override
@@ -194,23 +203,23 @@ class CartController extends GetxController implements CartControllerInterface {
   }
 
   @override
-  Future<void> deleteOrderItem(CartModal cartModal) async {
+  Future<void> deleteOrderItem(ordersItem) async {
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
         .collection('orders')
-        .doc(cartModal.documentID)
+        .doc(ordersItem.documentID)
         .delete();
   }
 
   @override
-  Future<void> updateOrderItem(CartModal cartModal) async {
+  Future<void> updateOrderItem(OrdersItem ordersItem) async {
     await _authController.firestore
         .collection('users')
         .doc(_authController.auth.currentUser.uid)
         .collection('orders')
-        .doc(cartModal.documentID)
-        .update(cartModal.toMap());
+        .doc(ordersItem.documentID)
+        .update(ordersItem.toMap());
   }
 
   @override

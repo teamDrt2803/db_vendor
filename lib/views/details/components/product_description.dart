@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:html/parser.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductDescription extends StatelessWidget {
@@ -100,7 +99,7 @@ class ProductDescription extends StatelessWidget {
             right: getProportionateScreenWidth(64),
           ),
           child: Text(
-            _parseHtmlString(product.longDescription),
+            product.longDescription,
           ),
         ),
         Padding(
@@ -130,11 +129,4 @@ class ProductDescription extends StatelessWidget {
       ],
     );
   }
-}
-
-String _parseHtmlString(String htmlString) {
-  final document = parse(htmlString);
-  final parsedString = parse(document.body.text).documentElement.text;
-
-  return parsedString;
 }

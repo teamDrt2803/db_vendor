@@ -35,11 +35,13 @@ class CustAppBar extends PreferredSize {
                   ),
                 ],
               ),
-              child: ListTile(
-                leading: leading,
-                title: title,
-                trailing: trailing,
-                subtitle: subtitle,
+              child: Center(
+                child: ListTile(
+                  leading: leading,
+                  title: title,
+                  trailing: trailing,
+                  subtitle: subtitle,
+                ),
               ),
             ),
     );

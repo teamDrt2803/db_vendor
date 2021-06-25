@@ -12,7 +12,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(),
       body: Body(),
       bottomNavigationBar: Obx(
         () => _cartController.cartItems.isNotEmpty
@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  CustAppBar buildAppBar(context) {
+  CustAppBar buildAppBar() {
     return CustAppBar(
       leading: IconButton(
           icon: Icon(
@@ -34,7 +34,6 @@ class CartScreen extends StatelessWidget {
           }),
       title: Text(
         'Your Cart',
-        // style: TextStyle(color: Colors.black),
       ),
       subtitle: Obx(
         () => Text(

@@ -4,7 +4,6 @@ import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:html/parser.dart';
 
 class CategoryDescription extends StatelessWidget {
   const CategoryDescription({
@@ -74,7 +73,7 @@ class CategoryDescription extends StatelessWidget {
             right: getProportionateScreenWidth(64),
           ),
           child: Text(
-            _parseHtmlString(product.description),
+            product.description,
           ),
         ),
         Padding(
@@ -104,11 +103,4 @@ class CategoryDescription extends StatelessWidget {
       ],
     );
   }
-}
-
-String _parseHtmlString(String htmlString) {
-  final document = parse(htmlString);
-  final parsedString = parse(document.body.text).documentElement.text;
-
-  return parsedString;
 }

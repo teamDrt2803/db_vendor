@@ -12,12 +12,14 @@ class DefaultButton extends StatelessWidget {
     this.color,
     this.height,
     this.width,
+    this.shape,
   }) : super(key: key);
   final String text;
   final Widget widget;
   final Function press;
   final Color color;
   final double height, width;
+  final ShapeBorder shape;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,8 @@ class DefaultButton extends StatelessWidget {
       height: height ?? getProportionateScreenHeight(56),
       // ignore: deprecated_member_use
       child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: shape ??
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: color ?? kPrimaryColor,
         onPressed: press,
         child: widget ??
@@ -34,7 +37,7 @@ class DefaultButton extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: getProportionateScreenWidth(18),
-                color: color == null ? Colors.white : kPrimaryColor,
+                color: color ?? Colors.white,
               ),
             ),
       ),

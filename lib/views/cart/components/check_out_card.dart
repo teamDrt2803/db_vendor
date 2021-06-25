@@ -1,6 +1,7 @@
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/modals/size_config.dart';
+import 'package:db_vendor/views/coupons.dart';
 import 'package:db_vendor/views/views.dart';
 
 import 'package:flutter/material.dart';
@@ -54,23 +55,53 @@ class CheckoutCard extends StatelessWidget {
                   child: SvgPicture.asset('assets/icons/receipt.svg'),
                 ),
                 Spacer(),
-                Text('Add voucher code'),
+                GestureDetector(
+                  onTap: () => Get.toNamed(CouponsScreen.routesName),
+                  child: Obx(
+                    () => Text(
+                      _cartController.selectedCoupon.value == null
+                          ? 'Add Coupon code'
+                          : _cartController.selectedCoupon.value.code,
+                      style: _cartController.selectedCoupon.value == null
+                          ? null
+                          : Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ),
                 const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                )
+                Obx(() => _cartController.selectedCoupon.value == null
+                    ? Icon(
+                        Icons.arrow_forward_ios,
+                        size: 12,
+                        color: kTextColor,
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          _cartController.selectedCoupon.value = null;
+                        },
+                        child: Icon(
+                          Icons.cancel_outlined,
+                          size: 24,
+                          color: Colors.red,
+                        ),
+                      ))
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
             Obx(() {
               var cartTotal = 0.0;
+              var discount = 0.0;
+
               _cartController.cartItems.forEach((element) {
-                var abc = double.parse(element.totalQuantity.toString()) *
-                    double.parse(element.wooProducts.salesPrice.toString());
-                cartTotal = cartTotal + double.parse(abc.toString());
+                var amount = (double.parse(element.totalQuantity.toString()) *
+                    double.parse(element.wooProducts.salesPrice.toString()));
+                cartTotal = cartTotal + double.parse(amount.toString());
               });
+              if (cartTotal >
+                  _cartController.selectedCoupon.value.minCartValue) {
+                if (_cartController.selectedCoupon.value.newCustomersOnly &&
+                    _cartController.orders.isNotEmpty) {}
+              }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

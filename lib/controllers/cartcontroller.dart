@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/abstracts/abstractclasses.dart';
 import 'package:db_vendor/controllers/auth.dart';
+import 'package:db_vendor/modals/coupons.dart';
 
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/views/sign_in/sign_in_screen.dart';
@@ -21,9 +22,14 @@ class CartController extends GetxController implements CartControllerInterface {
   final orders = <CartModal>[].obs;
   final cartItems = <CartModal>[].obs;
   final addressItems = <AddressModal>[].obs;
+  final couponItems = <Coupons>[].obs;
+  final selectedCoupon = Rxn<Coupons>();
+
+  ///StreamSubscriptions
   StreamSubscription orderStreamSubscription;
   StreamSubscription cartStreamSubscription;
   StreamSubscription addressStreamSubscription;
+  StreamSubscription couponStreamSubscription;
 
   ///[Getters]
   FirebaseAuth get auth => _auth;
@@ -31,9 +37,7 @@ class CartController extends GetxController implements CartControllerInterface {
   bool get processing => _processing.value;
   set processing(bool value) => _processing.value = value;
 
-  ///
   ///[Overridden] methods
-  ///
 
   @override
   void listenToOrderItem() {
@@ -138,14 +142,7 @@ class CartController extends GetxController implements CartControllerInterface {
   @override
   Future<bool> addCartItem(CartModal cartModal) async {
     if (_authController.auth.currentUser != null) {
-      var index = cartItems.indexWhere(
-          (element) => element.wooProducts.id == cartModal.wooProducts.id);
-      if (index != -1) {
-        await updateCartItem(
-          cartItems[index].copyWith(
-              totalQuantity:
-                  cartItems[index].totalQuantity + cartModal.totalQuantity),
-        );
+      if (cartModal.documentID != null) {
         return true;
       }
       await _authController.firestore
@@ -158,7 +155,6 @@ class CartController extends GetxController implements CartControllerInterface {
       // ignore: unawaited_futures
       Get.to(() => SignInScreen());
       return false;
-      // ignore: unawaited_futures
     }
   }
 
@@ -220,9 +216,6 @@ class CartController extends GetxController implements CartControllerInterface {
   @override
   void handleUserChanges(User user) {
     if (user?.uid != null) {
-      print('*****');
-      print(user.uid);
-      print('*****');
       listenToCartItem();
       listenToOrderItem();
       listenToAddress();
@@ -244,6 +237,7 @@ class CartController extends GetxController implements CartControllerInterface {
   @override
   void onReady() {
     ever(_authController.userStream, handleUserChanges);
+    couponItems.bindStream(listenCoupons());
     super.onReady();
   }
 
@@ -334,4 +328,11 @@ class CartController extends GetxController implements CartControllerInterface {
 
   @override
   Future<void> updatePrimaryAddress(AddressModal addressModal) async {}
+
+  @override
+  Stream<List<Coupons>> listenCoupons() {
+    return _authController.firestore.collection('coupons').snapshots().map(
+        (event) => List.generate(event.docs.length,
+            (index) => Coupons.fromFirestore(event.docs[index])));
+  }
 }

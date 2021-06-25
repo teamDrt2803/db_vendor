@@ -24,7 +24,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 Box<FavouriteProduct> favouritesBox;
 Box<NotificationData> notificationBox;
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message: ${message.messageId}');
   await Firebase.initializeApp();
   if (!Hive.isAdapterRegistered(20)) {
     Hive.registerAdapter<NotificationData>(
@@ -37,7 +36,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (!box.values.toList().any((element) => element.orderId == not.orderId)) {
     await box.add(not);
   }
-  // ignore: unawaited_futures
 }
 
 void main() async {
@@ -50,11 +48,10 @@ void main() async {
   await Hive.initFlutter();
   await AwesomeNotifications().initialize('resource://mipmap/ic_launcher', [
     NotificationChannel(
-      channelName: 'Orders',
-      channelDescription: 'Shows order updates',
-      channelKey: 'KeyOrders1234567890',
-      importance: NotificationImportance.High,
-    ),
+        channelName: 'Orders',
+        channelDescription: 'Shows order updates',
+        channelKey: 'KeyOrders1234567890',
+        importance: NotificationImportance.High)
   ]);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await GetStorage.init();

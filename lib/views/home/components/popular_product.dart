@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/modals.dart';
-import 'package:db_vendor/modals/size_config.dart';
 
 import 'package:flutter/material.dart';
 import 'package:db_vendor/helpers/product_card.dart';
@@ -27,25 +26,23 @@ class PopularProducts extends StatelessWidget {
               }),
         ),
         SizedBox(height: (20)),
-        SingleChildScrollView(
-          clipBehavior: Clip.none,
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          child: Obx(
-            () => Row(
-              children: [
-                ...List.generate(
-                  _controller.products.length,
-                  (index) {
-                    var wooProducts = _controller.products[index];
-                    return ProductCard(
+        Obx(() => SizedBox(
+              height: 170,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: _controller.products.length,
+                itemBuilder: (context, index) {
+                  var wooProducts = _controller.products[index];
+                  return Center(
+                    child: ProductCard(
                       product: wooProducts,
                       onPressed: () async {
                         var done = await _cartController.addCartItem(
                           CartModal(
                             totalQuantity: 1,
                             wooProducts: wooProducts,
-                            time: Timestamp,
+                            time: Timestamp.now().millisecondsSinceEpoch,
                           ),
                         );
                         if (done) {
@@ -61,15 +58,11 @@ class PopularProducts extends StatelessWidget {
                               .show(context);
                         }
                       },
-                    );
-                    // here by default width and height is 0
-                  },
-                ),
-                SizedBox(width: (20)),
-              ],
-            ),
-          ),
-        )
+                    ),
+                  );
+                },
+              ),
+            ))
       ],
     );
   }

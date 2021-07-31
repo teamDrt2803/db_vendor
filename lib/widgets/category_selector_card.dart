@@ -30,20 +30,30 @@ class CategorySelectorCard extends StatelessWidget {
             ),
           ),
         ),
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF343434).withOpacity(0.4),
+                  Color(0xFF343434).withOpacity(0.15),
+                ],
+              ),
+            ),
+          ),
+        ),
         Positioned(
           top: 10,
           left: 10,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 4),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: Text(
-              map['name'],
-              style: Get.textTheme.bodyText1?.copyWith(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-              ),
+          child: Text(
+            map['name'],
+            style: Get.textTheme.bodyText1?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
             ),
           ),
         ),

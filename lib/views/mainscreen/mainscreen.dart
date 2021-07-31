@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:db_vendor/helpers/constants.dart';
 import 'package:db_vendor/views/favourites/favouritespage.dart';
+import 'package:db_vendor/views/my_account.dart';
 import 'package:db_vendor/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -25,8 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       floatingActionButton: GestureDetector(
         onTap: () async {
-          if (await canLaunch(whatsaapUri)) {
-            await launch(whatsaapUri);
+          if (await canLaunch(whatsappUri)) {
+            await launch(whatsappUri);
           } else {
             // ignore: unawaited_futures
             FlushbarHelper.createInformation(
@@ -35,40 +36,29 @@ class _MainScreenState extends State<MainScreen> {
           }
         },
         child: Container(
-          height: 48,
-          width: 48,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: SvgPicture.asset(
-            'assets/icons/whatsapp.svg',
-            fit: BoxFit.cover,
-          ),
-        ),
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: SvgPicture.asset('assets/icons/whatsapp.svg',
+                fit: BoxFit.cover)),
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
         unselectedItemColor: Colors.blueGrey,
         snakeShape: SnakeShape.indicator,
-        showUnselectedLabels: false,
         showSelectedLabels: true,
         currentIndex: currentIndex,
         selectedItemColor: kPrimaryColor,
         snakeViewColor: kPrimaryColor,
-        onTap: (index) async => await _pageController.animateToPage(
-          index,
-          duration: Duration(milliseconds: 200),
-          curve: Curves.easeIn,
-        ),
+        onTap: (index) => _pageController.jumpToPage(index),
         items: [
           ...List.generate(navigationItem.length, (index) {
             return BottomNavigationBarItem(
               icon: navigationItem[index]['icon']
                   ? Icon(navigationItem[index]['svg'])
-                  : SvgPicture.asset(
-                      navigationItem[index]['svg'],
-                      color:
-                          currentIndex == 0 ? kPrimaryColor : inActiveIconColor,
-                    ),
+                  : SvgPicture.asset(navigationItem[index]['svg'],
+                      color: currentIndex == 0
+                          ? kPrimaryColor
+                          : inActiveIconColor),
               label: navigationItem[index]['label'],
             );
           }),
@@ -82,31 +72,9 @@ class _MainScreenState extends State<MainScreen> {
           FavouritesPage(),
           OffersScreen(),
           BrandList(),
+          MyAccountPage(),
         ],
       ),
     );
   }
 }
-
-var navigationItem = [
-  {
-    'label': 'Home',
-    'icon': false,
-    'svg': 'assets/icons/Shop Icon.svg',
-  },
-  {
-    'label': 'Favourites',
-    'icon': true,
-    'svg': Icons.favorite_outline_outlined,
-  },
-  {
-    'label': 'Offers',
-    'icon': true,
-    'svg': Icons.verified_outlined,
-  },
-  {
-    'label': 'Brand List',
-    'icon': true,
-    'svg': Icons.branding_watermark_outlined,
-  }
-];

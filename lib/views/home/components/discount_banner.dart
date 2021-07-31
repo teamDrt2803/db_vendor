@@ -1,4 +1,3 @@
-import 'package:db_vendor/modals/size_config.dart';
 import 'package:flutter/material.dart';
 
 class DiscountBanner extends StatelessWidget {

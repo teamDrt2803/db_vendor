@@ -49,8 +49,8 @@ class DetailsScreen extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.only(
-              left: SizeConfig.screenWidth * 0.15,
-              right: SizeConfig.screenWidth * 0.15,
+              left: Get.width * 0.15,
+              right: Get.width * 0.15,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

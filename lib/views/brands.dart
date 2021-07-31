@@ -22,22 +22,16 @@ class _BrandListState extends State<BrandList> {
       key: _scaffoldKey,
       drawer: Custdrawer(),
       appBar: CustAppBar(
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
-          icon: Icon(Icons.menu),
-        ),
-        title: Text(
-          'All Brands',
-        ),
-      ),
+          leading: IconButton(
+              onPressed: () => _scaffoldKey.currentState.openDrawer(),
+              icon: Icon(Icons.menu)),
+          title: Text('All Brands')),
       body: Container(
         margin: EdgeInsets.all(16.0),
-        child: Scrollbar(
-          child: ListView(
+        child: ListView.builder(
+            itemCount: 26,
             physics: BouncingScrollPhysics(),
-            children: List.generate(26, (index) {
+            itemBuilder: (context, index) {
               var list = [];
               for (var item in brandsData) {
                 if (item['brandName']
@@ -46,7 +40,6 @@ class _BrandListState extends State<BrandList> {
                   list.add(item);
                 }
               }
-              list = list.toList();
               return Container(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -120,8 +113,6 @@ class _BrandListState extends State<BrandList> {
                 ),
               );
             }),
-          ),
-        ),
       ),
     );
   }

@@ -5,10 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "db_vendor",
+            "name": "DBVendor (Profile)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "flutterMode": "profile",
+        },
+        {
+            "name": "DBVendor (Debug)",
             "request": "launch",
             "type": "dart",
+            "program": "lib/main.dart",
             "flutterMode": "debug"
+        },
+        {
+            "name": "DBVendor (Release)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "release"
         }
     ]
 }

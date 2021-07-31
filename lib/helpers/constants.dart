@@ -56,7 +56,7 @@ const String kMatchPassError = 'Passwords don\'t match';
 const String kNamelNullError = 'Please Enter your name';
 const String kPhoneNumberNullError = 'Please Enter your phone number';
 const String kAddressNullError = 'Please Enter your address';
-const String whatsaapUri = 'https://wa.me/+919098244189';
+const String whatsappUri = 'https://wa.me/+919098244189';
 
 final otpInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: (15)),
@@ -226,4 +226,12 @@ List<Map<String, String>> splashData = [
     'text': 'We have a hassle free returns policy.',
     'image': 'assets/images/splash_2.png'
   },
+];
+
+var navigationItem = [
+  {'label': 'Home', 'icon': false, 'svg': 'assets/icons/Shop Icon.svg'},
+  {'label': 'Favourites', 'icon': true, 'svg': Icons.favorite_outline_outlined},
+  {'label': 'Offers', 'icon': true, 'svg': Icons.verified_outlined},
+  {'label': 'Brand List', 'icon': true, 'svg': Icons.branding_watermark},
+  {'label': 'My Account', 'icon': true, 'svg': Icons.person}
 ];

@@ -2,11 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/views/views.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
 import 'constants.dart';
-import '../modals/size_config.dart';
 import 'package:db_vendor/helpers/extensions.dart';
 
 class ProductCard extends StatelessWidget {
@@ -25,25 +24,18 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(
-        context,
-        DetailsScreen.routeName,
-        arguments: ProductDetailsArguments(product: product),
-      ),
+      onTap: () => Navigator.pushNamed(context, DetailsScreen.routeName,
+          arguments: ProductDetailsArguments(product: product)),
       child: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 16.0,
-        ),
-        width: SizeConfig.screenWidth - (32),
-        height: (150),
+        margin: EdgeInsets.symmetric(horizontal: 16.0),
+        width: Get.width - 32,
+        height: 150,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: kSecondaryColor.withOpacity(
-                0.2,
-              ),
+              color: kSecondaryColor.withOpacity(0.2),
               blurRadius: 16,
               offset: Offset(1, 5),
             ),
@@ -55,7 +47,7 @@ class ProductCard extends StatelessWidget {
               tag: product.id.toString(),
               child: Container(
                 height: (150),
-                width: (SizeConfig.screenWidth - (32)) * 0.35,
+                width: (Get.width - 32) * 0.35,
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -71,36 +63,24 @@ class ProductCard extends StatelessWidget {
             ),
             Flexible(
               child: Container(
-                margin: EdgeInsets.fromLTRB(
-                  0.0,
-                  8.0,
-                  16.0,
-                  8.0,
-                ),
+                margin: EdgeInsets.fromLTRB(0.0, 8.0, 16.0, 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
                       product.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.openSans(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      height: (5),
-                    ),
+                    SizedBox(height: (5)),
                     Text(
                       product.shortDescription.normalize(),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(
-                      height: (10),
-                    ),
+                    SizedBox(height: (10)),
                     Text(
                       product.salesPrice.toString().rupee(),
                       style: GoogleFonts.openSans(

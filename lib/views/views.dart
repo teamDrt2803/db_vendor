@@ -17,5 +17,5 @@ export './otp/otp_screen.dart';
 export './productsall.dart/all_products.dart';
 export './profile/profile_screen.dart';
 export './sign_in/sign_in_screen.dart';
-export './splash/splash_screen.dart';
+export 'welcome_screen.dart';
 export './splashScreen.dart';

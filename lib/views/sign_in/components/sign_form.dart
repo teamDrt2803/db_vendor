@@ -44,7 +44,7 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: (30)),
           Row(
             children: [
               Checkbox(
@@ -67,7 +67,7 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: (20)),
           Obx(
             () => DefaultButton(
               widget: authController.processing

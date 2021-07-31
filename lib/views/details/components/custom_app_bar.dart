@@ -21,13 +21,12 @@ class CustomAppBar extends PreferredSize {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(horizontal: (20)),
         child: Row(
           children: [
             SizedBox(
-              height: getProportionateScreenWidth(40),
-              width: getProportionateScreenWidth(40),
+              height: (40),
+              width: (40),
               // ignore: deprecated_member_use
               child: FlatButton(
                 shape: RoundedRectangleBorder(
@@ -59,7 +58,7 @@ class CustomAppBar extends PreferredSize {
                     ),
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(20),
+                    width: (20),
                   ),
                   Text(
                     '$rating',

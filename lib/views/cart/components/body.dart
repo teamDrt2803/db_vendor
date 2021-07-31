@@ -23,8 +23,7 @@ class _BodyState extends State<Body> {
     return Obx(
       () => cartController.cartItems.isNotEmpty
           ? Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20)),
+              padding: EdgeInsets.symmetric(horizontal: (20)),
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: cartController.cartItems.length,
@@ -93,7 +92,7 @@ class _BodyState extends State<Body> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.openSans(
                         color: kSecondaryColor,
-                        fontSize: getProportionateScreenWidth(24),
+                        fontSize: (24),
                       ),
                     ),
                     Padding(
@@ -105,9 +104,8 @@ class _BodyState extends State<Body> {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
                               elevation: MaterialStateProperty.all(0),
-                              minimumSize: MaterialStateProperty.all(Size(
-                                  SizeConfig.screenWidth * 0.7,
-                                  getProportionateScreenHeight(60))),
+                              minimumSize: MaterialStateProperty.all(
+                                  Size(SizeConfig.screenWidth * 0.7, (60))),
                               backgroundColor: MaterialStateProperty.all(
                                   kPrimaryLightColor)),
                           icon: Icon(

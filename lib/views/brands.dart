@@ -59,9 +59,7 @@ class _BrandListState extends State<BrandList> {
                         child: Text(
                           alphabet[index].toUpperCase(),
                           style: GoogleFonts.openSans(
-                            fontSize: getProportionateScreenWidth(
-                              25,
-                            ),
+                            fontSize: 25,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -82,8 +80,8 @@ class _BrandListState extends State<BrandList> {
                               vertical: 4.0,
                             ),
                             child: SizedBox(
-                              height: getProportionateScreenHeight(90),
-                              width: getProportionateScreenWidth(90),
+                              height: (90),
+                              width: (90),
                               child: Card(
                                 shadowColor: Colors.grey.shade200,
                                 shape: RoundedRectangleBorder(
@@ -101,8 +99,8 @@ class _BrandListState extends State<BrandList> {
                                       ),
                                     ),
                                     leading: SizedBox(
-                                      height: getProportionateScreenHeight(70),
-                                      width: getProportionateScreenWidth(70),
+                                      height: (70),
+                                      width: (70),
                                       child: CachedNetworkImage(
                                           imageUrl: details.imageUrl),
                                     ),

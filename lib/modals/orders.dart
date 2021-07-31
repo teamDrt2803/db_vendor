@@ -28,7 +28,7 @@ class OrdersItem {
 
   factory OrdersItem.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    var map = snapshot.data();
+    var map = snapshot.data() as Map;
     return OrdersItem(
       originalPrice: map['originalPrice'],
       discountedPrice: map['discountedPrice'],
@@ -101,5 +101,6 @@ class OrdersItem {
   bool operator ==(other) =>
       other is OrdersItem && documentID == other.documentID;
 
+  @override
   int get hashCode => documentID.hashCode;
 }

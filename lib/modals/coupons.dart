@@ -35,7 +35,7 @@ class Coupons {
 
   factory Coupons.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    var map = snapshot.data();
+    var map = snapshot.data() as Map;
 
     return Coupons(
       title: map['title'],

@@ -3,7 +3,7 @@ import 'package:db_vendor/helpers/custappbar.dart';
 import 'package:db_vendor/views/about.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class Docs extends StatefulWidget {
   final PAGESHOW pageshow;
@@ -64,10 +64,10 @@ class _DocsState extends State<Docs> {
           : SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: SfPdfViewer.asset(
-                getAssets(),
-                searchTextHighlightColor: kPrimaryLightColor,
-              ),
+              // child: SfPdfViewer.asset(
+              //   getAssets(),
+              //   searchTextHighlightColor: kPrimaryLightColor,
+              // ),
             ),
     );
   }

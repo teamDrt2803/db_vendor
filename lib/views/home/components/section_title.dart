@@ -20,7 +20,7 @@ class SectionTitle extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: getProportionateScreenWidth(18),
+            fontSize: (18),
             color: Colors.black,
           ),
         ),

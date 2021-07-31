@@ -34,8 +34,8 @@ class ProductCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(
           horizontal: 16.0,
         ),
-        width: SizeConfig.screenWidth - getProportionateScreenWidth(32),
-        height: getProportionateScreenHeight(150),
+        width: SizeConfig.screenWidth - (32),
+        height: (150),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -54,10 +54,8 @@ class ProductCard extends StatelessWidget {
             Hero(
               tag: product.id.toString(),
               child: Container(
-                height: getProportionateScreenHeight(150),
-                width:
-                    (SizeConfig.screenWidth - getProportionateScreenWidth(32)) *
-                        0.35,
+                height: (150),
+                width: (SizeConfig.screenWidth - (32)) * 0.35,
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -69,7 +67,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: getProportionateScreenWidth(10),
+              width: (10),
             ),
             Flexible(
               child: Container(
@@ -93,7 +91,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(5),
+                      height: (5),
                     ),
                     Text(
                       product.shortDescription.normalize(),
@@ -101,7 +99,7 @@ class ProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(10),
+                      height: (10),
                     ),
                     Text(
                       product.salesPrice.toString().rupee(),
@@ -127,7 +125,7 @@ class ProductCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: getProportionateScreenWidth(10),
+                            width: (10),
                           ),
                           Flexible(
                             child: FloatingActionButton(
@@ -176,10 +174,10 @@ class DBProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(left: (20)),
       child: SizedBox(
-        width: getProportionateScreenWidth(width),
-        height: getProportionateScreenHeight(180),
+        width: (width),
+        height: (180),
         child: GestureDetector(
           child: Container(
             decoration: BoxDecoration(
@@ -196,15 +194,15 @@ class DBProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all((20)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: SizedBox(
                     width: double.infinity,
-                    //width: getProportionateScreenWidth(100),
-                    height: getProportionateScreenHeight(100),
+                    //width: (100),
+                    height: (100),
                     child: Container(
                       decoration: BoxDecoration(
                         color: kPrimaryLightColor,
@@ -224,7 +222,7 @@ class DBProductCard extends StatelessWidget {
                     '$first $index'.toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
+                      fontSize: (18),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
                       //color: Colors.black,

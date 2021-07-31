@@ -30,8 +30,8 @@ class DetailsScreen extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         child: Container(
           padding: EdgeInsets.symmetric(
-            vertical: getProportionateScreenWidth(15),
-            horizontal: getProportionateScreenWidth(30),
+            vertical: (15),
+            horizontal: (30),
           ),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -89,7 +89,7 @@ class DetailsScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(20),
+                  height: (20),
                 ),
                 DefaultButton(
                   text: 'Buy Now',

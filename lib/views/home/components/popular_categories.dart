@@ -16,15 +16,14 @@ class PopularCategories extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: (20)),
           child: SectionTitle(
               title: 'Popular Categories',
               press: () {
                 Get.to(() => AllCategories());
               }),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: (20)),
         SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Obx(
@@ -42,7 +41,7 @@ class PopularCategories extends StatelessWidget {
                     // here by default width and height is 0
                   },
                 ),
-                //SizedBox(width: getProportionateScreenWidth(20)),
+                //SizedBox(width: (20)),
               ],
             ),
           ),

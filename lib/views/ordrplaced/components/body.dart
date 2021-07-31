@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
         Text(
           'Order Placed',
           style: TextStyle(
-            fontSize: getProportionateScreenWidth(30),
+            fontSize: (30),
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),

@@ -79,7 +79,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               width: Get.width,
-              // height: getProportionateScreenHeight(96),
+              // height: (96),
               decoration: BoxDecoration(
                 color: kPrimaryLightColor,
               ),
@@ -108,7 +108,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: getProportionateScreenHeight(16),
+                    height: (16),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -131,12 +131,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(16),
+                    height: (16),
                   ),
                   DefaultButton(
                     press: () {},
                     text: 'Apply',
-                    height: getProportionateScreenHeight(36),
+                    height: (36),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -148,7 +148,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
               margin: EdgeInsets.only(top: 16),
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               width: Get.width,
-              // height: getProportionateScreenHeight(96),
+              // height: (96),
               decoration: BoxDecoration(
                 color: kPrimaryLightColor,
               ),

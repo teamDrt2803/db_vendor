@@ -63,12 +63,12 @@ class _BodyState extends State<Body> {
                     Text(
                       'Personal Details',
                       style: GoogleFonts.openSans(
-                        fontSize: getProportionateScreenWidth(28),
+                        fontSize: (28),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -98,7 +98,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Flexible(
                       child: TextFormField(
@@ -123,17 +123,17 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Text(
                       'Address Details',
                       style: GoogleFonts.openSans(
-                        fontSize: getProportionateScreenWidth(28),
+                        fontSize: (28),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -161,7 +161,7 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: getProportionateScreenWidth(10),
+                          width: (10),
                         ),
                         Flexible(
                           child: TextFormField(
@@ -188,7 +188,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Flexible(
                       child: TextFormField(
@@ -213,7 +213,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Flexible(
                       child: TextFormField(
@@ -238,7 +238,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Flexible(
                       child: TextFormField(
@@ -263,7 +263,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(25),
+                      height: (25),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -288,7 +288,7 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: getProportionateScreenWidth(10),
+                          width: (10),
                         ),
                         Flexible(
                           child: TextFormField(
@@ -312,7 +312,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     SizedBox(
-                      width: getProportionateScreenWidth(120),
+                      width: (120),
                     ),
                   ],
                 ),

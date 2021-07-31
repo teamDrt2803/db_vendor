@@ -27,16 +27,8 @@ class HomeScreen extends StatelessWidget {
       ),
       child: Scaffold(
         key: _globalKey,
-        drawer: Custdrawer(),
+        // drawer: Custdrawer(),
         appBar: CustAppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-            ),
-            onPressed: () {
-              _globalKey.currentState.openDrawer();
-            },
-          ),
           title: Text('Discount Bazaar'),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,

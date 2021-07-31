@@ -49,14 +49,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: (30)),
           buildEMailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: (30)),
           buildStorenameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: (30)),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: (40)),
           DefaultButton(
             widget: _authController.processing
                 ? Center(

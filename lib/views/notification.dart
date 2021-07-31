@@ -102,7 +102,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(25),
+                height: (25),
               ),
               Flexible(
                 child: ValueListenableBuilder<Box<NotificationData>>(
@@ -132,7 +132,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                               var not = list[index];
                               return Container(
                                 margin: EdgeInsets.symmetric(vertical: 8),
-                                height: getProportionateScreenHeight(80),
+                                height: (80),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),

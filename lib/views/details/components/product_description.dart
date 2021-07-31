@@ -27,8 +27,7 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: (20)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +45,7 @@ class ProductDescription extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(15),
+                width: (15),
               ),
               product.salesPrice.toString().isEmpty ||
                       product.salesPrice == null
@@ -68,8 +67,8 @@ class ProductDescription extends StatelessWidget {
               _favouriteController.updateFavourites(product.id, context);
             },
             child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-              width: getProportionateScreenWidth(64),
+              padding: EdgeInsets.all((15)),
+              width: (64),
               decoration: BoxDecoration(
                 color: Color(0xFFFFE6E6),
                 borderRadius: BorderRadius.only(
@@ -87,7 +86,7 @@ class ProductDescription extends StatelessWidget {
                               .any((element) => element.id == product.id)
                           ? Color(0xffff4848)
                           : Colors.white,
-                      height: getProportionateScreenWidth(16),
+                      height: (16),
                     );
                   }),
             ),
@@ -95,8 +94,8 @@ class ProductDescription extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(
-            left: getProportionateScreenWidth(20),
-            right: getProportionateScreenWidth(64),
+            left: (20),
+            right: (64),
           ),
           child: Text(
             product.longDescription,
@@ -104,7 +103,7 @@ class ProductDescription extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
+            horizontal: (20),
             vertical: 10,
           ),
           child: GestureDetector(

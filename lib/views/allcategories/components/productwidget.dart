@@ -37,10 +37,10 @@ class AllCategoriesWidget extends StatelessWidget {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  padding: EdgeInsets.all((10)),
                   child: SizedBox(
-                      height: getProportionateScreenHeight(130),
-                      width: getProportionateScreenWidth(130),
+                      height: (130),
+                      width: (130),
                       child: products.images == null
                           ? Icon(
                               Icons.local_grocery_store,

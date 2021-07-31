@@ -7,7 +7,6 @@ import 'package:db_vendor/modals/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,7 +19,7 @@ import 'package:db_vendor/modals/user.dart';
 import 'package:db_vendor/views/complete_profile/complete_profile_screen.dart';
 import 'package:db_vendor/views/mainscreen/mainscreen.dart';
 import 'package:db_vendor/views/otp/otp_screen.dart';
-import 'package:db_vendor/views/splash/splash_screen.dart';
+import 'package:db_vendor/views/welcome_screen.dart';
 
 class AuthController extends GetxController {
   ///
@@ -206,9 +205,10 @@ class AuthController extends GetxController {
   ///This method gets fired [everytime] user [changes]
   ///
   ///It checks if the the user is [valid] then binds [firestoreUser] user stream to [_streamUserChanges]
-  void handleUserChanges(User user) {
+  Future<void> handleUserChanges(User user) async {
     if (user?.uid != null) {
       firestoreUser.bindStream(_streamUserChanges());
+
       fcmToken.bindStream(_messaging.onTokenRefresh);
     }
   }
@@ -261,13 +261,19 @@ class AuthController extends GetxController {
   ///
   ///handle [firestore] changes
   ///
-  void _handleFirestoreUserChanges(FirestoreUser firestoreUser) {
+  Future<void> _handleFirestoreUserChanges(FirestoreUser firestoreUser) async {
+    var token = await _messaging.getToken();
+    if (firestoreUser.fcmToken != token) {
+      _handleFcmTokenChanges(token);
+    }
     if (!firestoreUser.setupComplete) {
       if (Get.currentRoute != CompleteProfileScreen.routeName) {
+        // ignore: unawaited_futures
         Get.offAllNamed(CompleteProfileScreen.routeName);
       }
     } else {
       if (Get.currentRoute != MainScreen.routeName) {
+        // ignore: unawaited_futures
         Get.offAllNamed(MainScreen.routeName);
       }
     }
@@ -280,7 +286,7 @@ class AuthController extends GetxController {
     await firestore
         .collection('users')
         .doc(user.uid)
-        .update({'fcmToken': token});
+        .update(firestoreUser.value.copyWith(fcmToken: token).toMap());
   }
 
   ///
@@ -297,7 +303,6 @@ class AuthController extends GetxController {
       await preferenceBox.clear();
       await _auth.signOut();
       await Hive.deleteFromDisk();
-      Phoenix.rebirth(context);
     } catch (e) {
       debugPrint(e);
     }
@@ -323,7 +328,6 @@ class AuthController extends GetxController {
     ever(firestoreUser, _handleFirestoreUserChanges);
     ever(fcmToken, _handleFcmTokenChanges);
     FirebaseMessaging.onMessage.listen((event) {
-      debugPrint('Message Received');
       var not = NotificationData.fromMap(event.data);
       if (!notificationBox.values
           .toList()
@@ -341,18 +345,12 @@ class AuthController extends GetxController {
         hideLargeIconOnExpand: false,
       ));
     });
-    _messaging.onTokenRefresh.listen((event) {});
     _user.bindStream(auth.userChanges());
-    _firstBoot.value = preferenceBox.get(
-      'firstBoot',
-      defaultValue: true,
-    );
-    preferenceBox.listenable(keys: ['firstBoot']).addListener(() {
-      _firstBoot.value = preferenceBox.get(
-        'firstBoot',
-        defaultValue: true,
-      );
-    });
+    _firstBoot.value = preferenceBox.get('firstBoot', defaultValue: true);
+    _firstBoot.bindStream(preferenceBox
+        .watch(key: 'firstBoot')
+        .asBroadcastStream()
+        .map((event) => event.value));
     super.onReady();
   }
 }

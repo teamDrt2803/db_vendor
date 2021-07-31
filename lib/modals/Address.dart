@@ -35,7 +35,7 @@ class AddressModal {
 
   factory AddressModal.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    var map = snapshot.data();
+    var map = snapshot.data() as Map;
 
     return AddressModal(
       firstname: map['firstname'],

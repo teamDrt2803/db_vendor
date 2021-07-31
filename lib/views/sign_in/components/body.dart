@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
+            horizontal: (20),
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
                   'Welcome',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    fontSize: (28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

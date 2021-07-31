@@ -41,37 +41,37 @@ class _OffersScreenState extends State<OffersScreen> {
                 title: 'OFFERS\nCORNER',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
               OffersWidget(
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
               OffersWidget(
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
               OffersWidget(
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
               OffersWidget(
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
               OffersWidget(
                 title: 'BRAND\nOFFERS',
               ),
               SizedBox(
-                height: getProportionateScreenHeight(15.0),
+                height: (15.0),
               ),
             ],
           ),
@@ -90,7 +90,7 @@ class OffersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getProportionateScreenHeight(170),
+      height: (170),
       width: double.infinity,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -103,7 +103,7 @@ class OffersWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                height: getProportionateScreenHeight(110),
+                height: (110),
                 child:
                     Image.asset('assets/speacialOffer.png', fit: BoxFit.cover),
               ),
@@ -115,15 +115,15 @@ class OffersWidget extends StatelessWidget {
                       title,
                       style: GoogleFonts.openSans(
                         fontWeight: FontWeight.bold,
-                        fontSize: getProportionateScreenWidth(20),
+                        fontSize: (20),
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(10),
+                      height: (10),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(48),
-                      width: getProportionateScreenWidth(48),
+                      height: (48),
+                      width: (48),
                       child: FloatingActionButton(
                         onPressed: () {},
                         backgroundColor: kPrimaryLightColor,
@@ -135,7 +135,7 @@ class OffersWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(5),
+                      height: (5),
                     ),
                     Text(
                       'Click for More info',

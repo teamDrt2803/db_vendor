@@ -1,3 +1,4 @@
+import 'package:db_vendor/controllers/app_controller.dart';
 import 'package:db_vendor/controllers/categorycontroller.dart';
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:get/get.dart';
@@ -10,5 +11,6 @@ class InitialBindings extends Bindings {
     Get.put(ProductController(), permanent: true);
     Get.put(FavouritesController(), permanent: true);
     Get.put(CategoryController(), permanent: true);
+    Get.put(AppController(), permanent: true);
   }
 }

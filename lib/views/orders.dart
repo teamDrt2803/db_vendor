@@ -51,7 +51,7 @@ class _OrderState extends State<Order> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        height: getProportionateScreenHeight(200),
+                        height: (200),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         // padding: EdgeInsets.symmetric(horizontal: 10),
@@ -150,8 +150,7 @@ class _OrderState extends State<Order> {
                                           color: kPrimaryColor,
                                         ),
                                         SizedBox(
-                                          width:
-                                              getProportionateScreenWidth(10),
+                                          width: (10),
                                         ),
                                         Text(
                                           'Delivered',

@@ -1,8 +1,8 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:db_vendor/helpers/product_card.dart';
@@ -19,15 +19,14 @@ class PopularProducts extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: (20)),
           child: SectionTitle(
               title: 'Popular Products',
               press: () {
                 Get.to(() => AllProducts());
               }),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: (20)),
         SingleChildScrollView(
           clipBehavior: Clip.none,
           physics: BouncingScrollPhysics(),
@@ -46,7 +45,7 @@ class PopularProducts extends StatelessWidget {
                           CartModal(
                             totalQuantity: 1,
                             wooProducts: wooProducts,
-                            time: ServerValue.timestamp,
+                            time: Timestamp,
                           ),
                         );
                         if (done) {
@@ -66,7 +65,7 @@ class PopularProducts extends StatelessWidget {
                     // here by default width and height is 0
                   },
                 ),
-                SizedBox(width: getProportionateScreenWidth(20)),
+                SizedBox(width: (20)),
               ],
             ),
           ),
@@ -85,15 +84,14 @@ class DBPopularProducts extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: (20)),
           child: SectionTitle(
               title: title,
               press: () {
                 //Get.to(() => AllProducts());
               }),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: (20)),
         SingleChildScrollView(
           clipBehavior: Clip.none,
           physics: BouncingScrollPhysics(),
@@ -113,7 +111,7 @@ class DBPopularProducts extends StatelessWidget {
                     // here by default width and height is 0
                   },
                 ),
-                SizedBox(width: getProportionateScreenWidth(20)),
+                SizedBox(width: (20)),
               ],
             ),
           ),

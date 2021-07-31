@@ -72,7 +72,7 @@ class _BodyState extends State<Body> {
                 ],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(5),
+                height: (5),
               ),
               Divider(
                 color: Colors.grey.shade400,
@@ -257,7 +257,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(5),
+                        height: (5),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -281,7 +281,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(5),
+                        height: (5),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -305,7 +305,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(5),
+                        height: (5),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -329,7 +329,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(15),
+                        height: (15),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -353,7 +353,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(5),
+                        height: (5),
                       ),
                     ],
                   ),

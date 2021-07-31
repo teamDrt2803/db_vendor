@@ -40,8 +40,8 @@ class Body extends StatelessWidget {
                         return AllProductWidget(products: products);
                       },
                       maxCrossAxisExtent: 200,
-                      crossAxisSpacing: getProportionateScreenHeight(20),
-                      mainAxisSpacing: getProportionateScreenWidth(20),
+                      crossAxisSpacing: (20),
+                      mainAxisSpacing: (20),
                       staggeredTileBuilder: (int index) {
                         return StaggeredTile.extent(1, 300);
                       },
@@ -49,7 +49,7 @@ class Body extends StatelessWidget {
                   ),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(70),
+            height: (70),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,

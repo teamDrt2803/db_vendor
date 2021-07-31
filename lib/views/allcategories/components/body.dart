@@ -28,8 +28,8 @@ class Body extends StatelessWidget {
                   return AllCategoriesWidget(products: categories);
                 },
                 maxCrossAxisExtent: 200,
-                crossAxisSpacing: getProportionateScreenHeight(20),
-                mainAxisSpacing: getProportionateScreenWidth(20),
+                crossAxisSpacing: (20),
+                mainAxisSpacing: (20),
                 staggeredTileBuilder: (int index) {
                   return StaggeredTile.extent(1, 200);
                 },
@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
             ),
           ),
           // SizedBox(
-          //   height: getProportionateScreenHeight(70),
+          //   height: (70),
           //   child: Padding(
           //     padding: const EdgeInsets.symmetric(
           //       horizontal: 16,
@@ -50,7 +50,7 @@ class Body extends StatelessWidget {
           //             width: SizeConfig.screenWidth * 0.4,
           //             child: DefaultButton(
           //               color: kSecondaryColor.withOpacity(0.5),
-          //               //width: getProportionateScreenWidth(20),
+          //               //width: (20),
           //               text: 'Previous',
           //               press: catId == null
           //                   ? controller.firstProduct.value
@@ -70,7 +70,7 @@ class Body extends StatelessWidget {
           //         SizedBox(
           //           width: SizeConfig.screenWidth * 0.4,
           //           child: DefaultButton(
-          //             //width: getProportionateScreenWidth(20),
+          //             //width: (20),
           //             text: 'Next',
           //             press: catId == null
           //                 ? controller.lastProduct.value

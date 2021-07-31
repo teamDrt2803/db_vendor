@@ -23,7 +23,7 @@ class CartModal {
 
   factory CartModal.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    var map = snapshot.data();
+    var map = snapshot.data() as Map;
     return CartModal(
       totalQuantity: map['totalQuantity'],
       wooProducts: map['wooProducts'] != null

@@ -1,5 +1,9 @@
+import 'package:db_vendor/modals/favorites.dart';
+import 'package:db_vendor/modals/modals.dart';
+import 'package:db_vendor/modals/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:db_vendor/modals/size_config.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 const kPrimaryColor = Color(0xFFf28b32);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -14,7 +18,7 @@ const kTextColor = Color(0xFF757575);
 const kAnimationDuration = Duration(milliseconds: 200);
 
 final headingStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(28),
+  fontSize: (28),
   fontWeight: FontWeight.bold,
   color: Colors.black,
   height: 1.5,
@@ -55,8 +59,7 @@ const String kAddressNullError = 'Please Enter your address';
 const String whatsaapUri = 'https://wa.me/+919098244189';
 
 final otpInputDecoration = InputDecoration(
-  contentPadding:
-      EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
+  contentPadding: EdgeInsets.symmetric(vertical: (15)),
   border: outlineInputBorder(),
   focusedBorder: outlineInputBorder(),
   enabledBorder: outlineInputBorder(),
@@ -64,7 +67,7 @@ final otpInputDecoration = InputDecoration(
 
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
+    borderRadius: BorderRadius.circular((15)),
     borderSide: BorderSide(color: kTextColor),
   );
 }
@@ -190,4 +193,37 @@ var coupons = [
     'minOrderValue': 200,
   },
   {}
+];
+
+Future<void> setupHive() async {
+  Hive.registerAdapter<Products>(ProductsAdapter());
+  Hive.registerAdapter<Images>(ImagesAdapter());
+  Hive.registerAdapter<FavouriteProduct>(FavouriteProductAdapter());
+  Hive.registerAdapter<NotificationData>(NotificationDataAdapter());
+  await Hive.initFlutter();
+}
+
+List<Map<String, String>> splashData = [
+  {
+    'title': 'Welcome to \nDiscount Bazaar',
+    'text':
+        'MP’s leading online wholesale platform for Small & Medium Businesses and Shop owners.',
+    'image': 'assets/images/splash_1.png'
+  },
+  {
+    'title': 'Wide Range \nOf Products',
+    'text':
+        'We offer wide range of products and categories available at the lowest possible rates.',
+    'image': 'assets/images/splash_3.png'
+  },
+  {
+    'title': 'Fast Delivery',
+    'text': 'We strive for next day delivery of goods at your doorstep.',
+    'image': 'assets/images/splash_4.png'
+  },
+  {
+    'title': 'Easy Return',
+    'text': 'We have a hassle free returns policy.',
+    'image': 'assets/images/splash_2.png'
+  },
 ];

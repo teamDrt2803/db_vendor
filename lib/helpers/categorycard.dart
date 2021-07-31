@@ -22,9 +22,9 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(left: (20)),
       child: SizedBox(
-        width: getProportionateScreenWidth(width),
+        width: (width),
         child: GestureDetector(
           onTap: () {
             debugPrint(product.id.toString());
@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: aspectRetio,
                 child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all((20)),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

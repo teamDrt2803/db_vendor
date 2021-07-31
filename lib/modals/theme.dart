@@ -8,7 +8,7 @@ ThemeData theme() {
     scaffoldBackgroundColor: Colors.white,
     fontFamily: GoogleFonts.roboto().fontFamily,
     appBarTheme: appBarTheme(),
-    textTheme: textTheme(),
+    textTheme: GoogleFonts.robotoTextTheme(),
     primaryColor: kPrimaryColor,
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -30,13 +30,6 @@ InputDecorationTheme inputDecorationTheme() {
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
-  );
-}
-
-TextTheme textTheme() {
-  return TextTheme(
-    bodyText1: TextStyle(color: kTextColor),
-    bodyText2: TextStyle(color: kTextColor),
   );
 }
 

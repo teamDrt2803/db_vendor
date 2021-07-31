@@ -57,8 +57,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                       return AllProductWidget(products: product);
                     },
                     maxCrossAxisExtent: 200,
-                    crossAxisSpacing: getProportionateScreenHeight(20),
-                    mainAxisSpacing: getProportionateScreenWidth(20),
+                    crossAxisSpacing: (20),
+                    mainAxisSpacing: (20),
                     staggeredTileBuilder: (int index) {
                       return StaggeredTile.extent(1, 250);
                     },

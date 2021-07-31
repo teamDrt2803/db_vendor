@@ -40,10 +40,10 @@ class AllProductWidget extends StatelessWidget {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  padding: EdgeInsets.all((10)),
                   child: SizedBox(
-                    height: getProportionateScreenHeight(130),
-                    width: getProportionateScreenWidth(130),
+                    height: (130),
+                    width: (130),
                     child: products.images.isNotEmpty
                         ? CachedNetworkImage(
                             imageUrl: products.images.first.src)
@@ -95,13 +95,13 @@ class AllProductWidget extends StatelessWidget {
                                 //   '\₹${products.onSale ? products.salePrice.isEmpty ? products.price : products.salePrice : products.price}',
                                 //   style: GoogleFonts.openSans(
                                 //     fontWeight: FontWeight.bold,
-                                //     fontSize: getProportionateScreenWidth(
+                                //     fontSize: (
                                 //       16,
                                 //     ),
                                 //   ),
                                 // ),
                                 SizedBox(
-                                  width: getProportionateScreenWidth(10),
+                                  width: (10),
                                 ),
                                 if (products.onSale == 'true' &&
                                     products.regularPrice.toString().isNotEmpty)
@@ -111,9 +111,7 @@ class AllProductWidget extends StatelessWidget {
                                       color: kSecondaryColor.withOpacity(0.5),
                                       decoration: TextDecoration.lineThrough,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: getProportionateScreenWidth(
-                                        16,
-                                      ),
+                                      fontSize: 16,
                                     ),
                                   ),
                               ],
@@ -144,10 +142,10 @@ class AllProductWidget extends StatelessWidget {
                               },
                               fillColor: kPrimaryColor,
                               constraints: BoxConstraints(
-                                minHeight: getProportionateScreenHeight(40),
-                                minWidth: getProportionateScreenWidth(40),
-                                maxHeight: getProportionateScreenHeight(40),
-                                maxWidth: getProportionateScreenWidth(40),
+                                minHeight: (40),
+                                minWidth: (40),
+                                maxHeight: (40),
+                                maxWidth: (40),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(999),

@@ -10,7 +10,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
@@ -57,7 +56,6 @@ void main() async {
     ),
   ]);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await GetStorage.init();
   favouritesBox = await Hive.openBox<FavouriteProduct>('favourites');
   notificationBox = await Hive.openBox<NotificationData>('notifications');
   runApp(

@@ -13,7 +13,6 @@ class AllCategories extends StatefulWidget {
 class _AllCategoriesState extends State<AllCategories> {
   @override
   void initState() {
-    print('object');
     super.initState();
   }
 

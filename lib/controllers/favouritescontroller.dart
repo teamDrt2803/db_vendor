@@ -33,9 +33,7 @@ class FavouritesController extends GetxController {
   }
 
   void getdata() {
-    print('object');
     favouritesBox.listenable().addListener(() async {
-      print('object');
       favouriteProducts.clear();
       var fav = favouritesBox.values.toList().map((e) => e.id).toList();
       for (var item in fav) {

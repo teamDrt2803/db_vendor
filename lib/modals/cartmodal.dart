@@ -21,7 +21,7 @@ class CartModal {
     this.emailSent = false,
   });
 
-  factory CartModal.fromFirestore(DocumentSnapshot snapshot) {
+  factory CartModal.fromFirestore(DocumentSnapshot<Map> snapshot) {
     if (snapshot == null) return null;
     var map = snapshot.data();
     return CartModal(

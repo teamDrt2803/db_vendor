@@ -29,12 +29,8 @@ class _CategorySelectorState extends State<CategorySelector> {
         child: DefaultButton(
           text: 'Save',
           press: () async {
-            await _categorySelector.storage.write(
-              'selectedCategory',
-              _categorySelector.selectedCategory.value,
-            );
-            print(Get.previousRoute);
-
+            _categorySelector
+                .updateCategory(_categorySelector.selectedCategory.value);
             if (Get.previousRoute == SplashScreen.routeName) {
               await _authController.preferenceBox.put('firstBoot', false);
             } else if (Get.previousRoute == MainScreen.routeName) {

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -35,7 +34,6 @@ class AuthController extends GetxController {
   final RxnString fcmToken = RxnString();
   final RxnBool _processing = RxnBool(false);
   final RxnBool _firstBoot = RxnBool(false);
-  final storage = GetStorage('preferences');
   Box preferenceBox;
   String verificationId;
   int resendToken;

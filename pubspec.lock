@@ -70,7 +70,7 @@ packages:
       name: awesome_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6+7"
+    version: "0.0.6+10"
   boolean_selector:
     dependency: transitive
     description:
@@ -596,7 +596,7 @@ packages:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.6"
   google_maps_flutter_platform_interface:
     dependency: transitive
     description:
@@ -722,21 +722,21 @@ packages:
       name: location
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.1"
+    version: "4.3.0"
   location_platform_interface:
     dependency: transitive
     description:
       name: location_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.3.0"
   location_web:
     dependency: transitive
     description:
       name: location_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.1"
   logging:
     dependency: transitive
     description:
@@ -904,7 +904,7 @@ packages:
       name: pin_input_text_field
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.0"
   platform:
     dependency: transitive
     description:
@@ -1042,7 +1042,7 @@ packages:
       name: sms_autofill
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   source_gen:
     dependency: transitive
     description:
@@ -1112,35 +1112,42 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.64"
+    version: "19.2.56"
   syncfusion_flutter_pdf:
     dependency: transitive
     description:
       name: syncfusion_flutter_pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.64-beta"
+    version: "19.2.56-beta.1"
   syncfusion_flutter_pdfviewer:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_pdfviewer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.64-beta"
+    version: "19.2.56-beta"
+  syncfusion_flutter_pdfviewer_macos:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_pdfviewer_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "19.2.56-beta"
   syncfusion_flutter_pdfviewer_platform_interface:
     dependency: transitive
     description:
       name: syncfusion_flutter_pdfviewer_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.64-beta"
+    version: "19.2.56-beta"
   syncfusion_flutter_pdfviewer_web:
     dependency: transitive
     description:
       name: syncfusion_flutter_pdfviewer_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.64-beta"
+    version: "19.2.56-beta"
   synchronized:
     dependency: transitive
     description:
@@ -1282,5 +1289,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
+  dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.0.4"

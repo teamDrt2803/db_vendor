@@ -1,8 +1,8 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:db_vendor/controllers/controllers.dart';
 import 'package:db_vendor/modals/modals.dart';
 import 'package:db_vendor/modals/size_config.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:db_vendor/helpers/product_card.dart';
@@ -46,7 +46,7 @@ class PopularProducts extends StatelessWidget {
                           CartModal(
                             totalQuantity: 1,
                             wooProducts: wooProducts,
-                            time: ServerValue.timestamp,
+                            time: Timestamp.now(),
                           ),
                         );
                         if (done) {

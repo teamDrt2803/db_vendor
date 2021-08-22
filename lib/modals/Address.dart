@@ -33,7 +33,7 @@ class AddressModal {
     this.documentID,
   });
 
-  factory AddressModal.fromFirestore(DocumentSnapshot snapshot) {
+  factory AddressModal.fromFirestore(DocumentSnapshot<Map> snapshot) {
     if (snapshot == null) return null;
     var map = snapshot.data();
 
